@@ -1,1 +1,4 @@
 D:\repos\TexasHoldEm\TexasHoldEm.cpp;D:\repos\TexasHoldEm\TexasHoldEm\x64\Debug\TexasHoldEm.obj
+D:\repos\TexasHoldEm\TexasHoldEm\src\game\state\inGame\InGame.cpp;D:\repos\TexasHoldEm\TexasHoldEm\x64\Debug\InGame.obj
+D:\repos\TexasHoldEm\TexasHoldEm\src\game\state\titleScreen\TitleScreen.cpp;D:\repos\TexasHoldEm\TexasHoldEm\x64\Debug\TitleScreen.obj
+D:\repos\TexasHoldEm\TexasHoldEm\src\player\Player.cpp;D:\repos\TexasHoldEm\TexasHoldEm\x64\Debug\Player.obj

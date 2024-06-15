@@ -1,7 +1,11 @@
 {
   "ExpandedNodes": [
     "",
-    "\\TexasHoldEm"
+    "\\TexasHoldEm",
+    "\\TexasHoldEm\\src",
+    "\\TexasHoldEm\\src\\game",
+    "\\TexasHoldEm\\src\\game\\state",
+    "\\TexasHoldEm\\src\\game\\state\\titleScreen"
   ],
   "SelectedNode": "\\TexasHoldEm.cpp",
   "PreviewInSolutionExplorer": false
