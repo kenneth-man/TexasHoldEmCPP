@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "D:\\repos\\TexasHoldEm\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{411ADBCB-E0C2-45D9-82DA-2044B59BFE2E}|TexasHoldEm.vcxproj|D:\\REPOS\\TEXASHOLDEM\\TEXASHOLDEM\\SRC\\GAME\\STATE\\TITLESCREEN\\TITLESCREEN.H||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{411ADBCB-E0C2-45D9-82DA-2044B59BFE2E}|TexasHoldEm.vcxproj|solutionrelative:TEXASHOLDEM\\SRC\\GAME\\STATE\\TITLESCREEN\\TITLESCREEN.H||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{411ADBCB-E0C2-45D9-82DA-2044B59BFE2E}|TexasHoldEm.vcxproj|D:\\repos\\TexasHoldEm\\TexasHoldEm.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{411ADBCB-E0C2-45D9-82DA-2044B59BFE2E}|TexasHoldEm.vcxproj|solutionrelative:TexasHoldEm.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
@@ -13,10 +17,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{411ADBCB-E0C2-45D9-82DA-2044B59BFE2E}|TexasHoldEm.vcxproj|D:\\repos\\TexasHoldEm\\TexasHoldEm\\src\\game\\state\\inGame\\InGame.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{411ADBCB-E0C2-45D9-82DA-2044B59BFE2E}|TexasHoldEm.vcxproj|solutionrelative:TexasHoldEm\\src\\game\\state\\inGame\\InGame.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{411ADBCB-E0C2-45D9-82DA-2044B59BFE2E}|TexasHoldEm.vcxproj|D:\\REPOS\\TEXASHOLDEM\\TEXASHOLDEM\\SRC\\GAME\\STATE\\TITLESCREEN\\TITLESCREEN.H||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{411ADBCB-E0C2-45D9-82DA-2044B59BFE2E}|TexasHoldEm.vcxproj|solutionrelative:TEXASHOLDEM\\SRC\\GAME\\STATE\\TITLESCREEN\\TITLESCREEN.H||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{411ADBCB-E0C2-45D9-82DA-2044B59BFE2E}|TexasHoldEm.vcxproj|D:\\repos\\TexasHoldEm\\TexasHoldEm\\src\\game\\state\\inGame\\InGame.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -30,7 +30,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -38,26 +38,26 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "TexasHoldEm.cpp",
               "DocumentMoniker": "D:\\repos\\TexasHoldEm\\TexasHoldEm.cpp",
               "RelativeDocumentMoniker": "TexasHoldEm.cpp",
               "ToolTip": "D:\\repos\\TexasHoldEm\\TexasHoldEm.cpp",
               "RelativeToolTip": "TexasHoldEm.cpp",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-06-15T12:41:41.203Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
               "Title": "TitleScreen.h",
               "DocumentMoniker": "D:\\repos\\TexasHoldEm\\TexasHoldEm\\src\\game\\state\\titleScreen\\TitleScreen.h",
               "RelativeDocumentMoniker": "TexasHoldEm\\src\\game\\state\\titleScreen\\TitleScreen.h",
               "ToolTip": "D:\\repos\\TexasHoldEm\\TexasHoldEm\\src\\game\\state\\titleScreen\\TitleScreen.h",
               "RelativeToolTip": "TexasHoldEm\\src\\game\\state\\titleScreen\\TitleScreen.h",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAMAAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAACAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2024-06-15T12:04:48.007Z",
               "EditorCaption": ""
@@ -75,7 +75,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "InGame.h",
               "DocumentMoniker": "D:\\repos\\TexasHoldEm\\TexasHoldEm\\src\\game\\state\\inGame\\InGame.h",
               "RelativeDocumentMoniker": "TexasHoldEm\\src\\game\\state\\inGame\\InGame.h",

@@ -145,6 +145,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TexasHoldEm\src\game\state\inGame\InGame.h" />
+    <ClInclude Include="TexasHoldEm\src\game\state\titleScreen\TitleScreen.h" />
+    <ClInclude Include="TexasHoldEm\src\player\Player.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include=".gitignore" />
+    <None Include="README.md" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -32,5 +32,15 @@
     <ClInclude Include="TexasHoldEm\src\game\state\inGame\InGame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="TexasHoldEm\src\player\Player.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TexasHoldEm\src\game\state\titleScreen\TitleScreen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="README.md" />
+    <None Include=".gitignore" />
   </ItemGroup>
 </Project>
