@@ -27,6 +27,9 @@
     <ClCompile Include="TexasHoldEm\src\game\state\inGame\InGame.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TexasHoldEm\src\game\draw\draw.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TexasHoldEm\src\game\state\inGame\InGame.h">
@@ -36,6 +39,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TexasHoldEm\src\game\state\titleScreen\TitleScreen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TexasHoldEm\src\game\draw\draw.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TexasHoldEm\src\constants\variables.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TexasHoldEm\src\constants\typeAliases.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
