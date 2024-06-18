@@ -1,5 +1,7 @@
 #pragma once
 
+#include <io.h>
+#include <fcntl.h>
 #include <iostream>
 #include <map>
 #include <vector>
@@ -9,7 +11,7 @@
 using namespace std;
 
 namespace Draw {
-	void title();
+	void text(const string t);
 	void menu(
 		const vector<menuItem> &items,
 		const menuItem &selectedItem,
@@ -22,5 +24,15 @@ namespace Draw {
 		const int xSize,
 		const int ySize
 	);
-	void input();
+	void title();
+	string infoScreen(
+		const string description,
+		const string hint
+	);
+	void errorScreen(const string description);
+	void wideChar(
+		const wchar_t *hexChar,
+		bool lineBreak = false
+	);
+	void drawCard();
 }

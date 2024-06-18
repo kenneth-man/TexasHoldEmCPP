@@ -1,7 +1,7 @@
 #include "draw.h"
 
-void Draw::title() {
-
+void Draw::text(const string s) {
+	cout << s << '\n';
 }
 
 void Draw::menu(
@@ -37,7 +37,7 @@ void Draw::menu(
 
 				output += item;
 
-				row += item.length();
+				row += (int)item.length();
 
 				itemsRendered += 1;
 			}
@@ -71,6 +71,51 @@ string Draw::menuBorder(
 	return Variables::falsyString;
 }
 
-void Draw::input() {
+void Draw::title() {
+	system("CLS");
+	text(Variables::texasHoldEm);
+}
 
+string Draw::infoScreen(
+	const string description,
+	const string hint
+) {
+	title();
+	text(description);
+	text("(" + hint + ")");
+	string i;
+	cin >> i;
+	return i;
+}
+
+void Draw::errorScreen(const string description) {
+	system("CLS");
+	text(Variables::error);
+	text(description);
+	text("(Enter any key to Continue...)");
+	string i;
+	cin >> i;
+}
+
+// character map symbols that exceed char max size
+void Draw::wideChar(
+	const wchar_t *hexChar,
+	bool lineBreak
+) {
+	// Set the mode to UTF-16
+	_setmode(_fileno(stdout), _O_U16TEXT);
+	
+	wcout << hexChar;
+
+	// Reset the mode back to default
+	_setmode(_fileno(stdout), _O_TEXT);
+	
+	if (lineBreak) {
+		cout << '\n';
+	}
+}
+
+// TODO: draw cards with their number and symbol
+	// (number in top left and bottom right, symbol/s in center OR inside border)
+void Draw::drawCard() {
 }

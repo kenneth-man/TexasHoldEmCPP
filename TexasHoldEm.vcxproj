@@ -126,6 +126,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>
       </AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -139,17 +140,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="TexasHoldEm.cpp" />
+    <ClCompile Include="TexasHoldEm\src\game\calc\calc.cpp" />
     <ClCompile Include="TexasHoldEm\src\game\draw\draw.cpp" />
     <ClCompile Include="TexasHoldEm\src\game\state\inGame\InGame.cpp" />
-    <ClCompile Include="TexasHoldEm\src\game\state\titleScreen\TitleScreen.cpp" />
     <ClCompile Include="TexasHoldEm\src\player\Player.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="TexasHoldEm\src\constants\macros.h" />
     <ClInclude Include="TexasHoldEm\src\constants\typeAliases.h" />
     <ClInclude Include="TexasHoldEm\src\constants\variables.h" />
+    <ClInclude Include="TexasHoldEm\src\game\calc\calc.h" />
     <ClInclude Include="TexasHoldEm\src\game\draw\draw.h" />
     <ClInclude Include="TexasHoldEm\src\game\state\inGame\InGame.h" />
-    <ClInclude Include="TexasHoldEm\src\game\state\titleScreen\TitleScreen.h" />
     <ClInclude Include="TexasHoldEm\src\player\Player.h" />
   </ItemGroup>
   <ItemGroup>
