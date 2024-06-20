@@ -91,7 +91,8 @@ void Draw::errorScreen(const string description) {
 	text(Variables::error);
 	text(description);
 	text("(Enter any key to Continue...)");
-	_getch();
+	// typecast to void, to suppress warning 'Return Value Ignored...'
+	(void)_getch();
 }
 
 // output character map symbols that exceed char max size
@@ -101,13 +102,12 @@ void Draw::wideChar(
 	bool lineBreak
 ) {
 	// Set the mode to UTF-16
-	// TODO: ignore green underline in visual studio
-	_setmode(_fileno(stdout), _O_U16TEXT);
+	(void)_setmode(_fileno(stdout), _O_U16TEXT);
 	
 	wcout << hexChar;
 
 	// Reset the mode back to default
-	_setmode(_fileno(stdout), _O_TEXT);
+	(void)_setmode(_fileno(stdout), _O_TEXT);
 	
 	if (lineBreak) {
 		cout << '\n';
