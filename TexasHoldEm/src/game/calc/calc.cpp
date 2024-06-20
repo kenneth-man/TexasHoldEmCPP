@@ -46,7 +46,98 @@ vector<menuItem> Calc::menuItems(
 	return items;
 }
 
-// TODO: update `selectedItem` base don key pressed (move arrow for menu items)
-string Calc::menuAction() {
-	return ""; // satisfy compiler for now
+char Calc::menuAction(
+	const vector<menuItem> &items,
+	menuItem &selectedItem
+) {
+	const int x = selectedItem.second[0];
+	const int y = selectedItem.second[1];
+	vector<menuItem> moveToItems;
+
+	char input = _getch();
+	char keyPressed = tolower(input);
+
+	if (!menuValidKeyPressed(keyPressed)) {
+		return Variables::falsy;
+	}
+
+	vector<menuItem>::iterator it = menuActionIt(
+		items,
+		moveToItems,
+		keyPressed,
+		x,
+		y
+	);
+
+	switch (keyPressed) {
+		case Variables::up:
+		case Variables::left: {
+			if (it == moveToItems.begin()) {
+				selectedItem = *(--moveToItems.end());
+			} else {
+				selectedItem = *(--it);
+			}
+			break;
+		}
+		case Variables::down:
+		case Variables::right: {
+			if (it == --moveToItems.end()) {
+				selectedItem = *(moveToItems.begin());
+			} else {
+				selectedItem = *(++it);
+			}
+			break;
+		}
+		case Variables::select:
+			return input;
+	}
+
+	return Variables::falsy;
+}
+
+int Calc::menuValidKeyPressed(const char keyPressed) {
+	switch(keyPressed) {
+		case Variables::up:
+		case Variables::down:
+		case Variables::left:
+		case Variables::right:
+		case Variables::select:
+			return 1;
+		default:
+			Draw::errorScreen("Invalid Key Pressed");
+			return 0;
+	}
+}
+
+vector<menuItem>::iterator Calc::menuActionIt(
+	const vector<menuItem> &items,
+	vector<menuItem> &moveToItems,
+	const char keyPressed,
+	const int xSelected,
+	const int ySelected
+) {
+	switch (keyPressed) {
+		case Variables::up:
+		case Variables::down: {
+			for (const menuItem &m : items) {
+				if (m.second[0] == xSelected) moveToItems.push_back(m);
+			}
+			return find_if(
+				moveToItems.begin(),
+				moveToItems.end(),
+				[ySelected](menuItem el) { return el.second[1] == ySelected; }
+			);
+		}
+		case Variables::left:
+		case Variables::right: {
+			for (const menuItem &m : items) {
+				if (m.second[1] == ySelected) moveToItems.push_back(m);
+			}
+			return find_if(
+				moveToItems.begin(),
+				moveToItems.end(),
+				[xSelected](menuItem el) { return el.second[0] == xSelected; }
+			);
+		}
+	}
 }

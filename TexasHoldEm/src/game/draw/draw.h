@@ -2,6 +2,7 @@
 
 #include <io.h>
 #include <fcntl.h>
+#include <conio.h>
 #include <iostream>
 #include <map>
 #include <vector>
@@ -25,7 +26,7 @@ namespace Draw {
 		const int ySize
 	);
 	void title();
-	string infoScreen(
+	char infoScreen(
 		const string description,
 		const string hint
 	);

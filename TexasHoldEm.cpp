@@ -7,17 +7,27 @@
 #include "./TexasHoldEm/src/game/calc/calc.h"
 
 int main() {
-    // \x9C = £
-    vector<menuItem> menuItems = Calc::menuItems(
+    const vector<menuItem> menuItems = Calc::menuItems(
         Variables::titleScreenActions,
         Variables::xSize,
         Variables::ySize
     );
-    Draw::wideChar(SPADE, true);
-    Draw::menu(
-        menuItems,
-        menuItems[0],
-        Variables::xSize,
-        Variables::ySize
-    );
+    menuItem selectedMenuItem = menuItems[0];
+
+    while(1) {
+        Draw::title();
+        Draw::menu(
+            menuItems,
+            selectedMenuItem,
+            Variables::xSize,
+            Variables::ySize
+        );
+        const char selected = Calc::menuAction(
+            menuItems,
+            selectedMenuItem
+        );
+        if (selected != Variables::falsy) {
+            //update game state to whatever was selected
+        }
+    }
 }

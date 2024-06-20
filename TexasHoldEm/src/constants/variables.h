@@ -8,13 +8,15 @@
 using namespace std;
 
 namespace Variables {
+	// "\x9C" = '£'
 	const char up = 'w';
 	const char left = 'a';
 	const char down = 's';
 	const char right = 'd';
 	const char select = 'p';
 	const char space = ' ';
-	const string falsyString = "";
+	const char falsy = '!';
+	const string falsyString = "!";
 	const string xBorder = "|";
 	const string yBorder = "-";
 	// TODO: Option on title screen to set height and width of terminal

@@ -76,16 +76,14 @@ void Draw::title() {
 	text(Variables::texasHoldEm);
 }
 
-string Draw::infoScreen(
+char Draw::infoScreen(
 	const string description,
 	const string hint
 ) {
 	title();
 	text(description);
 	text("(" + hint + ")");
-	string i;
-	cin >> i;
-	return i;
+	return _getch();
 }
 
 void Draw::errorScreen(const string description) {
@@ -93,16 +91,17 @@ void Draw::errorScreen(const string description) {
 	text(Variables::error);
 	text(description);
 	text("(Enter any key to Continue...)");
-	string i;
-	cin >> i;
+	_getch();
 }
 
-// character map symbols that exceed char max size
+// output character map symbols that exceed char max size
+// from `macros.h`
 void Draw::wideChar(
 	const wchar_t *hexChar,
 	bool lineBreak
 ) {
 	// Set the mode to UTF-16
+	// TODO: ignore green underline in visual studio
 	_setmode(_fileno(stdout), _O_U16TEXT);
 	
 	wcout << hexChar;
