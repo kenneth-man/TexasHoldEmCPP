@@ -23,6 +23,7 @@ namespace Variables {
 		// to re-calc xSizeGameMenu and ySizeGameMenu and inGameMenu
 	const int xSize = 120;
 	const int ySize = 20;
+	const string cardSpace = "   ";
 	const string arrow = "<--";
 	const string texasHoldEm = R"(
  _____                    _   _       _     _ _ _____          
@@ -82,11 +83,11 @@ ______ _        ______ _ _           _
 		"CHECK"
 	};
 	const vector<string> titleScreenActions = {
-		"NEW GAME",
-		"CONTINUE",
-		"INSTRUCTIONS",
-		"LEADERBOARD",
-		"OPTIONS",
-		"QUIT"
+		"[NEW GAME]",
+		"[CONTINUE]",
+		"[INSTRUCTIONS]",
+		"[LEADERBOARD]",
+		"[OPTIONS]",
+		"[QUIT]"
 	};
 }

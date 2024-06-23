@@ -114,7 +114,66 @@ void Draw::wideChar(
 	}
 }
 
-// TODO: draw cards with their number and symbol
-	// (number in top left and bottom right, symbol/s in center OR inside border)
-void Draw::drawCard() {
+void Draw::cards(
+	const vector<string> &vals,
+	const vector<const wchar_t *> &suitHexChars
+) {
+	vector<string> firstValRows;
+	vector<string> lastValRows;
+	vector<string> topBottomRows;
+
+	for (string v : vals) {
+		topBottomRows.push_back("---------");
+
+		if (v == "10") {
+			firstValRows.push_back("| " + v + "    |");
+			lastValRows.push_back("|    " + v + " |");
+			continue;
+		}
+		
+		firstValRows.push_back("| " + v + "     |");
+		lastValRows.push_back("|     " + v + " |");
+	}
+
+	cardRowVals(topBottomRows);
+	cardRowVals(firstValRows);
+	cardRowWChars(suitHexChars);
+	cardRowWChars(suitHexChars);
+	cardRowWChars(suitHexChars);
+	cardRowVals(lastValRows);
+	cardRowVals(topBottomRows);
+}
+
+void Draw::cardRowVals(
+	const vector<string> &vals
+) {
+	for (int i = 0; i < vals.size(); ++i) {
+		cout << vals[i];
+
+		if (i < vals.size() - 1) {
+			cout << Variables::cardSpace;
+			continue;
+		}
+
+		cout << '\n';
+	}
+}
+
+void Draw::cardRowWChars(
+	const vector<const wchar_t *> &suitHexChars
+) {
+	for(int i = 0; i < suitHexChars.size(); ++i) {
+		cout << "|  ";
+		wideChar(suitHexChars[i]);
+		wideChar(suitHexChars[i]);
+		wideChar(suitHexChars[i]);
+		cout << "  |";
+
+		if (i < suitHexChars.size() - 1) {
+			cout << Variables::cardSpace;
+			continue;
+		}
+
+		cout << '\n';
+	}
 }
