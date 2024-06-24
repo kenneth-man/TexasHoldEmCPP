@@ -46,7 +46,7 @@ vector<menuItem> Calc::menuItems(
 	return items;
 }
 
-char Calc::menuAction(
+bool Calc::menuAction(
 	const vector<menuItem> &items,
 	menuItem &selectedItem
 ) {
@@ -58,7 +58,7 @@ char Calc::menuAction(
 	char keyPressed = tolower(input);
 
 	if (!menuValidKeyPressed(keyPressed)) {
-		return Variables::falsy;
+		return false;
 	}
 
 	vector<menuItem>::iterator it = menuActionIt(
@@ -89,10 +89,10 @@ char Calc::menuAction(
 			break;
 		}
 		case Variables::select:
-			return input;
+			return true;
 	}
 
-	return Variables::falsy;
+	return false;
 }
 
 int Calc::menuValidKeyPressed(const char keyPressed) {

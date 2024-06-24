@@ -16,7 +16,7 @@ namespace Calc {
 		const int xSize,
 		const int ySize
 	);
-	char menuAction(
+	bool menuAction(
 		const vector<menuItem> &items,
 		menuItem &selectedItem
 	);

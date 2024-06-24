@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include "./typeAliases.h"
+#include "./enums.h"
 
 using namespace std;
 
@@ -15,7 +16,6 @@ namespace Variables {
 	const char right = 'd';
 	const char select = 'p';
 	const char space = ' ';
-	const char falsy = '!';
 	const string falsyString = "!";
 	const string xBorder = "|";
 	const string yBorder = "-";
@@ -89,5 +89,13 @@ ______ _        ______ _ _           _
 		"[LEADERBOARD]",
 		"[OPTIONS]",
 		"[QUIT]"
+	};
+	const map<string, Enums::OutGameState> outGameStateMap = {
+		{ titleScreenActions[0], Enums::NEWGAME },
+		{ titleScreenActions[1], Enums::CONTINUE },
+		{ titleScreenActions[2], Enums::INSTRUCTIONS },
+		{ titleScreenActions[3], Enums::LEADERBOARD },
+		{ titleScreenActions[4], Enums::OPTIONS },
+		{ titleScreenActions[5], Enums::QUIT }
 	};
 }
