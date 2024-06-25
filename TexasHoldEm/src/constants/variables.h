@@ -82,6 +82,10 @@ ______ _        ______ _ _           _
 		"BET",
 		"CHECK"
 	};
+	const vector<string> authScreenActions = {
+		"[LOGIN]",
+		"[REGISTER]"
+	};
 	const vector<string> titleScreenActions = {
 		"[NEW GAME]",
 		"[CONTINUE]",
@@ -90,7 +94,11 @@ ______ _        ______ _ _           _
 		"[OPTIONS]",
 		"[QUIT]"
 	};
-	const map<string, Enums::OutGameState> outGameStateMap = {
+	const stateMap authStateMap = {
+		{ authScreenActions[0], Enums::LOGIN },
+		{ authScreenActions[1], Enums::REGISTER }
+	};
+	const stateMap titleStateMap = {
 		{ titleScreenActions[0], Enums::NEWGAME },
 		{ titleScreenActions[1], Enums::CONTINUE },
 		{ titleScreenActions[2], Enums::INSTRUCTIONS },

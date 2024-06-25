@@ -2,9 +2,7 @@
 
 #include <io.h>
 #include <fcntl.h>
-#include <conio.h>
 #include <iostream>
-#include <map>
 #include <vector>
 #include "../../constants/variables.h"
 #include "../../constants/typeAliases.h"
@@ -16,8 +14,8 @@ namespace Draw {
 	void menu(
 		const vector<menuItem> &items,
 		const menuItem &selectedItem,
-		const int xSize,
-		const int ySize
+		const int xSize = Variables::xSize,
+		const int ySize = Variables::ySize
 	);
 	string menuBorder(
 		const int col,
@@ -26,11 +24,6 @@ namespace Draw {
 		const int ySize
 	);
 	void title();
-	char infoScreen(
-		const string description,
-		const string hint
-	);
-	void errorScreen(const string description);
 	void wideChar(
 		const wchar_t *hexChar,
 		bool lineBreak = false

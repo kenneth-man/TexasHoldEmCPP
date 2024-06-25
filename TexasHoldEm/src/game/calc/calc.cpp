@@ -15,8 +15,8 @@ vector<menuItem> Calc::menuItems(
 		xSize / colCount + (xSize / colCount / colCount)
 	};
 
-	const int rowsModulo = actions.size() % 2;
-	const int rowsDivision = actions.size() / 2;
+	const int rowsModulo = (int)actions.size() % 2;
+	const int rowsDivision = (int)actions.size() / 2;
 	int rowCount = rowsModulo == 0 ? rowsDivision : rowsDivision + 1;
 	const int rowOffset = ySize / rowCount;
 	vector<int> rowPos;
@@ -104,7 +104,7 @@ int Calc::menuValidKeyPressed(const char keyPressed) {
 		case Variables::select:
 			return 1;
 		default:
-			Draw::errorScreen("Invalid Key Pressed");
+			Screens::errorScreen("Invalid Key Pressed");
 			return 0;
 	}
 }
@@ -139,5 +139,7 @@ vector<menuItem>::iterator Calc::menuActionIt(
 				[xSelected](menuItem el) { return el.second[0] == xSelected; }
 			);
 		}
+		default:
+			return moveToItems.end();
 	}
 }

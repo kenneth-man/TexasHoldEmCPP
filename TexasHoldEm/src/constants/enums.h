@@ -1,8 +1,10 @@
 #pragma once
 
 namespace Enums {
-	enum OutGameState {
+	enum GameState {
 		AUTH,
+		LOGIN,
+		REGISTER,
 		TITLE,
 		NEWGAME,
 		CONTINUE,

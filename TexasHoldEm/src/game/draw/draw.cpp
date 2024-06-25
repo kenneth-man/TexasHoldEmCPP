@@ -76,25 +76,6 @@ void Draw::title() {
 	text(Variables::texasHoldEm);
 }
 
-char Draw::infoScreen(
-	const string description,
-	const string hint
-) {
-	title();
-	text(description);
-	text("(" + hint + ")");
-	return _getch();
-}
-
-void Draw::errorScreen(const string description) {
-	system("CLS");
-	text(Variables::error);
-	text(description);
-	text("(Enter any key to Continue...)");
-	// typecast to void, to suppress warning 'Return Value Ignored...'
-	(void)_getch();
-}
-
 // output character map symbols that exceed char max size
 // from `macros.h`
 void Draw::wideChar(

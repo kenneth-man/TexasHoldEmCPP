@@ -21,9 +21,6 @@
     <ClCompile Include="TexasHoldEm\src\player\Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TexasHoldEm\src\game\outGame\outGame.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="TexasHoldEm\src\game\draw\draw.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -36,14 +33,11 @@
     <ClCompile Include="TexasHoldEm\src\auth\auth.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TexasHoldEm\src\game\inGame\inGame.cpp">
+    <ClCompile Include="TexasHoldEm\src\game\screens\screens.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="TexasHoldEm\src\game\outGame\outGame.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="TexasHoldEm\src\player\Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -71,7 +65,7 @@
     <ClInclude Include="TexasHoldEm\src\constants\enums.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TexasHoldEm\src\game\inGame\inGame.h">
+    <ClInclude Include="TexasHoldEm\src\game\screens\screens.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
