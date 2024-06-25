@@ -35,9 +35,7 @@ void File::test() {
 	in.close();
 }
 
-// credentials.txt, leaderboard.txt and options.txt,
-// if they don't already exist
-void File::createBaseFiles() {
+void File::ensureBaseFiles() {
 	
 }
 

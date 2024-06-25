@@ -9,7 +9,7 @@ using namespace std;
 
 namespace File {
 	void test();
-	void createBaseFiles();
+	void ensureBaseFiles();
 	void getPassword();
 	void setCredentials();
 	void updateCredentials();
