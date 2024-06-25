@@ -73,4 +73,9 @@
     <None Include="README.md" />
     <None Include=".gitignore" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="TexasHoldEm\res\credentials.txt" />
+    <Text Include="TexasHoldEm\res\leaderboard.txt" />
+    <Text Include="TexasHoldEm\res\options.txt" />
+  </ItemGroup>
 </Project>

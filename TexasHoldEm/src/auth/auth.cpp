@@ -1,9 +1,13 @@
 #include "auth.h"
 
-void Auth::encrypt() {
+void Auth::encrypt(
+
+) {
 
 }
 
-void Auth::decrypt() {
+void Auth::decrypt(
 
+) {
+    
 }

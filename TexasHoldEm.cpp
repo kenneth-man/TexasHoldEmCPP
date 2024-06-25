@@ -2,12 +2,13 @@
 #include <iostream>
 #include "./TexasHoldEm/src/constants/variables.h"
 #include "./TexasHoldEm/src/constants/typeAliases.h"
-#include "./TexasHoldEm/src/game/calc/calc.h"
 #include "./TexasHoldEm/src/constants/enums.h"
+#include "./TexasHoldEm/src/game/calc/calc.h"
 #include "./TexasHoldEm/src/game/screens/screens.h"
+#include "./TexasHoldEm/src/file/file.h"
 
 int main() {
-    Enums::GameState gameState = Enums::TITLE;
+    Enums::GameState gameState = Enums::AUTH;
 
     const vector<menuItem> authMenuItems = Calc::menuItems(
         Variables::authScreenActions

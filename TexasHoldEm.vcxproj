@@ -163,6 +163,11 @@
     <None Include=".gitignore" />
     <None Include="README.md" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="TexasHoldEm\res\credentials.txt" />
+    <Text Include="TexasHoldEm\res\leaderboard.txt" />
+    <Text Include="TexasHoldEm\res\options.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

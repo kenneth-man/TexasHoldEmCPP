@@ -3,6 +3,7 @@
 #include <map>
 #include <vector>
 #include <string>
+#include <filesystem>
 #include "./typeAliases.h"
 #include "./enums.h"
 
@@ -25,6 +26,12 @@ namespace Variables {
 	const int ySize = 20;
 	const string cardSpace = "   ";
 	const string arrow = "<--";
+	const string txtFileBasePath = filesystem::current_path()
+		.string() +
+		"\\TexasHoldem\\res\\";
+	const string credentials = txtFileBasePath + "credentials.txt";
+	const string leaderboard = txtFileBasePath + "leaderboard.txt";
+	const string options = txtFileBasePath + "options.txt";
 	const string texasHoldEm = R"(
  _____                    _   _       _     _ _ _____          
 |_   _|                  | | | |     | |   | ( )  ___|         
