@@ -8,7 +8,8 @@
 #include "./TexasHoldEm/src/file/file.h"
 
 int main() {
-    Enums::GameState gameState = Enums::AUTH;
+    File::test();
+    /*Enums::GameState gameState = Enums::AUTH;
 
     const vector<menuItem> authMenuItems = Calc::menuItems(
         Variables::authScreenActions
@@ -80,5 +81,5 @@ int main() {
                 while (1);
             }
         }
-    }
+    }*/
 }
