@@ -3,4 +3,4 @@ x64/
 x86/
 [Dd]ebug/
 [Rr]elease/
-[Rr]es/*.txt
+*.txt
