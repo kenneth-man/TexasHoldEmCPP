@@ -13,4 +13,18 @@ namespace Enums {
 		OPTIONS,
 		QUIT
 	};
+	enum Rank {
+		IRON,
+		BRONZE,
+		SILVER,
+		GOLD,
+		PLATINUM,
+		DIAMOND,
+		MASTER,
+		CHALLENGER
+	};
+	enum Crypt {
+		ENCRYPT,
+		DECRYPT
+	};
 }

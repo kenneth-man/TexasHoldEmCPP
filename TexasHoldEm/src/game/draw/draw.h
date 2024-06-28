@@ -11,6 +11,7 @@ using namespace std;
 
 namespace Draw {
 	void text(const string t);
+	// TODO: not spaced correctly if 2 options e.g. for Auth screen
 	void menu(
 		const vector<menuItem> &items,
 		const menuItem &selectedItem,

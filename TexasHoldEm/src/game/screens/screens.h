@@ -12,7 +12,7 @@
 using namespace std;
 
 namespace Screens {
-	char infoScreen(
+	string infoScreen(
 		const string description,
 		const string hint
 	);

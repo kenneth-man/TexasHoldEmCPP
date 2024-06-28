@@ -24,12 +24,12 @@ namespace Variables {
 		// to re-calc xSizeGameMenu and ySizeGameMenu and inGameMenu
 	const int xSize = 120;
 	const int ySize = 20;
+	const int minPasswordLen = 6;
 	const string cardSpace = "   ";
 	const string arrow = "<--";
 	const string txtFileBasePath = filesystem::current_path()
 		.string() +
 		"\\TexasHoldem\\res\\";
-	const string credentials = txtFileBasePath + "credentials.txt";
 	const string leaderboard = txtFileBasePath + "leaderboard.txt";
 	const string options = txtFileBasePath + "options.txt";
 	const string texasHoldEm = R"(
@@ -102,15 +102,25 @@ ______ _        ______ _ _           _
 		"[QUIT]"
 	};
 	const stateMap authStateMap = {
-		{ authScreenActions[0], Enums::LOGIN },
-		{ authScreenActions[1], Enums::REGISTER }
+		{authScreenActions[0], Enums::LOGIN},
+		{authScreenActions[1], Enums::REGISTER}
 	};
 	const stateMap titleStateMap = {
-		{ titleScreenActions[0], Enums::NEWGAME },
-		{ titleScreenActions[1], Enums::CONTINUE },
-		{ titleScreenActions[2], Enums::INSTRUCTIONS },
-		{ titleScreenActions[3], Enums::LEADERBOARD },
-		{ titleScreenActions[4], Enums::OPTIONS },
-		{ titleScreenActions[5], Enums::QUIT }
+		{titleScreenActions[0], Enums::NEWGAME},
+		{titleScreenActions[1], Enums::CONTINUE},
+		{titleScreenActions[2], Enums::INSTRUCTIONS},
+		{titleScreenActions[3], Enums::LEADERBOARD},
+		{titleScreenActions[4], Enums::OPTIONS},
+		{titleScreenActions[5], Enums::QUIT}
+	};
+	const vector<pair<string, string>> loginInstructions = {
+		{"Please enter your username", "The name that was used for registration"},
+		{"Please enter your password", "The password that was used for registration"},
+		{"Please enter your key", "The integer key used for encryption & decryption"}
+	};
+	const vector<pair<string, string>> registerInstructions = {
+		{"Please enter a username", "A name to associate your data with"},
+		{"Please enter a password", "The password must be at least " + to_string(minPasswordLen) + " characters long"},
+		{"Please enter a key", "The key must be an unsigned integer. Used for encryption & decryption"}
 	};
 }

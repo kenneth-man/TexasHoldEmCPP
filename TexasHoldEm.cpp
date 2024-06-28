@@ -8,8 +8,7 @@
 #include "./TexasHoldEm/src/file/file.h"
 
 int main() {
-    File::test();
-    /*Enums::GameState gameState = Enums::AUTH;
+    Enums::GameState gameState = Enums::AUTH;
 
     const vector<menuItem> authMenuItems = Calc::menuItems(
         Variables::authScreenActions
@@ -38,8 +37,7 @@ int main() {
                 break;
             }
             case Enums::REGISTER: {
-                cout << "REGISTER Not Implemented" << '\n';
-                while (1);
+                Auth::registerUser(gameState);
                 break;
             }
             case Enums::TITLE: {
@@ -81,5 +79,5 @@ int main() {
                 while (1);
             }
         }
-    }*/
+    }
 }

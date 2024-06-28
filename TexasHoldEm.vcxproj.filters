@@ -68,6 +68,9 @@
     <ClInclude Include="TexasHoldEm\src\game\screens\screens.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="TexasHoldEm\res\index.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />

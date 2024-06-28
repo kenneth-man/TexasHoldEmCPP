@@ -1,13 +1,15 @@
 #include "screens.h"
 
-char Screens::infoScreen(
+string Screens::infoScreen(
     const string description,
     const string hint
 ) {
     Draw::title();
     Draw::text(description);
     Draw::text("(" + hint + ")");
-    return _getch();
+    string input;
+    cin >> input;
+    return input;
 }
 
 void Screens::errorScreen(const string description) {

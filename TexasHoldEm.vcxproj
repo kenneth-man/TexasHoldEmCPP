@@ -148,6 +148,7 @@
     <ClCompile Include="TexasHoldEm\src\player\Player.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="TexasHoldEm\res\index.h" />
     <ClInclude Include="TexasHoldEm\src\auth\auth.h" />
     <ClInclude Include="TexasHoldEm\src\constants\enums.h" />
     <ClInclude Include="TexasHoldEm\src\constants\macros.h" />
