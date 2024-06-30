@@ -14,22 +14,22 @@ using namespace std;
 
 namespace Calc {
 	vector<menuItem> menuItems(
-		vector<string> actions,
-		const int colAlign,
-		const int rowAlign,
-		const int xSize = Variables::xSize,
-		const int ySize = Variables::ySize
+		const vector<string> &actions,
+		int colAlign,
+		int rowAlign,
+		int xSize = Variables::xSize,
+		int ySize = Variables::ySize
 	);
 	bool menuAction(
 		const vector<menuItem> &items,
 		menuItem &selectedItem
 	);
-	int menuValidKeyPressed(const char keyPressed);
+	int menuValidKeyPressed(char keyPressed);
 	vector<menuItem>::iterator menuActionIt(
 		const vector<menuItem> &items,
 		vector<menuItem> &moveToItems,
-		const char keyPressed,
-		const int xSelected,
-		const int ySelected
+		char keyPressed,
+		int xSelected,
+		int ySelected
 	);
 }

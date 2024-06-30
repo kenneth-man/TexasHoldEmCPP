@@ -1,14 +1,14 @@
 #include "draw.h"
 
-void Draw::text(const string s) {
+void Draw::text(string s) {
 	cout << s << '\n';
 }
 
 void Draw::menu(
 	const vector<menuItem> &items,
 	const menuItem &selectedItem,
-	const int xSize,
-	const int ySize
+	int xSize,
+	int ySize
 ) {
 	string output;
 	int itemsRendered = 0;
@@ -51,10 +51,10 @@ void Draw::menu(
 }
 
 string Draw::menuBorder(
-	const int col,
-	const int row,
-	const int xSize,
-	const int ySize
+	int col,
+	int row,
+	int xSize,
+	int ySize
 ) {
 	const bool firstCol = col == 0;
 	const bool lastCol = col == ySize - 1;

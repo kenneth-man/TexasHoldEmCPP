@@ -35,6 +35,13 @@ void File::test() {
 	in.close();
 }
 
+string File::extractLineData(
+	string line,
+	string prefix
+) {
+	return line.substr(prefix.length());
+}
+
 bool File::existingUser(string username) {
 	fstream in;
 	in.open(
@@ -44,7 +51,23 @@ bool File::existingUser(string username) {
 	return in.is_open();
 }
 
-void File::getUser() {
+string File::getUserPasswordLine(string username) {
+	fstream in;
+	in.open(
+		Variables::txtFileBasePath + username + ".txt",
+		ios::in
+	);
+
+	if (in.is_open()) {
+		string line;
+		while(getline(in, line)) {
+			if (line.find(Variables::passwordPrefix) != string::npos) {
+				return line;
+			}
+		}
+	}
+
+	return Variables::falsyString;
 }
 
 bool File::createUser(
@@ -60,14 +83,13 @@ bool File::createUser(
 	);
 
 	if (out.is_open()) {
-		string output = "Password: ";
 		string encryptedPassword = Auth::crypt(
 			password,
 			key,
 			Enums::ENCRYPT
 		);
 
-		out << output + encryptedPassword;
+		out << Variables::passwordPrefix + encryptedPassword;
 		return true;
 	}
 

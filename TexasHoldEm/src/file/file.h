@@ -11,8 +11,12 @@ using namespace std;
 
 namespace File {
 	void test();
+	string extractLineData(
+		string line,
+		string prefix
+	);
 	bool existingUser(string username);
-	void getUser();
+	string getUserPasswordLine(string username);
 	bool createUser(
 		string username,
 		string password,

@@ -8,7 +8,7 @@
 #include "./TexasHoldEm/src/file/file.h"
 
 int main() {
-    Enums::GameState gameState = Enums::TITLE;
+    Enums::GameState gameState = Enums::AUTH;
 
     const vector<menuItem> authMenuItems = Calc::menuItems(
         Variables::authScreenActions,
@@ -36,8 +36,7 @@ int main() {
                 break;
             }
             case Enums::LOGIN: {
-                cout << "LOGIN Not Implemented" << '\n';
-                while(1);
+                Auth::loginUser(gameState);
                 break;
             }
             case Enums::REGISTER: {

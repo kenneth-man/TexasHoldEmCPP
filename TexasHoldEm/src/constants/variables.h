@@ -36,6 +36,7 @@ namespace Variables {
 	const int authMenuRowAlign = 2;
 	const int titleMenuColAlign = 8;
 	const int titleMenuRowAlign = 4;
+	const string passwordPrefix = "Password: ";
 	const string texasHoldEm = R"(
  _____                    _   _       _     _ _ _____          
 |_   _|                  | | | |     | |   | ( )  ___|         
@@ -117,12 +118,12 @@ ______ _        ______ _ _           _
 		{titleScreenActions[4], Enums::OPTIONS},
 		{titleScreenActions[5], Enums::QUIT}
 	};
-	const vector<pair<string, string>> loginInstructions = {
+	const authUserInstructions loginInstructions = {
 		{"Please enter your username", "The name that was used for registration"},
 		{"Please enter your password", "The password that was used for registration"},
 		{"Please enter your key", "The integer key used for encryption & decryption"}
 	};
-	const vector<pair<string, string>> registerInstructions = {
+	const authUserInstructions registerInstructions = {
 		{"Please enter a username", "A name to associate your data with"},
 		{"Please enter a password", "The password must be at least " + to_string(minPasswordLen) + " characters long"},
 		{"Please enter a key", "The key must be an unsigned integer. Used for encryption & decryption"}

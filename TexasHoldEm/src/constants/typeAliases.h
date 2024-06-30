@@ -9,3 +9,4 @@ using namespace std;
 
 using menuItem = pair<string, vector<int>>;
 using stateMap = map<string, Enums::GameState>;
+using authUserInstructions = vector<pair<string, string>>;

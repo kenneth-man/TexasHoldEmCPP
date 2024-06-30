@@ -13,10 +13,10 @@ using namespace std;
 
 namespace Screens {
 	string infoScreen(
-		const string description,
-		const string hint
+		string description,
+		string hint
 	);
-	void errorScreen(const string description);
+	void errorScreen(string description);
 	void menuScreen(
 		const vector<menuItem> &menuItems,
 		menuItem &selectedItem,

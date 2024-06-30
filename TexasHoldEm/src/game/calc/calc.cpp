@@ -1,11 +1,11 @@
 #include "calc.h"
 
 vector<menuItem> Calc::menuItems(
-	vector<string> actions,
-	const int colAlign,
-	const int rowAlign,
-	const int xSize,
-	const int ySize
+	const vector<string> &actions,
+	int colAlign,
+	int rowAlign,
+	int xSize,
+	int ySize
 ) {
 	vector<menuItem> items;
 
@@ -95,7 +95,7 @@ bool Calc::menuAction(
 	return false;
 }
 
-int Calc::menuValidKeyPressed(const char keyPressed) {
+int Calc::menuValidKeyPressed(char keyPressed) {
 	switch(keyPressed) {
 		case Variables::up:
 		case Variables::down:
@@ -112,9 +112,9 @@ int Calc::menuValidKeyPressed(const char keyPressed) {
 vector<menuItem>::iterator Calc::menuActionIt(
 	const vector<menuItem> &items,
 	vector<menuItem> &moveToItems,
-	const char keyPressed,
-	const int xSelected,
-	const int ySelected
+	char keyPressed,
+	int xSelected,
+	int ySelected
 ) {
 	switch (keyPressed) {
 		case Variables::up:

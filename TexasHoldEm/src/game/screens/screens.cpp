@@ -1,8 +1,8 @@
 #include "screens.h"
 
 string Screens::infoScreen(
-    const string description,
-    const string hint
+    string description,
+    string hint
 ) {
     Draw::title();
     Draw::text(description);
@@ -12,7 +12,7 @@ string Screens::infoScreen(
     return input;
 }
 
-void Screens::errorScreen(const string description) {
+void Screens::errorScreen(string description) {
     system("CLS");
     Draw::text(Variables::error);
     Draw::text(description);

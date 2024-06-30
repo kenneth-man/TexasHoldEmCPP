@@ -16,11 +16,23 @@ namespace Auth {
 		string key,
 		Enums::Crypt type
 	);
-	// TODO: login user
+	string handleInput(
+		vector<string> &inputs,
+		const authUserInstructions &instructions,
+		string (*validation)(string, int)
+	);
 	void loginUser(Enums::GameState &gameState);
 	void registerUser(Enums::GameState &gameState);
+	string loginUserValidation(
+		string input,
+		int index
+	);
 	string registerUserValidation(
 		string input,
 		int index
+	);
+	void failure(
+		string error,
+		Enums::GameState &gameState
 	);
 }

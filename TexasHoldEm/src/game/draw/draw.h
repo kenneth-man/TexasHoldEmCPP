@@ -10,18 +10,18 @@
 using namespace std;
 
 namespace Draw {
-	void text(const string t);
+	void text(string t);
 	void menu(
 		const vector<menuItem> &items,
 		const menuItem &selectedItem,
-		const int xSize = Variables::xSize,
-		const int ySize = Variables::ySize
+		int xSize = Variables::xSize,
+		int ySize = Variables::ySize
 	);
 	string menuBorder(
-		const int col,
-		const int row,
-		const int xSize,
-		const int ySize
+		int col,
+		int row,
+		int xSize,
+		int ySize
 	);
 	void title();
 	void wideChar(
