@@ -32,6 +32,10 @@ namespace Variables {
 		"\\TexasHoldem\\res\\";
 	const string leaderboard = txtFileBasePath + "leaderboard.txt";
 	const string options = txtFileBasePath + "options.txt";
+	const int authMenuColAlign = 8;
+	const int authMenuRowAlign = 2;
+	const int titleMenuColAlign = 8;
+	const int titleMenuRowAlign = 4;
 	const string texasHoldEm = R"(
  _____                    _   _       _     _ _ _____          
 |_   _|                  | | | |     | |   | ( )  ___|         

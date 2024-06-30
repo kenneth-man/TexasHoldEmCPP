@@ -8,13 +8,17 @@
 #include "./TexasHoldEm/src/file/file.h"
 
 int main() {
-    Enums::GameState gameState = Enums::AUTH;
+    Enums::GameState gameState = Enums::TITLE;
 
     const vector<menuItem> authMenuItems = Calc::menuItems(
-        Variables::authScreenActions
+        Variables::authScreenActions,
+        Variables::authMenuColAlign,
+        Variables::authMenuRowAlign
     );
     const vector<menuItem> titleScreenMenuItems = Calc::menuItems(
-        Variables::titleScreenActions
+        Variables::titleScreenActions,
+        Variables::titleMenuColAlign,
+        Variables::titleMenuRowAlign
     );
 
     menuItem selectedAuthItem = authMenuItems[0];

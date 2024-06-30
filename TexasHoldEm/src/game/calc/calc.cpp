@@ -2,33 +2,33 @@
 
 vector<menuItem> Calc::menuItems(
 	vector<string> actions,
+	const int colAlign,
+	const int rowAlign,
 	const int xSize,
 	const int ySize
 ) {
 	vector<menuItem> items;
-	const int colAlign = 8;
-	const int rowAlign = 4;
 
 	const int colCount = 2;
-	vector<int> colPos = {
+	vector<int> colPositions = {
 		xSize / colCount / colCount,
 		xSize / colCount + (xSize / colCount / colCount)
 	};
 
-	const int rowsModulo = (int)actions.size() % 2;
-	const int rowsDivision = (int)actions.size() / 2;
-	int rowCount = rowsModulo == 0 ? rowsDivision : rowsDivision + 1;
+	const int modulo = (int)actions.size() % 2;
+	const int half = (int)actions.size() / 2;
+	int rowCount = modulo == 0 ? half : half + 1;
 	const int rowOffset = ySize / rowCount;
-	vector<int> rowPos;
+	vector<int> rowPositions;
 	int currRow = 0;
 
 	for (int i = 0; i < rowCount; ++i) {
-		rowPos.push_back(rowOffset + (i * rowOffset));
+		rowPositions.push_back(rowOffset + (i * rowOffset));
 	}
 	
 	for(size_t i = 0; i < actions.size(); ++i) {
-		int x = colPos[i % 2];
-		int y = rowPos[currRow];
+		int x = colPositions[i % 2];
+		int y = rowPositions[currRow];
 		items.push_back(
 			{
 				actions[i],

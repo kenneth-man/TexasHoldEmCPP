@@ -15,6 +15,8 @@ using namespace std;
 namespace Calc {
 	vector<menuItem> menuItems(
 		vector<string> actions,
+		const int colAlign,
+		const int rowAlign,
 		const int xSize = Variables::xSize,
 		const int ySize = Variables::ySize
 	);
