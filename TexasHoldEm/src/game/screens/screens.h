@@ -21,6 +21,7 @@ namespace Screens {
 		const vector<menuItem> &menuItems,
 		menuItem &selectedItem,
 		Enums::GameState &gameState,
-		const stateMap &stateMap
+		const stateMap &stateMap,
+		string hint = Variables::falsyString
 	);
 }

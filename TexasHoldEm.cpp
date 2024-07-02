@@ -6,6 +6,7 @@
 #include "./TexasHoldEm/src/game/calc/calc.h"
 #include "./TexasHoldEm/src/game/screens/screens.h"
 #include "./TexasHoldEm/src/file/file.h"
+#include "./TexasHoldEm/src/misc/misc.h"
 
 int main() {
     Enums::GameState gameState = Enums::AUTH;
@@ -20,9 +21,15 @@ int main() {
         Variables::titleMenuColAlign,
         Variables::titleMenuRowAlign
     );
+    const vector<menuItem> quitScreenMenuItems = Calc::menuItems(
+        Variables::quitScreenActions,
+        Variables::quitMenuColAlign,
+        Variables::quitMenuRowAlign
+    );
 
     menuItem selectedAuthItem = authMenuItems[0];
     menuItem selectedTitleScreenItem = titleScreenMenuItems[0];
+    menuItem selectedQuitScreenItem = quitScreenMenuItems[0];
 
     while(1) {
         switch(gameState) {
@@ -78,8 +85,21 @@ int main() {
                 break;
             }
             case Enums::QUIT: {
-                cout << "QUIT Not Implemented" << '\n';
-                while (1);
+                Screens::menuScreen(
+                    quitScreenMenuItems,
+                    selectedQuitScreenItem,
+                    gameState,
+                    Variables::quitStateMap,
+                    "Are you sure you want to quit?"
+                );
+                break;
+            }
+            case Enums::QUIT_0: {
+                gameState = Enums::TITLE;
+                break;
+            }
+            case Enums::QUIT_1: {
+                Misc::handleExit();
             }
         }
     }

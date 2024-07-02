@@ -19,7 +19,7 @@
 	- ### Platinum (Min bet >= 100,000)
 	- ### Diamond (Min bet >= 500,000)
 	- ### Master (Min bet >= 1,000,000)
-	- ### Challenger (Min bet >= 6,942,069,420)
+	- ### Challenger (Min bet >= 2,000,000)
 
 - ### If Total balance is ever < minimum bet (Min bet) for a rank,
 	- ### Player rank goes to a rank they can bet at

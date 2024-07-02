@@ -36,6 +36,8 @@ namespace Variables {
 	const int authMenuRowAlign = 2;
 	const int titleMenuColAlign = 8;
 	const int titleMenuRowAlign = 4;
+	const int quitMenuColAlign = 8;
+	const int quitMenuRowAlign = 2;
 	const string passwordPrefix = "Password: ";
 	const string texasHoldEm = R"(
  _____                    _   _       _     _ _ _____          
@@ -106,6 +108,10 @@ ______ _        ______ _ _           _
 		"[OPTIONS]",
 		"[QUIT]"
 	};
+	const vector<string> quitScreenActions = {
+		"[NO]",
+		"[YES]"
+	};
 	const stateMap authStateMap = {
 		{authScreenActions[0], Enums::LOGIN},
 		{authScreenActions[1], Enums::REGISTER}
@@ -117,6 +123,10 @@ ______ _        ______ _ _           _
 		{titleScreenActions[3], Enums::LEADERBOARD},
 		{titleScreenActions[4], Enums::OPTIONS},
 		{titleScreenActions[5], Enums::QUIT}
+	};
+	const stateMap quitStateMap = {
+		{quitScreenActions[0], Enums::QUIT_0},
+		{quitScreenActions[1], Enums::QUIT_1}
 	};
 	const authUserInstructions loginInstructions = {
 		{"Please enter your username", "The name that was used for registration"},

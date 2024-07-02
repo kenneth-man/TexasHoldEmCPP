@@ -18,7 +18,7 @@
     <ClCompile Include="TexasHoldEm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TexasHoldEm\src\player\Player.cpp">
+    <ClCompile Include="TexasHoldEm\src\player\player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TexasHoldEm\src\game\draw\draw.cpp">
@@ -36,11 +36,11 @@
     <ClCompile Include="TexasHoldEm\src\game\screens\screens.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TexasHoldEm\src\misc\misc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="TexasHoldEm\src\player\Player.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="TexasHoldEm\src\game\draw\draw.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -69,6 +69,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TexasHoldEm\res\index.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TexasHoldEm\src\misc\misc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TexasHoldEm\src\player\player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

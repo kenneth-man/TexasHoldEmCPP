@@ -8,7 +8,8 @@ string Screens::infoScreen(
     Draw::text(description);
     Draw::text("(" + hint + ")");
     string input;
-    cin >> input;
+    // not using `cin << input`, as it will ignore spaces
+    getline(cin, input);
     return input;
 }
 
@@ -25,9 +26,15 @@ void Screens::menuScreen(
     const vector<menuItem> &menuItems,
     menuItem &selectedItem,
     Enums::GameState &gameState,
-    const stateMap &stateMap
+    const stateMap &stateMap,
+    string hint
 ) {
     Draw::title();
+
+    if (hint != Variables::falsyString) {
+        Draw::text("(" + hint + ")");
+    }
+
     Draw::menu(
         menuItems,
         selectedItem
