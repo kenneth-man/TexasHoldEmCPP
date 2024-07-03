@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include <map>
+#include <unordered_map>
 #include <vector>
 #include <string>
 #include <filesystem>
@@ -38,7 +39,30 @@ namespace Variables {
 	const int titleMenuRowAlign = 4;
 	const int quitMenuColAlign = 8;
 	const int quitMenuRowAlign = 2;
+	const map<string, int> ranks = {
+		{"Iron", 0},
+		{"Bronze", 100},
+		{"Silver", 1000},
+		{"Gold", 10000},
+		{"Platinum", 100000},
+		{"Diamond", 500000},
+		{"Master", 1000000},
+		{"Challenger", 2000000}
+	};
 	const string passwordPrefix = "Password: ";
+	const string rankPrefix = "Rank: ";
+	const string eloPrefix = "Elo: ";
+	const string winsPrefix = "Wins: ";
+	const string lossesPrefix = "Losses: ";
+	const string gamesPlayedPrefix = "Games Played: ";
+	const unordered_map<string, string> newUserDefault = {
+		{passwordPrefix, Variables::falsyString},
+		{rankPrefix, ranks.begin()->first},
+		{eloPrefix, "1000"},
+		{winsPrefix, "0"},
+		{lossesPrefix, "0"},
+		{gamesPlayedPrefix, "0"},
+	};
 	const string texasHoldEm = R"(
  _____                    _   _       _     _ _ _____          
 |_   _|                  | | | |     | |   | ( )  ___|         

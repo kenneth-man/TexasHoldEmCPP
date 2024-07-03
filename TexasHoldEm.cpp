@@ -7,8 +7,10 @@
 #include "./TexasHoldEm/src/game/screens/screens.h"
 #include "./TexasHoldEm/src/file/file.h"
 #include "./TexasHoldEm/src/misc/misc.h"
+#include "./TexasHoldEm/src/player/player.h"
 
 int main() {
+    Player player;
     Enums::GameState gameState = Enums::AUTH;
 
     MenuItemsConfig config = Calc::initMenuItems();

@@ -89,7 +89,14 @@ bool File::createUser(
 			Enums::ENCRYPT
 		);
 
-		out << Variables::passwordPrefix + encryptedPassword;
+		for (auto &it : Variables::newUserDefault) {
+			if (it.first != Variables::passwordPrefix) {
+				out << it.first + it.second << endl;
+				continue;
+			}
+			out << Variables::passwordPrefix + encryptedPassword << endl;
+		}
+
 		return true;
 	}
 

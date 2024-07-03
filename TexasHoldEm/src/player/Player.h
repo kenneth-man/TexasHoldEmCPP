@@ -1,14 +1,12 @@
 #pragma once
 
 #include <string>
-#include "../constants/enums.h"
 
 using namespace std;
 
-class Player {
-private:
+struct Player {
 	string name;
-	Enums::Rank rank;
+	string rank;
 	int elo;
 	long balance;
 	int wins;
