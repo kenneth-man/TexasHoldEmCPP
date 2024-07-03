@@ -7,12 +7,14 @@
 #include <conio.h>
 #include "../../constants/typeAliases.h"
 #include "../../constants/variables.h"
+#include "../../constants/structs.h"
 #include "../draw/draw.h"
 #include "../screens/screens.h"
 
 using namespace std;
 
 namespace Calc {
+	MenuItemsConfig initMenuItems();
 	vector<menuItem> menuItems(
 		const vector<string> &actions,
 		int colAlign,

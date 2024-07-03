@@ -153,6 +153,7 @@
     <ClInclude Include="TexasHoldEm\src\auth\auth.h" />
     <ClInclude Include="TexasHoldEm\src\constants\enums.h" />
     <ClInclude Include="TexasHoldEm\src\constants\macros.h" />
+    <ClInclude Include="TexasHoldEm\src\constants\structs.h" />
     <ClInclude Include="TexasHoldEm\src\constants\typeAliases.h" />
     <ClInclude Include="TexasHoldEm\src\constants\variables.h" />
     <ClInclude Include="TexasHoldEm\src\file\file.h" />

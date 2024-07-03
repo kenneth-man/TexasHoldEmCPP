@@ -11,31 +11,17 @@
 int main() {
     Enums::GameState gameState = Enums::AUTH;
 
-    const vector<menuItem> authMenuItems = Calc::menuItems(
-        Variables::authScreenActions,
-        Variables::authMenuColAlign,
-        Variables::authMenuRowAlign
-    );
-    const vector<menuItem> titleScreenMenuItems = Calc::menuItems(
-        Variables::titleScreenActions,
-        Variables::titleMenuColAlign,
-        Variables::titleMenuRowAlign
-    );
-    const vector<menuItem> quitScreenMenuItems = Calc::menuItems(
-        Variables::quitScreenActions,
-        Variables::quitMenuColAlign,
-        Variables::quitMenuRowAlign
-    );
+    MenuItemsConfig config = Calc::initMenuItems();
 
-    menuItem selectedAuthItem = authMenuItems[0];
-    menuItem selectedTitleScreenItem = titleScreenMenuItems[0];
-    menuItem selectedQuitScreenItem = quitScreenMenuItems[0];
+    menuItem selectedAuthItem = config.authScreenItems[0];
+    menuItem selectedTitleScreenItem = config.titleScreenItems[0];
+    menuItem selectedQuitScreenItem = config.quitScreenItems[0];
 
     while(1) {
         switch(gameState) {
             case Enums::AUTH: {
                 Screens::menuScreen(
-                    authMenuItems,
+                    config.authScreenItems,
                     selectedAuthItem,
                     gameState,
                     Variables::authStateMap
@@ -52,7 +38,7 @@ int main() {
             }
             case Enums::TITLE: {
                 Screens::menuScreen(
-                    titleScreenMenuItems,
+                    config.titleScreenItems,
                     selectedTitleScreenItem,
                     gameState,
                     Variables::titleStateMap
@@ -86,7 +72,7 @@ int main() {
             }
             case Enums::QUIT: {
                 Screens::menuScreen(
-                    quitScreenMenuItems,
+                    config.quitScreenItems,
                     selectedQuitScreenItem,
                     gameState,
                     Variables::quitStateMap,

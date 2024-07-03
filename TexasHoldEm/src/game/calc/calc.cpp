@@ -1,5 +1,27 @@
 #include "calc.h"
 
+MenuItemsConfig Calc::initMenuItems() {
+	MenuItemsConfig config;
+
+	config.authScreenItems = menuItems(
+		Variables::authScreenActions,
+		Variables::authMenuColAlign,
+		Variables::authMenuRowAlign
+	);
+	config.titleScreenItems = menuItems(
+		Variables::titleScreenActions,
+		Variables::titleMenuColAlign,
+		Variables::titleMenuRowAlign
+	);
+	config.quitScreenItems = menuItems(
+		Variables::quitScreenActions,
+		Variables::quitMenuColAlign,
+		Variables::quitMenuRowAlign
+	);
+
+	return config;
+}
+
 vector<menuItem> Calc::menuItems(
 	const vector<string> &actions,
 	int colAlign,
