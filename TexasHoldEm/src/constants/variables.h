@@ -52,6 +52,7 @@ namespace Variables {
 	const string passwordPrefix = "Password: ";
 	const string rankPrefix = "Rank: ";
 	const string eloPrefix = "Elo: ";
+	const string balancePrefix = "Balance: ";
 	const string winsPrefix = "Wins: ";
 	const string lossesPrefix = "Losses: ";
 	const string gamesPlayedPrefix = "Games Played: ";
@@ -59,9 +60,10 @@ namespace Variables {
 		{passwordPrefix, Variables::falsyString},
 		{rankPrefix, ranks.begin()->first},
 		{eloPrefix, "1000"},
+		{balancePrefix, "25"},
 		{winsPrefix, "0"},
 		{lossesPrefix, "0"},
-		{gamesPlayedPrefix, "0"},
+		{gamesPlayedPrefix, "0"}
 	};
 	const string texasHoldEm = R"(
  _____                    _   _       _     _ _ _____          

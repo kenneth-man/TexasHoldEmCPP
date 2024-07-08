@@ -35,13 +35,6 @@ void File::test() {
 	in.close();
 }
 
-string File::extractLineData(
-	string line,
-	string prefix
-) {
-	return line.substr(prefix.length());
-}
-
 bool File::existingUser(string username) {
 	fstream in;
 	in.open(
@@ -51,7 +44,10 @@ bool File::existingUser(string username) {
 	return in.is_open();
 }
 
-string File::getUserPasswordLine(string username) {
+string File::getLineValue(
+	string username,
+	string prefix
+) {
 	fstream in;
 	in.open(
 		Variables::txtFileBasePath + username + ".txt",
@@ -59,11 +55,34 @@ string File::getUserPasswordLine(string username) {
 	);
 
 	if (in.is_open()) {
-		string line;
-		while(getline(in, line)) {
-			if (line.find(Variables::passwordPrefix) != string::npos) {
-				return line;
-			}
+		string value = findByPrefix(
+			username,
+			prefix,
+			in
+		);
+
+		if (value != Variables::falsyString) {
+			return value;
+		}
+	}
+
+	return Variables::falsyString;
+}
+
+string File::findByPrefix(
+	string username,
+	string prefix,
+	fstream &in
+) {
+	// set position back to top of file, in the case of using `getline`
+		// multiple times on the same fstream
+	in.seekg(0);
+
+	string line;
+
+	while (getline(in, line)) {
+		if (line.find(prefix) != string::npos) {
+			return line.substr(prefix.length());
 		}
 	}
 

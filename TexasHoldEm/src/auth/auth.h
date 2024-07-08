@@ -7,6 +7,11 @@
 #include "../file/file.h"
 #include "../constants/enums.h"
 #include "../constants/variables.h"
+#include "../player/player.h"
+
+// forward declaration to prevent circular depedencies
+// `player.h` includes `file.h`, which includes this file
+struct Player;
 
 using namespace std;
 
@@ -21,8 +26,14 @@ namespace Auth {
 		const authUserInstructions &instructions,
 		string (*validation)(string, int)
 	);
-	void loginUser(Enums::GameState &gameState);
-	void registerUser(Enums::GameState &gameState);
+	void loginUser(
+		Enums::GameState &gameState,
+		Player &player
+	);
+	void registerUser(
+		Enums::GameState &gameState,
+		Player &player
+	);
 	string loginUserValidation(
 		string input,
 		int index

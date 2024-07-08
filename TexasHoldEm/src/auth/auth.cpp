@@ -47,7 +47,8 @@ string Auth::handleInput(
 }
 
 void Auth::loginUser(
-    Enums::GameState &gameState
+    Enums::GameState &gameState,
+    Player &player
 ) {
     vector<string> inputs; // = {username, password, key};
 
@@ -62,9 +63,8 @@ void Auth::loginUser(
         return;
     }
 
-    const string line = File::getUserPasswordLine(inputs[0]);
-    const string password = File::extractLineData(
-        line,
+    const string password = File::getLineValue(
+        inputs[0],
         Variables::passwordPrefix
     );
 
@@ -84,11 +84,14 @@ void Auth::loginUser(
         return;
     }
 
+    player.init(inputs[0]);
+
     gameState = Enums::TITLE;
 }
 
 void Auth::registerUser(
-    Enums::GameState &gameState
+    Enums::GameState &gameState,
+    Player &player
 ) {
     vector<string> inputs; // = {username, password, key};
 
@@ -109,6 +112,8 @@ void Auth::registerUser(
         failure("Could not create user", gameState);
         return;
     }
+
+    player.init(inputs[0]);
 
     gameState = Enums::TITLE;
 }

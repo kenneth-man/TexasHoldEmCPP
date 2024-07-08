@@ -10,7 +10,7 @@
 #include "./TexasHoldEm/src/player/player.h"
 
 int main() {
-    Player player;
+    Player player {};
     Enums::GameState gameState = Enums::AUTH;
 
     MenuItemsConfig config = Calc::initMenuItems();
@@ -31,11 +31,17 @@ int main() {
                 break;
             }
             case Enums::LOGIN: {
-                Auth::loginUser(gameState);
+                Auth::loginUser(
+                    gameState,
+                    player
+               );
                 break;
             }
             case Enums::REGISTER: {
-                Auth::registerUser(gameState);
+                Auth::registerUser(
+                    gameState,
+                    player
+                );
                 break;
             }
             case Enums::TITLE: {
