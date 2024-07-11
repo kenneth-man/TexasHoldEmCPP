@@ -12,6 +12,11 @@ using namespace std;
 namespace File {
 	void test();
 	bool existingUser(string username);
+	string updateLineValue(
+		string username,
+		string prefix,
+		string value
+	);
 	string getLineValue(
 		string username,
 		string prefix

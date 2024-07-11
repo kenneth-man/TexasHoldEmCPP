@@ -37,11 +37,63 @@ void File::test() {
 
 bool File::existingUser(string username) {
 	fstream in;
+	//TODO: Possible refactor to prevent repeating??
 	in.open(
 		Variables::txtFileBasePath + username + ".txt",
 		ios::in
 	);
 	return in.is_open();
+}
+
+string File::updateLineValue(
+	string username,
+	string prefix,
+	string value
+) {
+	fstream in, out;
+	in.open(
+		Variables::txtFileBasePath + username + ".txt",
+		ios::in
+	);
+	
+	if (in.is_open()) {
+		vector<string> lines;
+		string line;
+
+		while (getline(in, line)) {
+			lines.push_back(line);
+		}
+
+		if (lines.size() == 0) {
+			return Variables::falsyString;
+		}
+
+		auto it = find_if(
+			lines.begin(),
+			lines.end(),
+			[prefix](string current) {
+				return current.find(prefix) != string::npos;
+			}
+		);
+
+		out.open(
+			Variables::txtFileBasePath + username + ".txt",
+			ios::out
+		);
+
+		if (it != lines.end() && out.is_open()) {
+			string updatedLine = prefix + value;
+			*it = updatedLine;
+
+			for (string s : lines) {
+				out << s << endl;
+			}
+
+			return value;
+		}
+	}
+
+	return Variables::falsyString;
 }
 
 string File::getLineValue(
@@ -95,7 +147,6 @@ bool File::createUser(
 	string key
 ) {
 	fstream out;
-
 	out.open(
 		Variables::txtFileBasePath + username + ".txt",
 		ios::out
