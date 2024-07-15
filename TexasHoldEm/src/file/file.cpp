@@ -141,10 +141,23 @@ string File::findByPrefix(
 	return Variables::falsyString;
 }
 
+bool File::resetUser(string username) {
+	string encryptedPassword = getLineValue(username, Variables::passwordPrefix);
+	bool removed = filesystem::remove(Variables::txtFileBasePath + username + ".txt");
+	bool created = createUser(username, encryptedPassword, Variables::falsyString, true);
+
+	if (!removed || !created) {
+		return false;
+	}
+
+	return true;
+}
+
 bool File::createUser(
 	string username,
 	string password,
-	string key
+	string key,
+	bool passwordAlreadyEncrypted
 ) {
 	fstream out;
 	out.open(
@@ -153,11 +166,13 @@ bool File::createUser(
 	);
 
 	if (out.is_open()) {
-		string encryptedPassword = Auth::crypt(
-			password,
-			key,
-			Enums::ENCRYPT
-		);
+		string encryptedPassword = passwordAlreadyEncrypted ?
+			password :
+			Auth::crypt(
+				password,
+				key,
+				Enums::ENCRYPT
+			);
 
 		for (auto &it : Variables::newUserDefault) {
 			if (it.first != Variables::passwordPrefix) {

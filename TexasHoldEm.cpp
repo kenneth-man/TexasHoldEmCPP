@@ -71,8 +71,12 @@ int main() {
                 break;
             }
             case Enums::NEWGAME_1: {
-                //reset user data to default
-
+                bool success = File::resetUser(player.name);
+                if (!success) {
+                    Screens::errorScreen("Error creating a new game");
+                    gameState = Enums::TITLE;
+                    break;
+                }
                 Screens::menuScreen(
                     config.rankScreenItems,
                     selectedRankScreenItem,
@@ -82,8 +86,12 @@ int main() {
                 break;
             }
             case Enums::CONTINUE: {
-                cout << "CONTINUE Not Implemented" << '\n';
-                while (1);
+                Screens::menuScreen(
+                    config.rankScreenItems,
+                    selectedRankScreenItem,
+                    gameState,
+                    Variables::rankStateMap
+                );
                 break;
             }
             case Enums::RANKIRON:
@@ -94,9 +102,12 @@ int main() {
             case Enums::RANKDIAMOND:
             case Enums::RANKMASTER:
             case Enums::RANKCHALLENGER: {
-                Enums::Rank r = Variables::gameStateRankMap.at(gameState);
-                gameRank = r;
-
+                //TODO: check if player can play at rank selected
+                // if their 'balance' is >= minimum bet amount for that rank
+                Enums::Rank rank = Variables::gameStateRankMap.at(gameState);
+                gameRank = rank;
+                //TODO: render screen with timer e.g. Game starting 3 2 1 ...
+                gameState = Enums::INGAME;
                 break;
             }
             case Enums::INGAME: {

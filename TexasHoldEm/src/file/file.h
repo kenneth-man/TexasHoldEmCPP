@@ -1,6 +1,7 @@
 #pragma once
 
 #include <fstream>
+#include <filesystem>
 #include <string>
 #include <iostream>
 #include "../game/screens/screens.h"
@@ -26,10 +27,12 @@ namespace File {
 		string prefix,
 		fstream &in
 	);
+	bool resetUser(string username);
 	bool createUser(
 		string username,
 		string password,
-		string key
+		string key,
+		bool passwordAlreadyEncrypted = false
 	);
 	void updateLeaderboard();
 	void updateOptions();
