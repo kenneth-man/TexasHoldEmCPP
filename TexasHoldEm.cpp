@@ -12,19 +12,22 @@
 int main() {
     Player player {};
     Enums::GameState gameState = Enums::AUTH;
+    Enums::Rank gameRank = Enums::IRON;
 
     MenuItemsConfig config = Calc::initMenuItems();
 
-    menuItem selectedAuthItem = config.authScreenItems[0];
+    menuItem selectedAuthScreenItem = config.authScreenItems[0];
     menuItem selectedTitleScreenItem = config.titleScreenItems[0];
     menuItem selectedQuitScreenItem = config.quitScreenItems[0];
+    menuItem selectedNewGameScreenItem = config.newGameScreenItems[0];
+    menuItem selectedRankScreenItem = config.rankScreenItems[0];
 
     while(1) {
         switch(gameState) {
             case Enums::AUTH: {
                 Screens::menuScreen(
                     config.authScreenItems,
-                    selectedAuthItem,
+                    selectedAuthScreenItem,
                     gameState,
                     Variables::authStateMap
                 );
@@ -54,12 +57,50 @@ int main() {
                 break;
             }
             case Enums::NEWGAME: {
-                cout << "NEWGAME Not Implemented" << '\n';
-                while (1);
+                Screens::menuScreen(
+                    config.newGameScreenItems,
+                    selectedNewGameScreenItem,
+                    gameState,
+                    Variables::newGameStateMap,
+                    "Are you sure you want to start a new game? All saved data will be reset"
+                );
+                break;
+            }
+            case Enums::NEWGAME_0: {
+                gameState = Enums::TITLE;
+                break;
+            }
+            case Enums::NEWGAME_1: {
+                //reset user data to default
+
+                Screens::menuScreen(
+                    config.rankScreenItems,
+                    selectedRankScreenItem,
+                    gameState,
+                    Variables::rankStateMap
+                );
                 break;
             }
             case Enums::CONTINUE: {
                 cout << "CONTINUE Not Implemented" << '\n';
+                while (1);
+                break;
+            }
+            case Enums::RANKIRON:
+            case Enums::RANKBRONZE:
+            case Enums::RANKSILVER:
+            case Enums::RANKGOLD:
+            case Enums::RANKPLATNIUM:
+            case Enums::RANKDIAMOND:
+            case Enums::RANKMASTER:
+            case Enums::RANKCHALLENGER: {
+                Enums::Rank r = Variables::gameStateRankMap.at(gameState);
+                gameRank = r;
+
+                break;
+            }
+            case Enums::INGAME: {
+                cout << "INGAME Not Implemented" << '\n';
                 while (1);
                 break;
             }

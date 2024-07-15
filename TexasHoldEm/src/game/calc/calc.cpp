@@ -14,9 +14,19 @@ MenuItemsConfig Calc::initMenuItems() {
 		Variables::titleMenuRowAlign
 	);
 	config.quitScreenItems = menuItems(
-		Variables::quitScreenActions,
+		Variables::yesNoScreenActions,
 		Variables::quitMenuColAlign,
 		Variables::quitMenuRowAlign
+	);
+	config.newGameScreenItems = menuItems(
+		Variables::yesNoScreenActions,
+		Variables::newGameMenuColAlign,
+		Variables::newGameMenuRowAlign
+	);
+	config.rankScreenItems = menuItems(
+		Variables::rankScreenActions,
+		Variables::rankMenuColAlign,
+		Variables::rankMenuRowAlign
 	);
 
 	return config;

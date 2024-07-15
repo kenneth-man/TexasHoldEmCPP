@@ -23,6 +23,7 @@ namespace Draw {
 		int xSize,
 		int ySize
 	);
+	//TODO: List and ListBorder functions (in game player names, actions...)
 	void title();
 	void wideChar(
 		const wchar_t *hexChar,

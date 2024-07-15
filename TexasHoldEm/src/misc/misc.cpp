@@ -1,18 +1,19 @@
 #include "misc.h"
 
 void Misc::handleExit() {
-	int seconds = 3;
-	
+	timer(3);
+	exit(1);
+}
+
+void Misc::timer(int seconds) {
 	while (seconds > 0) {
 		Draw::title();
 		Draw::text(
 			"Program will exit in " + to_string(seconds) + " seconds..."
 		);
 
-		this_thread::sleep_for(chrono::seconds(seconds/seconds));
-		
+		this_thread::sleep_for(chrono::seconds(seconds / seconds));
+
 		--seconds;
 	}
-
-	exit(1);
 }

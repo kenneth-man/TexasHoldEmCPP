@@ -144,7 +144,6 @@
     <ClCompile Include="TexasHoldEm\src\file\file.cpp" />
     <ClCompile Include="TexasHoldEm\src\game\calc\calc.cpp" />
     <ClCompile Include="TexasHoldEm\src\game\draw\draw.cpp" />
-    <ClCompile Include="TexasHoldEm\src\game\newGame\newGame.cpp" />
     <ClCompile Include="TexasHoldEm\src\game\screens\screens.cpp" />
     <ClCompile Include="TexasHoldEm\src\misc\misc.cpp" />
     <ClCompile Include="TexasHoldEm\src\player\player.cpp" />
@@ -160,7 +159,6 @@
     <ClInclude Include="TexasHoldEm\src\file\file.h" />
     <ClInclude Include="TexasHoldEm\src\game\calc\calc.h" />
     <ClInclude Include="TexasHoldEm\src\game\draw\draw.h" />
-    <ClInclude Include="TexasHoldEm\src\game\newGame\newGame.h" />
     <ClInclude Include="TexasHoldEm\src\game\screens\screens.h" />
     <ClInclude Include="TexasHoldEm\src\misc\misc.h" />
     <ClInclude Include="TexasHoldEm\src\player\player.h" />

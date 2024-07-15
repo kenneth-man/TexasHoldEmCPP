@@ -39,6 +39,10 @@ namespace Variables {
 	const int titleMenuRowAlign = 4;
 	const int quitMenuColAlign = 8;
 	const int quitMenuRowAlign = 2;
+	const int newGameMenuColAlign = 8;
+	const int newGameMenuRowAlign = 2;
+	const int rankMenuColAlign = 8;
+	const int rankMenuRowAlign = 4;
 	const map<string, int> ranks = {
 		{"Iron", 0},
 		{"Bronze", 100},
@@ -134,9 +138,19 @@ ______ _        ______ _ _           _
 		"[OPTIONS]",
 		"[QUIT]"
 	};
-	const vector<string> quitScreenActions = {
+	const vector<string> yesNoScreenActions = {
 		"[NO]",
 		"[YES]"
+	};
+	const vector<string> rankScreenActions = {
+		"[IRON]",
+		"[BRONZE]",
+		"[SILVER]",
+		"[GOLD]",
+		"[PLATINUM]",
+		"[DIAMOND]",
+		"[MASTER]",
+		"[CHALLENGER]",
 	};
 	const stateMap authStateMap = {
 		{authScreenActions[0], Enums::LOGIN},
@@ -151,8 +165,32 @@ ______ _        ______ _ _           _
 		{titleScreenActions[5], Enums::QUIT}
 	};
 	const stateMap quitStateMap = {
-		{quitScreenActions[0], Enums::QUIT_0},
-		{quitScreenActions[1], Enums::QUIT_1}
+		{yesNoScreenActions[0], Enums::QUIT_0},
+		{yesNoScreenActions[1], Enums::QUIT_1}
+	};
+	const stateMap newGameStateMap = {
+		{yesNoScreenActions[0], Enums::NEWGAME_0},
+		{yesNoScreenActions[1], Enums::NEWGAME_1}
+	};
+	const stateMap rankStateMap = {
+		{rankScreenActions[0], Enums::RANKIRON},
+		{rankScreenActions[1], Enums::RANKBRONZE},
+		{rankScreenActions[2], Enums::RANKSILVER},
+		{rankScreenActions[3], Enums::RANKGOLD},
+		{rankScreenActions[4], Enums::RANKPLATNIUM},
+		{rankScreenActions[5], Enums::RANKDIAMOND},
+		{rankScreenActions[6], Enums::RANKMASTER},
+		{rankScreenActions[7], Enums::RANKCHALLENGER}
+	};
+	const map<Enums::GameState, Enums::Rank> gameStateRankMap = {
+		{Enums::RANKIRON, Enums::IRON },
+		{Enums::RANKBRONZE, Enums::BRONZE },
+		{Enums::RANKSILVER, Enums::SILVER },
+		{Enums::RANKGOLD, Enums::GOLD },
+		{Enums::RANKPLATNIUM, Enums::PLATINUM },
+		{Enums::RANKDIAMOND, Enums::DIAMOND },
+		{Enums::RANKMASTER, Enums::MASTER },
+		{Enums::RANKCHALLENGER, Enums::CHALLENGER }
 	};
 	const authUserInstructions loginInstructions = {
 		{"Please enter your username", "The name that was used for registration"},

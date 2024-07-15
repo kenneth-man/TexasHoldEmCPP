@@ -9,4 +9,6 @@ struct MenuItemsConfig {
 	vector<menuItem> authScreenItems;
 	vector<menuItem> titleScreenItems;
 	vector<menuItem> quitScreenItems;
+	vector<menuItem> newGameScreenItems;
+	vector<menuItem> rankScreenItems;
 };

@@ -11,4 +11,5 @@ using namespace std;
 
 namespace Misc {
 	void handleExit();
+	void timer(int seconds);
 }

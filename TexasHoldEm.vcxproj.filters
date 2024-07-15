@@ -39,9 +39,6 @@
     <ClCompile Include="TexasHoldEm\src\misc\misc.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TexasHoldEm\src\game\newGame\newGame.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TexasHoldEm\src\game\draw\draw.h">
@@ -81,9 +78,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TexasHoldEm\src\constants\structs.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TexasHoldEm\src\game\newGame\newGame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
