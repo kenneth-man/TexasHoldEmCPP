@@ -37,7 +37,7 @@ int main() {
                 Auth::loginUser(
                     gameState,
                     player
-               );
+                );
                 break;
             }
             case Enums::REGISTER: {
@@ -102,11 +102,14 @@ int main() {
             case Enums::RANKDIAMOND:
             case Enums::RANKMASTER:
             case Enums::RANKCHALLENGER: {
-                //TODO: check if player can play at rank selected
-                // if their 'balance' is >= minimum bet amount for that rank
                 Enums::Rank rank = Variables::gameStateRankMap.at(gameState);
+                if (player.balance < Variables::ranksMap.at(rank).second) {
+                    Screens::errorScreen("You do not have sufficient funds to make a minimum bet at this rank");
+                    gameState = Enums::TITLE;
+                    break;
+                }
                 gameRank = rank;
-                //TODO: render screen with timer e.g. Game starting 3 2 1 ...
+                Misc::handleEnteringGame();
                 gameState = Enums::INGAME;
                 break;
             }

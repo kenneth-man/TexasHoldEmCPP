@@ -23,7 +23,17 @@ namespace Draw {
 		int xSize,
 		int ySize
 	);
-	//TODO: List and ListBorder functions (in game player names, actions...)
+	//TODO: refactor `menuBorder` to it can be used with `List` and `Sprite` functions
+	//TODO: `List` function to display (left 50% of terminal):
+	//	- title of list section centered
+	//	- display players
+	//	- bet amounts
+	//	- actions
+	// and a marker for current player's turn - will have a random delay timer to
+	// simulate thinking time
+	//TODO: `Sprite` function to display row of cards used for (right 50% of terminal):
+	//	- card pool
+	//	- player hand underneath
 	void title();
 	void wideChar(
 		const wchar_t *hexChar,

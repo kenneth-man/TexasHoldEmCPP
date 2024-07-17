@@ -11,5 +11,9 @@ using namespace std;
 
 namespace Misc {
 	void handleExit();
-	void timer(int seconds);
+	void handleEnteringGame();
+	void timer(
+		int seconds,
+		string description = "Timer will end"
+	);
 }
