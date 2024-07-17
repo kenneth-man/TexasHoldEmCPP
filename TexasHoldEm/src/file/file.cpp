@@ -35,13 +35,20 @@ void File::test() {
 	in.close();
 }
 
+void File::openUserFStream(
+	fstream &stream,
+	ios_base::openmode mode,
+	string username
+) {
+	stream.open(
+		Variables::txtFileBasePath + username + ".txt",
+		mode
+	);
+}
+
 bool File::existingUser(string username) {
 	fstream in;
-	//TODO: Possible refactor to prevent repeating??
-	in.open(
-		Variables::txtFileBasePath + username + ".txt",
-		ios::in
-	);
+	openUserFStream(in, ios::in, username);
 	return in.is_open();
 }
 
@@ -51,10 +58,7 @@ string File::updateLineValue(
 	string value
 ) {
 	fstream in, out;
-	in.open(
-		Variables::txtFileBasePath + username + ".txt",
-		ios::in
-	);
+	openUserFStream(in, ios::in, username);
 	
 	if (in.is_open()) {
 		vector<string> lines;
@@ -76,10 +80,7 @@ string File::updateLineValue(
 			}
 		);
 
-		out.open(
-			Variables::txtFileBasePath + username + ".txt",
-			ios::out
-		);
+		openUserFStream(out, ios::out, username);
 
 		if (it != lines.end() && out.is_open()) {
 			string updatedLine = prefix + value;
@@ -101,10 +102,7 @@ string File::getLineValue(
 	string prefix
 ) {
 	fstream in;
-	in.open(
-		Variables::txtFileBasePath + username + ".txt",
-		ios::in
-	);
+	openUserFStream(in, ios::in, username);
 
 	if (in.is_open()) {
 		string value = findByPrefix(
@@ -160,10 +158,7 @@ bool File::createUser(
 	bool passwordAlreadyEncrypted
 ) {
 	fstream out;
-	out.open(
-		Variables::txtFileBasePath + username + ".txt",
-		ios::out
-	);
+	openUserFStream(out, ios::out, username);
 
 	if (out.is_open()) {
 		string encryptedPassword = passwordAlreadyEncrypted ?

@@ -4,10 +4,7 @@ void Player::init(string name) {
     Player::name = name;
 
     fstream in;
-    in.open(
-        Variables::txtFileBasePath + Player::name + ".txt",
-        ios::in
-    );
+    File::openUserFStream(in, ios::in, Player::name);
 
     Player::rank = File::findByPrefix(
         Player::name,

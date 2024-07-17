@@ -12,6 +12,11 @@ using namespace std;
 
 namespace File {
 	void test();
+	void openUserFStream(
+		fstream &stream,
+		ios_base::openmode mode,
+		string username
+	);
 	bool existingUser(string username);
 	string updateLineValue(
 		string username,
