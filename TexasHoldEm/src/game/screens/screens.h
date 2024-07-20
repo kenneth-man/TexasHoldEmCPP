@@ -5,9 +5,13 @@
 #include <vector>
 #include "../draw/draw.h"
 #include "../calc/calc.h"
+#include "../../player/player.h"
 #include "../../constants/typeAliases.h"
 #include "../../constants/variables.h"
 #include "../../constants/enums.h"
+
+// forward declaration to prevent circular dependencies
+struct Player;
 
 using namespace std;
 
@@ -23,5 +27,10 @@ namespace Screens {
 		Enums::GameState &gameState,
 		const stateMap &stateMap,
 		string hint = Variables::falsyString
+	);
+	void inGameScreen(
+		Player &player,
+		Enums::GameState &gameState,
+		Enums::Rank gameRank
 	);
 }

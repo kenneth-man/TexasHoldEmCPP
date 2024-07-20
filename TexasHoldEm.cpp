@@ -114,8 +114,11 @@ int main() {
                 break;
             }
             case Enums::INGAME: {
-                cout << "INGAME Not Implemented" << '\n';
-                while (1);
+                Screens::inGameScreen(
+                    player,
+                    gameState,
+                    gameRank
+                );
                 break;
             }
             case Enums::LEADERBOARD: {

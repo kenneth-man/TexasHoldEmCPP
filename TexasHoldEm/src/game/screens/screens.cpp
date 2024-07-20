@@ -55,3 +55,80 @@ void Screens::menuScreen(
         errorScreen("Incorrect Map of actions to enums");
     }
 }
+
+void Screens::inGameScreen(
+    Player &player,
+    Enums::GameState &gameState,
+    Enums::Rank gameRank
+) {
+    bool exit = false;
+    cards poolCards;
+    cards playerCards;
+    Enums::InGameState inGameState = Enums::SMALLBLINDBET;
+
+    while(!exit) {
+        Draw::title();
+
+        switch(inGameState) {
+            case Enums::SMALLBLINDBET: {
+                cout << "SMALLBLINDBET Not Implemented" << '\n';
+                while(1);
+                break;
+            }
+            case Enums::BIGBLINDBET: {
+                cout << "BIGBLINDBET Not Implemented" << '\n';
+                while (1);
+                break;
+            }
+            case Enums::DEALING: {
+                cout << "DEALING Not Implemented" << '\n';
+                Draw::playingCards(
+                    {},
+                    {}
+                );
+                while (1);
+                break;
+            }
+            case Enums::PREFLOPBET: {
+                cout << "PREFLOPBET Not Implemented" << '\n';
+                while (1);
+                break;
+            }
+            case Enums::FLOP: {
+                cout << "FLOP Not Implemented" << '\n';
+                while (1);
+                break;
+            }
+            case Enums::FLOPBET:
+            case Enums::TURNBET: 
+            case Enums::RIVERBET: {
+                cout << "FLOPBET, TURNBET, RIVERBET Not Implemented" << '\n';
+                while (1);
+                break;
+            }
+            case Enums::TURN: {
+                cout << "TURN Not Implemented" << '\n';
+                while (1);
+                break;
+            }
+            case Enums::RIVER: {
+                cout << "RIVER Not Implemented" << '\n';
+                while (1);
+                break;
+            }
+            case Enums::SHOWDOWN: {
+                cout << "SHOWDOWN Not Implemented" << '\n';
+                while (1);
+                break;
+            }
+            case Enums::END: {
+                // update player data in file
+                // update player object in ram
+                // update game state
+                // screen to show updates to their data file
+                gameState = Enums::TITLE;
+                exit = true;
+            }
+        }
+    }
+}

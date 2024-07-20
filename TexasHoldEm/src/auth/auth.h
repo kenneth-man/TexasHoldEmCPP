@@ -9,7 +9,7 @@
 #include "../constants/variables.h"
 #include "../player/player.h"
 
-// forward declaration to prevent circular depedencies
+// forward declaration to prevent circular dependencies
 // `player.h` includes `file.h`, which includes this file
 struct Player;
 

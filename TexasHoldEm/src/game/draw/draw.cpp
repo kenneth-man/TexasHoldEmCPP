@@ -1,7 +1,21 @@
 #include "draw.h"
 
-void Draw::text(string s) {
+void Draw::text(
+	string s,
+	bool border
+) {
+	if (!border) {
+		cout << s << '\n';
+		return;
+	}
+	const char borderChar = '*';
+	string borderStr;
+	for(int i = 0; i < s.length(); ++i) {
+		borderStr += borderChar;
+	}
+	cout << borderStr << '\n';
 	cout << s << '\n';
+	cout << borderStr << '\n';
 }
 
 void Draw::menu(
@@ -15,10 +29,10 @@ void Draw::menu(
 
 	for (int col = 0; col < ySize; ++col) {
 		for (int row = 0; row < xSize; ++row) {
-			string border = menuBorder(col, row, xSize, ySize);
+			string b = border(col, row, xSize, ySize);
 
-			if (border != Variables::falsyString) {
-				output += border;
+			if (b != Variables::falsyString) {
+				output += b;
 				continue;
 			}
 
@@ -50,7 +64,28 @@ void Draw::menu(
 	cout << output;
 }
 
-string Draw::menuBorder(
+void Draw::list() {
+
+}
+
+void Draw::playingCards(
+	const cards &poolCards,
+	const cards &playerCards
+) {
+	text("* Card Pool *", true);
+	cardRow(
+		poolCards.first,
+		poolCards.second
+	);
+	cout << '\n';
+	text("* Your Hand *", true);
+	cardRow(
+		playerCards.first,
+		playerCards.second
+	);
+}
+
+string Draw::border(
 	int col,
 	int row,
 	int xSize,
@@ -95,7 +130,7 @@ void Draw::wideChar(
 	}
 }
 
-void Draw::cards(
+void Draw::cardRow(
 	const vector<string> &vals,
 	const vector<const wchar_t *> &suitHexChars
 ) {

@@ -26,6 +26,20 @@ namespace Enums {
 		QUIT_0,
 		QUIT_1
 	};
+	enum InGameState {
+		SMALLBLINDBET,
+		BIGBLINDBET,
+		DEALING,
+		PREFLOPBET,
+		FLOP,
+		FLOPBET,
+		TURN,
+		TURNBET,
+		RIVER,
+		RIVERBET,
+		SHOWDOWN,
+		END
+	};
 	enum Crypt {
 		ENCRYPT,
 		DECRYPT
