@@ -10,7 +10,7 @@ void Draw::text(
 	}
 	const char borderChar = '*';
 	string borderStr;
-	for(int i = 0; i < s.length(); ++i) {
+	for(uint16_t i = 0; i < s.length(); ++i) {
 		borderStr += borderChar;
 	}
 	cout << borderStr << '\n';
@@ -21,14 +21,14 @@ void Draw::text(
 void Draw::menu(
 	const vector<menuItem> &items,
 	const menuItem &selectedItem,
-	int xSize,
-	int ySize
+	uint16_t xSize,
+	uint16_t ySize
 ) {
 	string output;
-	int itemsRendered = 0;
+	uint16_t itemsRendered = 0;
 
-	for (int col = 0; col < ySize; ++col) {
-		for (int row = 0; row < xSize; ++row) {
+	for (uint16_t col = 0; col < ySize; ++col) {
+		for (uint16_t row = 0; row < xSize; ++row) {
 			string b = border(col, row, xSize, ySize);
 
 			if (b != Variables::falsyString) {
@@ -51,7 +51,7 @@ void Draw::menu(
 
 				output += item;
 
-				row += (int)item.length();
+				row += (uint16_t)item.length();
 
 				itemsRendered += 1;
 			}
@@ -64,8 +64,72 @@ void Draw::menu(
 	cout << output;
 }
 
-void Draw::list() {
+void Draw::inGame(
+	const vector<InGamePlayer> &inGamePlayers,
+	string currentPlayerName,
+	Enums::InGameState inGameState,
+	const cards &poolCards,
+	const cards &playerCards
+) {
+	// infoScreen() instead of all the below depending on if current player needs
+	// to bet a value or make an action + (option to type "BACK" to view in game screen)
 
+	Draw::title();
+	Draw::list(
+		inGamePlayers,
+		currentPlayerName,
+		inGameState
+	);
+	Draw::playingCards(
+		poolCards,
+		playerCards
+	);
+	// Draw::menu(...)
+}
+
+void Draw::list(
+	const vector<InGamePlayer> &inGamePlayers,
+	string currentPlayerName,
+	Enums::InGameState inGameState
+) {
+	uint32_t pot = 0;
+	vector<string> playerTitles;
+	string temp;
+	int index = 1;
+
+	for(const auto &p : inGamePlayers) {
+		pot += p.betAmount ? p.betAmount : 0;
+		string player = to_string(index) + ") " + p.name + " - ";
+		index++;
+
+		if (p.betAmount) {
+			player += Variables::space;
+			temp = "BET: \x9C" + to_string(p.betAmount);
+			player += temp;
+		}
+		if (p.action != Variables::falsyString) {
+			player += Variables::space;
+			temp = "ACTION: " + p.action;
+			player += temp;
+		}
+		if (currentPlayerName == p.name) {
+			player += Variables::space;
+			player += Variables::arrow;
+		}
+
+		playerTitles.push_back(player);
+	}
+
+	const string inGameStateStr = Variables::inGameStateMap.at(inGameState);
+	const string title = "* " + inGameStateStr +
+		" - POT TOTAL: \x9C" + to_string(pot) + " *";
+	text(title, true);
+
+	for(const string p : playerTitles) {
+		text(p);
+	}
+
+	cout << '\n';
 }
 
 void Draw::playingCards(
@@ -73,23 +137,29 @@ void Draw::playingCards(
 	const cards &playerCards
 ) {
 	text("* Card Pool *", true);
-	cardRow(
-		poolCards.first,
-		poolCards.second
-	);
+	if (poolCards.first.size() > 0) {
+		cardRow(
+			poolCards.first,
+			poolCards.second
+		);
+	}
+
 	cout << '\n';
-	text("* Your Hand *", true);
-	cardRow(
-		playerCards.first,
-		playerCards.second
-	);
+
+	text("* Your Cards *", true);
+	if (playerCards.first.size() > 0) {
+		cardRow(
+			playerCards.first,
+			playerCards.second
+		);
+	}
 }
 
 string Draw::border(
-	int col,
-	int row,
-	int xSize,
-	int ySize
+	uint16_t col,
+	uint16_t row,
+	uint16_t xSize,
+	uint16_t ySize
 ) {
 	const bool firstCol = col == 0;
 	const bool lastCol = col == ySize - 1;
@@ -163,7 +233,7 @@ void Draw::cardRow(
 void Draw::cardRowVals(
 	const vector<string> &vals
 ) {
-	for (int i = 0; i < vals.size(); ++i) {
+	for (uint16_t i = 0; i < vals.size(); ++i) {
 		cout << vals[i];
 
 		if (i < vals.size() - 1) {
@@ -178,7 +248,7 @@ void Draw::cardRowVals(
 void Draw::cardRowWChars(
 	const vector<const wchar_t *> &suitHexChars
 ) {
-	for(int i = 0; i < suitHexChars.size(); ++i) {
+	for(uint16_t i = 0; i < suitHexChars.size(); ++i) {
 		cout << "|  ";
 		wideChar(suitHexChars[i]);
 		wideChar(suitHexChars[i]);

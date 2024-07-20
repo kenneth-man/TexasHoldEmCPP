@@ -160,6 +160,7 @@
     <ClInclude Include="TexasHoldEm\src\game\calc\calc.h" />
     <ClInclude Include="TexasHoldEm\src\game\draw\draw.h" />
     <ClInclude Include="TexasHoldEm\src\game\screens\screens.h" />
+    <ClInclude Include="TexasHoldEm\src\inGamePlayer\inGamePlayer.h" />
     <ClInclude Include="TexasHoldEm\src\misc\misc.h" />
     <ClInclude Include="TexasHoldEm\src\player\player.h" />
   </ItemGroup>

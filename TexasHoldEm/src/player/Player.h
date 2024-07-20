@@ -2,6 +2,7 @@
 
 #include <fstream>
 #include <string>
+#include <stdint.h>
 #include "../file/file.h"
 
 using namespace std;
@@ -9,11 +10,11 @@ using namespace std;
 struct Player {
 	string name;
 	string rank;
-	int elo;
-	long balance;
-	int wins;
-	int losses;
-	int gamesPlayed;
+	uint32_t elo;
+	uint64_t balance;
+	uint32_t wins;
+	uint32_t losses;
+	uint32_t gamesPlayed;
 
 	void init(string name);
 };

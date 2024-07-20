@@ -110,6 +110,9 @@ int main() {
                 }
                 gameRank = rank;
                 Misc::handleEnteringGame();
+                // init vector<InGamePlayer> for current player and opps
+                // check opp name doesn't match current player name and randomly
+                // select from a vector of namess
                 gameState = Enums::INGAME;
                 break;
             }

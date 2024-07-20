@@ -37,5 +37,7 @@ namespace Calc {
 	//TODO: ELO CALCULATION/S
 	//TODO: OPPONENT CHANCE OF DISCOVERING BEST HAND, BASED ON
 	// PLAYER ELO (HIGHER THE ELO, HIGHER THE % AND HIGHER CHANCE OF BLUFFS)
-	//TODO: TIMER TO MAKE DECISIIONS IN GAME
+	//TODO: TIMER TO MAKE DECISIIONS IN GAME - will have a random delay timer to
+	// simulate thinking time
+	//TODO: change all 'int' types to specific bits from 'stdint.h'
 }

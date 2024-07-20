@@ -12,7 +12,7 @@
 - ### Opponent's stats will be randomized and persist (E.g. ELO, Win/Loss...)
 
 - ### Ranks based on ELO (Easiest to Most Difficult)
-	- ### Iron (Min bet >= 0)
+	- ### Iron (Min bet >= 1)
 	- ### Bronze (Min bet >= 100)
 	- ### Silver (Min bet >= 1000)
 	- ### Gold (Min bet >= 10,000)

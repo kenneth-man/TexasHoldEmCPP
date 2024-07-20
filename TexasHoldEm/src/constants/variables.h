@@ -5,6 +5,7 @@
 #include <vector>
 #include <string>
 #include <filesystem>
+#include <stdint.h>
 #include "./typeAliases.h"
 #include "./enums.h"
 
@@ -100,6 +101,7 @@ ______ _        ______ _ _           _
 | |_\ \ (_| | | | | | |  __/ \ \_/ /\ V /  __/ |     _   _   _ 
  \____/\__,_|_| |_| |_|\___|  \___/  \_/ \___|_|    (_) (_) (_)
 	)";
+	// @inGameActions
 	const vector<string> inGameActions = {
 		"FOLD",
 		"CALL",
@@ -173,8 +175,21 @@ ______ _        ______ _ _           _
 		{Enums::RANKMASTER, Enums::MASTER},
 		{Enums::RANKCHALLENGER, Enums::CHALLENGER}
 	};
-	const map<Enums::Rank, pair<string, int>> ranksMap = {
-		{Enums::IRON, {"Iron", 0}},
+	const map<Enums::InGameState, string> inGameStateMap = {
+		{Enums::SMALLBLINDBET, "SMALL BLIND BET"},
+		{Enums::BIGBLINDBET, "BIG BLIND BET"},
+		{Enums::DEALING, "DEALING CARDS"},
+		{Enums::PREFLOPBET, "PRE FLOP BET"},
+		{Enums::FLOP, "FLOP"},
+		{Enums::FLOPBET, "FLOP BET"},
+		{Enums::TURN, "TURN"},
+		{Enums::TURNBET, "TURN BET"},
+		{Enums::RIVER, "RIVER"},
+		{Enums::RIVERBET, "RIVER BET"},
+		{Enums::SHOWDOWN, "SHOWDOWN"}
+	};
+	const map<Enums::Rank, pair<string, uint32_t>> ranksMap = {
+		{Enums::IRON, {"Iron", 1}},
 		{Enums::BRONZE, {"Bronze", 100}},
 		{Enums::SILVER, {"Silver", 1000}},
 		{Enums::GOLD, {"Gold", 10000}},

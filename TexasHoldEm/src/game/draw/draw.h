@@ -4,6 +4,9 @@
 #include <fcntl.h>
 #include <iostream>
 #include <vector>
+#include <stdint.h>
+#include "../../player/player.h"
+#include "../../inGamePlayer/inGamePlayer.h"
 #include "../../constants/variables.h"
 #include "../../constants/typeAliases.h"
 
@@ -17,27 +20,30 @@ namespace Draw {
 	void menu(
 		const vector<menuItem> &items,
 		const menuItem &selectedItem,
-		int xSize = Variables::xSize,
-		int ySize = Variables::ySize
+		uint16_t xSize = Variables::xSize,
+		uint16_t ySize = Variables::ySize
 	);
-	//TODO: `list` function to display
-	//  - current 'phase' of the game (flop, flop bet, river ....)
-	//	- title of list section centered
-	//	- display players
-	//	- bet amounts
-	//	- actions
-	// and a marker for current player's turn - will have a random delay timer to
-	// simulate thinking time
-	void list();
+	void inGame(
+		const vector<InGamePlayer> &inGamePlayers,
+		string currentPlayerName,
+		Enums::InGameState inGameState,
+		const cards &poolCards,
+		const cards &playerCards
+	);
+	void list(
+		const vector<InGamePlayer> &inGamePlayers,
+		string currentPlayerName,
+		Enums::InGameState inGameState
+	);
 	void playingCards(
 		const cards &poolCards,
 		const cards &playerCards
 	);
 	string border(
-		int col,
-		int row,
-		int xSize,
-		int ySize
+		uint16_t col,
+		uint16_t row,
+		uint16_t xSize,
+		uint16_t ySize
 	);
 	void title();
 	void wideChar(

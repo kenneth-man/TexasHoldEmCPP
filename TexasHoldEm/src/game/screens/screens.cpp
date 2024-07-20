@@ -67,8 +67,6 @@ void Screens::inGameScreen(
     Enums::InGameState inGameState = Enums::SMALLBLINDBET;
 
     while(!exit) {
-        Draw::title();
-
         switch(inGameState) {
             case Enums::SMALLBLINDBET: {
                 cout << "SMALLBLINDBET Not Implemented" << '\n';
@@ -82,10 +80,6 @@ void Screens::inGameScreen(
             }
             case Enums::DEALING: {
                 cout << "DEALING Not Implemented" << '\n';
-                Draw::playingCards(
-                    {},
-                    {}
-                );
                 while (1);
                 break;
             }
