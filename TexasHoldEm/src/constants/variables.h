@@ -217,4 +217,21 @@ ______ _        ______ _ _           _
 		{"Please enter a password", "The password must be at least " + to_string(minPasswordLen) + " characters long"},
 		{"Please enter a key", "The key must be an unsigned integer. Used for encryption & decryption"}
 	};
+	const vector<string> opponentNames = {
+		"Ethan",
+		"Sophia",
+		"Liam",
+		"Olivia",
+		"Noah",
+		"Emma",
+		"Lucas",
+		"Ava",
+		"Jackson",
+		"Mia",
+		"Aiden",
+		"Isabella",
+		"Mason",
+		"Charlotte",
+		"Elijah"
+	};
 }

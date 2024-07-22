@@ -66,7 +66,7 @@ void Draw::menu(
 
 void Draw::inGame(
 	const vector<InGamePlayer> &inGamePlayers,
-	string currentPlayerName,
+	string currentInGamePlayer,
 	Enums::InGameState inGameState,
 	const cards &poolCards,
 	const cards &playerCards
@@ -77,7 +77,7 @@ void Draw::inGame(
 	Draw::title();
 	Draw::list(
 		inGamePlayers,
-		currentPlayerName,
+		currentInGamePlayer,
 		inGameState
 	);
 	Draw::playingCards(
@@ -89,7 +89,7 @@ void Draw::inGame(
 
 void Draw::list(
 	const vector<InGamePlayer> &inGamePlayers,
-	string currentPlayerName,
+	string currentInGamePlayer,
 	Enums::InGameState inGameState
 ) {
 	uint32_t pot = 0;
@@ -97,7 +97,7 @@ void Draw::list(
 	string temp;
 	int index = 1;
 
-	for(const auto &p : inGamePlayers) {
+	for (const auto &p : inGamePlayers) {
 		pot += p.betAmount ? p.betAmount : 0;
 		string player = to_string(index) + ") " + p.name + " - ";
 		index++;
@@ -112,7 +112,7 @@ void Draw::list(
 			temp = "ACTION: " + p.action;
 			player += temp;
 		}
-		if (currentPlayerName == p.name) {
+		if (currentInGamePlayer == p.name) {
 			player += Variables::space;
 			player += Variables::arrow;
 		}
@@ -125,7 +125,7 @@ void Draw::list(
 		" - POT TOTAL: \x9C" + to_string(pot) + " *";
 	text(title, true);
 
-	for(const string p : playerTitles) {
+	for (const string p : playerTitles) {
 		text(p);
 	}
 

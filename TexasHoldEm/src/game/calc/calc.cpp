@@ -32,6 +32,37 @@ MenuItemsConfig Calc::initMenuItems() {
 	return config;
 }
 
+vector<InGamePlayer> Calc::initInGamePlayers(string playerName) {
+	vector<InGamePlayer> output;
+	vector<string> names = Variables::opponentNames;
+	uint8_t maxPlayers = 6;
+
+	while (output.size() < maxPlayers) {
+		size_t index = rand() % names.size();
+
+		output.push_back({
+			names[index],
+			0,
+			{},
+			Variables::falsyString,
+			true
+		});
+
+		names.erase(names.begin() + index);
+	}
+
+	size_t playerIndex = rand() % output.size();
+	output.at(playerIndex) = {
+		playerName,
+		0,
+		{},
+		Variables::falsyString,
+		false
+	};
+
+	return output;
+}
+
 vector<menuItem> Calc::menuItems(
 	const vector<string> &actions,
 	int colAlign,
@@ -58,7 +89,7 @@ vector<menuItem> Calc::menuItems(
 		rowPositions.push_back(rowOffset + (i * rowOffset));
 	}
 	
-	for(size_t i = 0; i < actions.size(); ++i) {
+	for (size_t i = 0; i < actions.size(); ++i) {
 		int x = colPositions[i % 2];
 		int y = rowPositions[currRow];
 		items.push_back(
@@ -70,7 +101,7 @@ vector<menuItem> Calc::menuItems(
 				}
 			}
 		);
-		if(i % 2 == 1) {
+		if (i % 2 == 1) {
 			++currRow;
 		}
 	}

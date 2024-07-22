@@ -6,6 +6,7 @@
 #include "../draw/draw.h"
 #include "../calc/calc.h"
 #include "../../player/player.h"
+#include "../../inGamePlayer/inGamePlayer.h"
 #include "../../constants/typeAliases.h"
 #include "../../constants/variables.h"
 #include "../../constants/enums.h"
@@ -30,6 +31,7 @@ namespace Screens {
 	);
 	void inGameScreen(
 		Player &player,
+		vector<InGamePlayer> &inGamePlayers,
 		Enums::GameState &gameState,
 		Enums::Rank gameRank
 	);

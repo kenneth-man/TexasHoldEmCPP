@@ -5,16 +5,20 @@
 #include <vector>
 #include <string>
 #include <conio.h>
+#include <stdint.h>
+#include <stdlib.h>
 #include "../../constants/typeAliases.h"
 #include "../../constants/variables.h"
 #include "../../constants/structs.h"
 #include "../draw/draw.h"
 #include "../screens/screens.h"
+#include "../../inGamePlayer/inGamePlayer.h"
 
 using namespace std;
 
 namespace Calc {
 	MenuItemsConfig initMenuItems();
+	vector<InGamePlayer> initInGamePlayers(string playerName);
 	vector<menuItem> menuItems(
 		const vector<string> &actions,
 		int colAlign,

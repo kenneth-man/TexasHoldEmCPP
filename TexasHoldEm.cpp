@@ -1,5 +1,6 @@
 ﻿#include <vector>
 #include <iostream>
+#include <stdlib.h>
 #include "./TexasHoldEm/src/constants/variables.h"
 #include "./TexasHoldEm/src/constants/typeAliases.h"
 #include "./TexasHoldEm/src/constants/enums.h"
@@ -10,7 +11,10 @@
 #include "./TexasHoldEm/src/player/player.h"
 
 int main() {
+    srand((unsigned int)time(NULL));
+
     Player player {};
+    vector<InGamePlayer> inGamePlayers {};
     Enums::GameState gameState = Enums::AUTH;
     Enums::Rank gameRank = Enums::IRON;
 
@@ -109,16 +113,17 @@ int main() {
                     break;
                 }
                 gameRank = rank;
+                inGamePlayers = Calc::initInGamePlayers(
+                    player.name
+                );
                 Misc::handleEnteringGame();
-                // init vector<InGamePlayer> for current player and opps
-                // check opp name doesn't match current player name and randomly
-                // select from a vector of namess
                 gameState = Enums::INGAME;
                 break;
             }
             case Enums::INGAME: {
                 Screens::inGameScreen(
                     player,
+                    inGamePlayers,
                     gameState,
                     gameRank
                 );

@@ -25,14 +25,14 @@ namespace Draw {
 	);
 	void inGame(
 		const vector<InGamePlayer> &inGamePlayers,
-		string currentPlayerName,
+		string currentInGamePlayer,
 		Enums::InGameState inGameState,
 		const cards &poolCards,
 		const cards &playerCards
 	);
 	void list(
 		const vector<InGamePlayer> &inGamePlayers,
-		string currentPlayerName,
+		string currentInGamePlayer,
 		Enums::InGameState inGameState
 	);
 	void playingCards(

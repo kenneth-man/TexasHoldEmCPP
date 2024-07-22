@@ -39,6 +39,7 @@ void Screens::menuScreen(
         menuItems,
         selectedItem
     );
+
     if (
         Calc::menuAction(
             menuItems,
@@ -58,6 +59,7 @@ void Screens::menuScreen(
 
 void Screens::inGameScreen(
     Player &player,
+    vector<InGamePlayer> &inGamePlayers,
     Enums::GameState &gameState,
     Enums::Rank gameRank
 ) {
