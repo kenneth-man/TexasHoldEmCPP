@@ -4,9 +4,9 @@
 #include <filesystem>
 #include <string>
 #include <iostream>
-#include "../game/screens/screens.h"
-#include "../constants/variables.h"
-#include "../auth/auth.h"
+#include "screens.h"
+#include "variables.h"
+#include "auth.h"
 
 using namespace std;
 

@@ -1,17 +1,17 @@
 ﻿#include <vector>
 #include <iostream>
 #include <stdlib.h>
-#include "./TexasHoldEm/src/constants/variables.h"
-#include "./TexasHoldEm/src/constants/typeAliases.h"
-#include "./TexasHoldEm/src/constants/enums.h"
-#include "./TexasHoldEm/src/game/calc/calc.h"
-#include "./TexasHoldEm/src/game/screens/screens.h"
-#include "./TexasHoldEm/src/file/file.h"
-#include "./TexasHoldEm/src/misc/misc.h"
-#include "./TexasHoldEm/src/player/player.h"
+#include "variables.h"
+#include "typeAliases.h"
+#include "enums.h"
+#include "calc.h"
+#include "screens.h"
+#include "file.h"
+#include "misc.h"
+#include "player.h"
 
 int main() {
-    srand((unsigned int)time(NULL));
+    srand((uint32_t)time(NULL));
 
     Player player {};
     vector<InGamePlayer> inGamePlayers {};
@@ -107,7 +107,7 @@ int main() {
             case Enums::RANKMASTER:
             case Enums::RANKCHALLENGER: {
                 Enums::Rank rank = Variables::gameStateRankMap.at(gameState);
-                if (player.balance < Variables::ranksMap.at(rank).second) {
+                if (player.balance < Variables::ranksBetRangeMap.at(rank).second.first) {
                     Screens::errorScreen("You do not have sufficient funds to make a minimum bet at this rank");
                     gameState = Enums::TITLE;
                     break;

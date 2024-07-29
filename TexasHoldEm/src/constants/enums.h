@@ -38,7 +38,13 @@ namespace Enums {
 		RIVER,
 		RIVERBET,
 		SHOWDOWN,
-		END
+		END,
+		EARLYEND,
+		FOLD,
+		CALL,
+		RAISE,
+		BET,
+		CHECK
 	};
 	enum Crypt {
 		ENCRYPT,

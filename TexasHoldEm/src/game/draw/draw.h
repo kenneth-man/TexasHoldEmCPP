@@ -5,10 +5,10 @@
 #include <iostream>
 #include <vector>
 #include <stdint.h>
-#include "../../player/player.h"
-#include "../../inGamePlayer/inGamePlayer.h"
-#include "../../constants/variables.h"
-#include "../../constants/typeAliases.h"
+#include "player.h"
+#include "inGamePlayer.h"
+#include "variables.h"
+#include "typeAliases.h"
 
 using namespace std;
 

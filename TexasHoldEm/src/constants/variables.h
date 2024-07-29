@@ -6,8 +6,8 @@
 #include <string>
 #include <filesystem>
 #include <stdint.h>
-#include "./typeAliases.h"
-#include "./enums.h"
+#include "typeAliases.h"
+#include "enums.h"
 
 using namespace std;
 
@@ -24,9 +24,9 @@ namespace Variables {
 	const string yBorder = "-";
 	// TODO: Option on title screen to set height and width of terminal
 		// to re-calc xSizeGameMenu and ySizeGameMenu and inGameMenu
-	const int xSize = 120;
-	const int ySize = 20;
-	const int minPasswordLen = 6;
+	const uint32_t xSize = 120;
+	const uint32_t ySize = 20;
+	const uint8_t minPasswordLen = 6;
 	const string cardSpace = "   ";
 	const string arrow = "<--";
 	const string txtFileBasePath = filesystem::current_path()
@@ -34,16 +34,16 @@ namespace Variables {
 		"\\TexasHoldem\\res\\";
 	const string leaderboard = txtFileBasePath + "leaderboard.txt";
 	const string options = txtFileBasePath + "options.txt";
-	const int authMenuColAlign = 8;
-	const int authMenuRowAlign = 2;
-	const int titleMenuColAlign = 8;
-	const int titleMenuRowAlign = 4;
-	const int quitMenuColAlign = 8;
-	const int quitMenuRowAlign = 2;
-	const int newGameMenuColAlign = 8;
-	const int newGameMenuRowAlign = 2;
-	const int rankMenuColAlign = 8;
-	const int rankMenuRowAlign = 3;
+	const uint8_t authMenuColAlign = 8;
+	const uint8_t authMenuRowAlign = 2;
+	const uint8_t titleMenuColAlign = 8;
+	const uint8_t titleMenuRowAlign = 4;
+	const uint8_t quitMenuColAlign = 8;
+	const uint8_t quitMenuRowAlign = 2;
+	const uint8_t newGameMenuColAlign = 8;
+	const uint8_t newGameMenuRowAlign = 2;
+	const uint8_t rankMenuColAlign = 8;
+	const uint8_t rankMenuRowAlign = 3;
 	const string passwordPrefix = "Password: ";
 	const string rankPrefix = "Rank: ";
 	const string eloPrefix = "Elo: ";
@@ -101,13 +101,13 @@ ______ _        ______ _ _           _
 | |_\ \ (_| | | | | | |  __/ \ \_/ /\ V /  __/ |     _   _   _ 
  \____/\__,_|_| |_| |_|\___|  \___/  \_/ \___|_|    (_) (_) (_)
 	)";
-	// @inGameActions
-	const vector<string> inGameActions = {
-		"FOLD",
-		"CALL",
-		"RAISE",
-		"BET",
-		"CHECK"
+	// @actions
+	const vector<string> actions = {
+		"[FOLD]",
+		"[CALL]",
+		"[RAISE]",
+		"[BET]",
+		"[CHECK]"
 	};
 	const vector<string> authScreenActions = {
 		"[LOGIN]",
@@ -135,11 +135,18 @@ ______ _        ______ _ _           _
 		"[MASTER]",
 		"[CHALLENGER]",
 	};
-	const stateMap authStateMap = {
+	const inGameStateMap actionsStateMap = {
+		{actions[0], Enums::FOLD},
+		{actions[1], Enums::CALL},
+		{actions[2], Enums::RAISE},
+		{actions[3], Enums::BET},
+		{actions[4], Enums::CHECK}
+	};
+	const gameStateMap authStateMap = {
 		{authScreenActions[0], Enums::LOGIN},
 		{authScreenActions[1], Enums::REGISTER}
 	};
-	const stateMap titleStateMap = {
+	const gameStateMap titleStateMap = {
 		{titleScreenActions[0], Enums::NEWGAME},
 		{titleScreenActions[1], Enums::CONTINUE},
 		{titleScreenActions[2], Enums::INSTRUCTIONS},
@@ -147,15 +154,15 @@ ______ _        ______ _ _           _
 		{titleScreenActions[4], Enums::OPTIONS},
 		{titleScreenActions[5], Enums::QUIT}
 	};
-	const stateMap quitStateMap = {
+	const gameStateMap quitStateMap = {
 		{yesNoScreenActions[0], Enums::QUIT_0},
 		{yesNoScreenActions[1], Enums::QUIT_1}
 	};
-	const stateMap newGameStateMap = {
+	const gameStateMap newGameStateMap = {
 		{yesNoScreenActions[0], Enums::NEWGAME_0},
 		{yesNoScreenActions[1], Enums::NEWGAME_1}
 	};
-	const stateMap rankStateMap = {
+	const gameStateMap rankStateMap = {
 		{rankScreenActions[0], Enums::RANKIRON},
 		{rankScreenActions[1], Enums::RANKBRONZE},
 		{rankScreenActions[2], Enums::RANKSILVER},
@@ -175,7 +182,7 @@ ______ _        ______ _ _           _
 		{Enums::RANKMASTER, Enums::MASTER},
 		{Enums::RANKCHALLENGER, Enums::CHALLENGER}
 	};
-	const map<Enums::InGameState, string> inGameStateMap = {
+	const map<Enums::InGameState, string> inGameStateStrMap = {
 		{Enums::SMALLBLINDBET, "SMALL BLIND BET"},
 		{Enums::BIGBLINDBET, "BIG BLIND BET"},
 		{Enums::DEALING, "DEALING CARDS"},
@@ -188,19 +195,19 @@ ______ _        ______ _ _           _
 		{Enums::RIVERBET, "RIVER BET"},
 		{Enums::SHOWDOWN, "SHOWDOWN"}
 	};
-	const map<Enums::Rank, pair<string, uint32_t>> ranksMap = {
-		{Enums::IRON, {"Iron", 1}},
-		{Enums::BRONZE, {"Bronze", 100}},
-		{Enums::SILVER, {"Silver", 1000}},
-		{Enums::GOLD, {"Gold", 10000}},
-		{Enums::PLATINUM, {"Platinum", 100000}},
-		{Enums::DIAMOND, {"Diamond", 500000}},
-		{Enums::MASTER, {"Master", 1000000}},
-		{Enums::CHALLENGER, {"Challenger", 2000000}}
+	const map<Enums::Rank, rankBetRange> ranksBetRangeMap = {
+		{Enums::IRON, {"Iron", {1, 100}}},
+		{Enums::BRONZE, {"Bronze", {100, 1000}}},
+		{Enums::SILVER, {"Silver", {1000, 10000}}},
+		{Enums::GOLD, {"Gold", {10000, 100000}}},
+		{Enums::PLATINUM, {"Platinum", {100000, 500000}}},
+		{Enums::DIAMOND, {"Diamond", {500000, 1000000}}},
+		{Enums::MASTER, {"Master", {1000000, 2000000}}},
+		{Enums::CHALLENGER, {"Challenger", {2000000, 4000000}}}
 	};
 	const unordered_map<string, string> newUserDefault = {
 		{passwordPrefix, Variables::falsyString},
-		{rankPrefix, ranksMap.begin()->second.first},
+		{rankPrefix, ranksBetRangeMap.begin()->second.first},
 		{eloPrefix, "1000"},
 		{balancePrefix, "25"},
 		{winsPrefix, "0"},

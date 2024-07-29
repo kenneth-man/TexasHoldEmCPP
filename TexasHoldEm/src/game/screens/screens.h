@@ -3,13 +3,13 @@
 #include <conio.h>
 #include <string>
 #include <vector>
-#include "../draw/draw.h"
-#include "../calc/calc.h"
-#include "../../player/player.h"
-#include "../../inGamePlayer/inGamePlayer.h"
-#include "../../constants/typeAliases.h"
-#include "../../constants/variables.h"
-#include "../../constants/enums.h"
+#include "draw.h"
+#include "calc.h"
+#include "player.h"
+#include "inGamePlayer.h"
+#include "typeAliases.h"
+#include "variables.h"
+#include "enums.h"
 
 // forward declaration to prevent circular dependencies
 struct Player;
@@ -26,7 +26,7 @@ namespace Screens {
 		const vector<menuItem> &menuItems,
 		menuItem &selectedItem,
 		Enums::GameState &gameState,
-		const stateMap &stateMap,
+		const gameStateMap &stateMap,
 		string hint = Variables::falsyString
 	);
 	void inGameScreen(

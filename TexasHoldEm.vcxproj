@@ -105,8 +105,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>
-      </AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)TexasHoldEm\src\auth;$(SolutionDir)TexasHoldEm\src\constants;$(SolutionDir)TexasHoldEm\src\file;$(SolutionDir)TexasHoldEm\src\game\screens;$(SolutionDir)TexasHoldEm\src\game\draw;$(SolutionDir)TexasHoldEm\src\game\calc;$(SolutionDir)TexasHoldEm\src\inGamePlayer;$(SolutionDir)TexasHoldEm\src\misc;$(SolutionDir)TexasHoldEm\src\player;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -124,8 +123,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>
-      </AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)TexasHoldEm\src\auth;$(SolutionDir)TexasHoldEm\src\constants;$(SolutionDir)TexasHoldEm\src\file;$(SolutionDir)TexasHoldEm\src\game\screens;$(SolutionDir)TexasHoldEm\src\game\draw;$(SolutionDir)TexasHoldEm\src\game\calc;$(SolutionDir)TexasHoldEm\src\inGamePlayer;$(SolutionDir)TexasHoldEm\src\misc;$(SolutionDir)TexasHoldEm\src\player;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>

@@ -6,9 +6,9 @@ string Auth::crypt(
     Enums::Crypt type
 ) {
     string encrypted = password;
-    int k = stoi(key);
+    uint32_t k = stoi(key);
 
-    for (int i = 0; i < password.length(); ++i) {
+    for (uint32_t i = 0; i < password.length(); ++i) {
         char c = password[i];
 
         if (type == Enums::ENCRYPT) {
@@ -26,9 +26,9 @@ string Auth::crypt(
 string Auth::handleInput(
     vector<string> &inputs,
     const authUserInstructions &instructions,
-    string (*validation)(string, int)
+    string (*validation)(string, uint8_t)
 ) {
-    for (int i = 0; i < instructions.size(); ++i) {
+    for (uint8_t i = 0; i < instructions.size(); ++i) {
         const string input = Screens::infoScreen(
             instructions[i].first,
             instructions[i].second
@@ -120,7 +120,7 @@ void Auth::registerUser(
 
 string Auth::loginUserValidation(
     string input,
-    int index
+    uint8_t index
 ) {
     switch (index) {
         // username
@@ -133,8 +133,17 @@ string Auth::loginUserValidation(
 
             break;
         }
-        case 1:
-        case 2: {
+        case 1: {
+            break;
+        }
+        // key
+        case 2:{
+            const string errorMsg = Calc::checkInputIsValidUInt(input);
+
+            if (errorMsg != Variables::falsyString) {
+                return errorMsg;
+            }
+
             break;
         }
         default: {
@@ -147,7 +156,7 @@ string Auth::loginUserValidation(
 
 string Auth::registerUserValidation(
     string input,
-    int index
+    uint8_t index
 ) {
     switch (index) {
         // username
@@ -172,16 +181,10 @@ string Auth::registerUserValidation(
         }
         // key
         case 2: {
-            try {
-                const int i = stoi(input);
+            const string errorMsg = Calc::checkInputIsValidUInt(input);
 
-                if (i < 0) {
-                    return "Key must be an unsigned integer; it cannot be negative";
-                }
-            } catch (const invalid_argument &_) {
-                return "Key must be an unsigned integer; it cannot contain letters or symbols";
-            } catch (const out_of_range &_) {
-                return "Key exceeds the max number of a 4 byte integer";
+            if (errorMsg != Variables::falsyString) {
+                return errorMsg;
             }
 
             break;

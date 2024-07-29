@@ -3,11 +3,12 @@
 #include <fstream>
 #include <string>
 #include <stdexcept>
-#include "../game/screens/screens.h"
-#include "../file/file.h"
-#include "../constants/enums.h"
-#include "../constants/variables.h"
-#include "../player/player.h"
+#include <stdint.h>
+#include "screens.h"
+#include "file.h"
+#include "enums.h"
+#include "variables.h"
+#include "player.h"
 
 // forward declaration to prevent circular dependencies
 // `player.h` includes `file.h`, which includes this file
@@ -24,7 +25,7 @@ namespace Auth {
 	string handleInput(
 		vector<string> &inputs,
 		const authUserInstructions &instructions,
-		string (*validation)(string, int)
+		string (*validation)(string, uint8_t)
 	);
 	void loginUser(
 		Enums::GameState &gameState,
@@ -36,11 +37,11 @@ namespace Auth {
 	);
 	string loginUserValidation(
 		string input,
-		int index
+		uint8_t index
 	);
 	string registerUserValidation(
 		string input,
-		int index
+		uint8_t index
 	);
 	void failure(
 		string error,

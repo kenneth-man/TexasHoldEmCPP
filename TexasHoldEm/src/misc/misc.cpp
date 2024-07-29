@@ -10,7 +10,7 @@ void Misc::handleEnteringGame() {
 }
 
 void Misc::timer(
-	int seconds,
+	uint8_t seconds,
 	string description
 ) {
 	while (seconds > 0) {

@@ -26,7 +26,7 @@ void Screens::menuScreen(
     const vector<menuItem> &menuItems,
     menuItem &selectedItem,
     Enums::GameState &gameState,
-    const stateMap &stateMap,
+    const gameStateMap &stateMap,
     string hint
 ) {
     Draw::title();
@@ -67,17 +67,26 @@ void Screens::inGameScreen(
     cards poolCards;
     cards playerCards;
     Enums::InGameState inGameState = Enums::SMALLBLINDBET;
+    Enums::InGameState inGameStatePrev = Enums::SMALLBLINDBET;
 
     while(!exit) {
         switch(inGameState) {
             case Enums::SMALLBLINDBET: {
-                cout << "SMALLBLINDBET Not Implemented" << '\n';
-                while(1);
+                Calc::blindBetHandle(
+                    player,
+                    inGamePlayers,
+                    gameRank,
+                    inGameState
+                );
                 break;
             }
             case Enums::BIGBLINDBET: {
-                cout << "BIGBLINDBET Not Implemented" << '\n';
-                while (1);
+                Calc::blindBetHandle(
+                    player,
+                    inGamePlayers,
+                    gameRank,
+                    inGameState
+                );
                 break;
             }
             case Enums::DEALING: {
@@ -124,6 +133,37 @@ void Screens::inGameScreen(
                 // screen to show updates to their data file
                 gameState = Enums::TITLE;
                 exit = true;
+                break;
+            }
+            case Enums::EARLYEND: {
+                gameState = Enums::TITLE;
+                exit = true;
+                break;
+            }
+            case Enums::FOLD: {
+                cout << "FOLD Not Implemented" << '\n';
+                while (1);
+                break;
+            }
+            case Enums::CALL: {
+                cout << "CALL Not Implemented" << '\n';
+                while (1);
+                break;
+            }
+            case Enums::RAISE: {
+                cout << "RAISE Not Implemented" << '\n';
+                while (1);
+                break;
+            }
+            case Enums::BET: {
+                cout << "BET Not Implemented" << '\n';
+                while (1);
+                break;
+            }
+            case Enums::CHECK: {
+                cout << "CHECK Not Implemented" << '\n';
+                while (1);
+                break;
             }
         }
     }

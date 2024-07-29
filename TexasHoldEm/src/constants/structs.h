@@ -1,7 +1,7 @@
 #pragma once
 
 #include <vector>
-#include "./typeAliases.h"
+#include "typeAliases.h"
 
 using namespace std;
 

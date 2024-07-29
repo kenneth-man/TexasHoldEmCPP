@@ -71,9 +71,6 @@ void Draw::inGame(
 	const cards &poolCards,
 	const cards &playerCards
 ) {
-	// infoScreen() instead of all the below depending on if current player needs
-	// to bet a value or make an action + (option to type "BACK" to view in game screen)
-
 	Draw::title();
 	Draw::list(
 		inGamePlayers,
@@ -95,7 +92,7 @@ void Draw::list(
 	uint32_t pot = 0;
 	vector<string> playerTitles;
 	string temp;
-	int index = 1;
+	uint8_t index = 1;
 
 	for (const auto &p : inGamePlayers) {
 		pot += p.betAmount ? p.betAmount : 0;
@@ -120,7 +117,7 @@ void Draw::list(
 		playerTitles.push_back(player);
 	}
 
-	const string inGameStateStr = Variables::inGameStateMap.at(inGameState);
+	const string inGameStateStr = Variables::inGameStateStrMap.at(inGameState);
 	const string title = "* " + inGameStateStr +
 		" - POT TOTAL: \x9C" + to_string(pot) + " *";
 	text(title, true);

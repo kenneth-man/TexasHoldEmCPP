@@ -3,7 +3,7 @@
 #include <fstream>
 #include <string>
 #include <stdint.h>
-#include "../file/file.h"
+#include "file.h"
 
 using namespace std;
 
