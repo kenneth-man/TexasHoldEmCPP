@@ -2,11 +2,15 @@
 
 string Screens::infoScreen(
     string description,
-    string hint
+    string hint,
+    bool quit
 ) {
     Draw::title();
     Draw::text(description);
     Draw::text("(" + hint + ")");
+    if (quit) {
+        Draw::text("(Or submit '" + Variables::quit + "' to go back)");
+    }
     string input;
     // not using `cin << input`, as it will ignore spaces
     getline(cin, input);

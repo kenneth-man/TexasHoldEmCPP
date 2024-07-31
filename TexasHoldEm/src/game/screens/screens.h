@@ -19,7 +19,8 @@ using namespace std;
 namespace Screens {
 	string infoScreen(
 		string description,
-		string hint
+		string hint,
+		bool quit = false
 	);
 	void errorScreen(string description);
 	void menuScreen(

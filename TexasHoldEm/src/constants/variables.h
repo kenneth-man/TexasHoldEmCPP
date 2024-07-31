@@ -19,6 +19,7 @@ namespace Variables {
 	const char right = 'd';
 	const char select = 'p';
 	const char space = ' ';
+	const string quit = "q";
 	const string falsyString = "!";
 	const string xBorder = "|";
 	const string yBorder = "-";
@@ -209,7 +210,7 @@ ______ _        ______ _ _           _
 		{passwordPrefix, Variables::falsyString},
 		{rankPrefix, ranksBetRangeMap.begin()->second.first},
 		{eloPrefix, "1000"},
-		{balancePrefix, "25"},
+		{balancePrefix, "95"},
 		{winsPrefix, "0"},
 		{lossesPrefix, "0"},
 		{gamesPlayedPrefix, "0"}

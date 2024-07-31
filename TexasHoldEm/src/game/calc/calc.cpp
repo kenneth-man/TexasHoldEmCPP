@@ -213,15 +213,6 @@ void Calc::blindBetHandle(
 	Enums::Rank gameRank,
 	Enums::InGameState &inGameState
 ) {
-	//testing only
-	inGamePlayers[1] = {
-		"ken",
-			0,
-		{},
-		Variables::falsyString,
-		false
-	};
-
 	const rankBetRange range = Variables::ranksBetRangeMap
 		.at(gameRank);
 
@@ -251,10 +242,16 @@ void Calc::blindBetHandle(
 	string input;
 
 	while(1) {
-		input = Screens::infoScreen( // TODO: add option to 'q' to quit optional arg
+		input = Screens::infoScreen(
 			description,
-			hint
+			hint,
+			true
 		);
+
+		if (input == Variables::quit) {
+			inGameState = Enums::EARLYEND;
+			return;
+		}
 
 		const string error = checkInputIsValidUInt(input);
 
