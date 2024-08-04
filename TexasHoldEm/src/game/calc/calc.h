@@ -52,6 +52,16 @@ namespace Calc {
 	string checkInputIsValidUInt(
 		string input
 	);
+	//TODO
+	void addRandomPlayerCard(
+		vector<InGamePlayer> &inGamePlayers,
+		cards &uniquePlayerCards
+	);
+	//TODO
+	void addRandomPoolCard(
+		cards &poolCards,
+		cards &uniquePlayerCards
+	);
 	//TODO: ELO CALCULATION/S
 	//TODO: OPPONENT CHANCE OF DISCOVERING BEST HAND, BASED ON
 	// PLAYER ELO (HIGHER THE ELO, HIGHER THE % AND HIGHER CHANCE OF BLUFFS)

@@ -50,12 +50,7 @@ namespace Draw {
 		const wchar_t *hexChar,
 		bool lineBreak = false
 	);
-	void cardRow(
-		const vector<string> &vals,
-		const vector<const wchar_t *> &suitHexChars // possible values @suitHexChars
-	);
+	void cardRow(const cards &cards);
 	void cardRowVals(const vector<string> &vals);
-	void cardRowWChars(
-		const vector<const wchar_t *> &suitHexChars  // possible values @suitHexChars
-	);
+	void cardRowWChars(const vector<const wchar_t *> &suitHexChars);
 }

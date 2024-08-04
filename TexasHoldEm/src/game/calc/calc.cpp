@@ -316,3 +316,21 @@ string Calc::checkInputIsValidUInt(
 		return "Key exceeds the max number of a 4 byte integer";
 	}
 }
+
+void Calc::addRandomPlayerCard(
+	vector<InGamePlayer> &inGamePlayers,
+	cards &uniquePlayerCards
+) {
+	bool validCard = false;
+
+	while(!validCard) {
+		
+	}
+}
+
+void Calc::addRandomPoolCard(
+	cards &poolCards,
+	cards &uniquePlayerCards
+) {
+	
+}

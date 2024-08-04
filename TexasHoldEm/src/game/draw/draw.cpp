@@ -134,21 +134,15 @@ void Draw::playingCards(
 	const cards &playerCards
 ) {
 	text("* Card Pool *", true);
-	if (poolCards.first.size() > 0) {
-		cardRow(
-			poolCards.first,
-			poolCards.second
-		);
+	if (poolCards.size() > 0) {
+		cardRow(poolCards);
 	}
 
 	cout << '\n';
 
 	text("* Your Cards *", true);
-	if (playerCards.first.size() > 0) {
-		cardRow(
-			playerCards.first,
-			playerCards.second
-		);
+	if (playerCards.size() > 0) {
+		cardRow(playerCards);
 	}
 }
 
@@ -197,25 +191,25 @@ void Draw::wideChar(
 	}
 }
 
-void Draw::cardRow(
-	const vector<string> &vals,
-	const vector<const wchar_t *> &suitHexChars
-) {
+void Draw::cardRow(const cards &cards) {
 	vector<string> firstValRows;
 	vector<string> lastValRows;
 	vector<string> topBottomRows;
+	vector<const wchar_t *> suitHexChars;
 
-	for (string v : vals) {
+	for (pair<string, const wchar_t *> v : cards) {
 		topBottomRows.push_back("---------");
 
-		if (v == "10") {
-			firstValRows.push_back("| " + v + "    |");
-			lastValRows.push_back("|    " + v + " |");
+		if (v.first == "10") {
+			firstValRows.push_back("| " + v.first + "    |");
+			lastValRows.push_back("|    " + v.first + " |");
+			suitHexChars.push_back(v.second);
 			continue;
 		}
 		
-		firstValRows.push_back("| " + v + "     |");
-		lastValRows.push_back("|     " + v + " |");
+		firstValRows.push_back("| " + v.first + "     |");
+		lastValRows.push_back("|     " + v.first + " |");
+		suitHexChars.push_back(v.second);
 	}
 
 	cardRowVals(topBottomRows);
@@ -227,9 +221,7 @@ void Draw::cardRow(
 	cardRowVals(topBottomRows);
 }
 
-void Draw::cardRowVals(
-	const vector<string> &vals
-) {
+void Draw::cardRowVals(const vector<string> &vals) {
 	for (uint16_t i = 0; i < vals.size(); ++i) {
 		cout << vals[i];
 
@@ -242,9 +234,7 @@ void Draw::cardRowVals(
 	}
 }
 
-void Draw::cardRowWChars(
-	const vector<const wchar_t *> &suitHexChars
-) {
+void Draw::cardRowWChars(const vector<const wchar_t *> &suitHexChars) {
 	for(uint16_t i = 0; i < suitHexChars.size(); ++i) {
 		cout << "|  ";
 		wideChar(suitHexChars[i]);

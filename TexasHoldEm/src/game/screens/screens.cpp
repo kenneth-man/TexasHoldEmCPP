@@ -69,7 +69,7 @@ void Screens::inGameScreen(
 ) {
     bool exit = false;
     cards poolCards;
-    cards playerCards;
+    cards uniquePlayerCards;
     Enums::InGameState inGameState = Enums::SMALLBLINDBET;
     Enums::InGameState inGameStatePrev = Enums::SMALLBLINDBET;
 
