@@ -15,6 +15,7 @@
 #include "screens.h"
 #include "inGamePlayer.h"
 #include "Player.h"
+#include "macros.h"
 
 // forward declaration to prevent circular dependencies
 struct Player;
@@ -52,16 +53,15 @@ namespace Calc {
 	string checkInputIsValidUInt(
 		string input
 	);
-	//TODO
 	void addRandomPlayerCard(
 		vector<InGamePlayer> &inGamePlayers,
-		cards &uniquePlayerCards
+		cards &uniqueCards
 	);
-	//TODO
 	void addRandomPoolCard(
 		cards &poolCards,
-		cards &uniquePlayerCards
+		cards &uniqueCards
 	);
+	card generateRandomCard();
 	//TODO: ELO CALCULATION/S
 	//TODO: OPPONENT CHANCE OF DISCOVERING BEST HAND, BASED ON
 	// PLAYER ELO (HIGHER THE ELO, HIGHER THE % AND HIGHER CHANCE OF BLUFFS)

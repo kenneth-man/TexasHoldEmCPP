@@ -197,7 +197,7 @@ void Draw::cardRow(const cards &cards) {
 	vector<string> topBottomRows;
 	vector<const wchar_t *> suitHexChars;
 
-	for (pair<string, const wchar_t *> v : cards) {
+	for (card v : cards) {
 		topBottomRows.push_back("---------");
 
 		if (v.first == "10") {

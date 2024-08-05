@@ -319,18 +319,71 @@ string Calc::checkInputIsValidUInt(
 
 void Calc::addRandomPlayerCard(
 	vector<InGamePlayer> &inGamePlayers,
-	cards &uniquePlayerCards
+	cards &uniqueCards
 ) {
-	bool validCard = false;
+	for (uint8_t i = 0; i < inGamePlayers.size(); ++i) {
+		while (1) {
+			card newCard = generateRandomCard();
 
-	while(!validCard) {
-		
+			if (uniqueCards.size() == 0) {
+				uniqueCards.push_back(newCard);
+				inGamePlayers[i].cards.push_back(newCard);
+				break;
+			}
+
+			const auto it = find(
+				uniqueCards.begin(),
+				uniqueCards.end(),
+				newCard
+			);
+
+			if (it == uniqueCards.end()) {
+				uniqueCards.push_back(newCard);
+				inGamePlayers[i].cards.push_back(newCard);
+				break;
+			}
+		}
 	}
 }
 
 void Calc::addRandomPoolCard(
 	cards &poolCards,
-	cards &uniquePlayerCards
+	cards &uniqueCards
 ) {
-	
+	while (1) {
+		card newCard = generateRandomCard();
+
+		if (uniqueCards.size() == 0) {
+			uniqueCards.push_back(newCard);
+			poolCards.push_back(newCard);
+			return;
+		}
+
+		const auto it = find(
+			uniqueCards.begin(),
+			uniqueCards.end(),
+			newCard
+		);
+
+		if (it == uniqueCards.end()) {
+			uniqueCards.push_back(newCard);
+			poolCards.push_back(newCard);
+			return;
+		}
+	}
+}
+
+card Calc::generateRandomCard() {
+	const vector<string> possibleCardText = {
+		"A", "2", "3", "4", "5", "6", "7",
+		"8", "9", "10", "J", "Q", "K"
+	};
+	const vector<const wchar_t *> possibleCardSuit = {
+		SPADE, CLUB, HEART, DIAMOND
+	};
+
+	string cardText = possibleCardText[rand() % possibleCardText.size()];
+	const wchar_t *cardSuit = possibleCardSuit[rand() % possibleCardSuit.size()];
+
+	return make_pair(cardText, cardSuit);
 }

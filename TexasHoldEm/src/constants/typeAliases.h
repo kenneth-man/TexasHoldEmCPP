@@ -12,8 +12,7 @@ using menuItem = pair<string, vector<uint32_t>>;
 using gameStateMap = map<string, Enums::GameState>;
 using inGameStateMap = map<string, Enums::InGameState>;
 using authUserInstructions = vector<pair<string, string>>;
-using cards = map<
-	string,
-	const wchar_t * // possible values @suitHexChars
->;
+// `const wchar_t *` possible values @suitHexChars
+using card = pair<string, const wchar_t *>;
+using cards = vector<card>;
 using rankBetRange = pair<string, pair<uint32_t, uint32_t>>;
