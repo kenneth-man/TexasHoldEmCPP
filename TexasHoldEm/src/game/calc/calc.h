@@ -62,6 +62,10 @@ namespace Calc {
 		cards &uniqueCards
 	);
 	card generateRandomCard();
+	cards getInGamePlayerCards(
+		string name,
+		vector<InGamePlayer> &inGamePlayers
+	);
 	//TODO: ELO CALCULATION/S
 	//TODO: OPPONENT CHANCE OF DISCOVERING BEST HAND, BASED ON
 	// PLAYER ELO (HIGHER THE ELO, HIGHER THE % AND HIGHER CHANCE OF BLUFFS)

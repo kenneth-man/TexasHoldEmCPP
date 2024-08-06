@@ -224,8 +224,11 @@ void Calc::blindBetHandle(
 				bet;
 			inGameState = Enums::BIGBLINDBET;
 		} else {
+			const uint32_t diff = range.second.second - inGamePlayers[0].betAmount;
 			while(bet < inGamePlayers[0].betAmount) {
-				bet = rand() % range.second.second;
+				bet = diff == 0 ?
+					range.second.second :
+					rand() % diff + inGamePlayers[0].betAmount;
 			}
 			inGamePlayers[inGameState].betAmount = bet;
 			inGameState = Enums::DEALING;
@@ -274,7 +277,9 @@ void Calc::blindBetHandle(
 				Screens::errorScreen(hint);
 				continue;
 			}
+			inGamePlayers[inGameState].betAmount = bet;
 			inGameState = Enums::BIGBLINDBET;
+			return;
 		} else {
 			if (bet < inGamePlayers[0].betAmount) {
 				const string hint = "Big Blind Bets must be >= the Small Blind Bet which was \x9C" +
@@ -286,11 +291,10 @@ void Calc::blindBetHandle(
 				Screens::errorScreen(hint);
 				continue;
 			}
+			inGamePlayers[inGameState].betAmount = bet;
 			inGameState = Enums::DEALING;
+			return;
 		}
-
-		inGamePlayers[inGameState].betAmount = bet;
-		return;
 	}
 }
 
@@ -386,4 +390,21 @@ card Calc::generateRandomCard() {
 	const wchar_t *cardSuit = possibleCardSuit[rand() % possibleCardSuit.size()];
 
 	return make_pair(cardText, cardSuit);
+}
+
+cards Calc::getInGamePlayerCards(
+	string name,
+	vector<InGamePlayer> &inGamePlayers
+) {
+	const auto it = find_if(
+		inGamePlayers.begin(),
+		inGamePlayers.end(),
+		[name](InGamePlayer p) { return p.name == name; }
+	);
+
+	if (it != inGamePlayers.end()) {
+		return it->cards;
+	}
+
+	return {};
 }

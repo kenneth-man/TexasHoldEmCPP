@@ -68,8 +68,8 @@ void Screens::inGameScreen(
     Enums::Rank gameRank
 ) {
     bool exit = false;
-    cards poolCards;
-    cards uniqueCards;
+    cards poolCards = {};
+    cards uniqueCards = {};
     Enums::InGameState inGameState = Enums::SMALLBLINDBET;
     Enums::InGameState inGameStatePrev = Enums::SMALLBLINDBET;
 
@@ -94,8 +94,29 @@ void Screens::inGameScreen(
                 break;
             }
             case Enums::DEALING: {
-                cout << "DEALING Not Implemented" << '\n';
-                while (1);
+                for (uint8_t i = 0; i < 2; ++i) {
+                    Calc::addRandomPlayerCard(
+                        inGamePlayers,
+                        uniqueCards
+                    );
+                }
+                for (uint8_t i = 0; i < 3; ++i) {
+                    Calc::addRandomPoolCard(
+                        poolCards,
+                        uniqueCards
+                    );
+                }
+                inGameState = Enums::PREFLOPBET;
+                Draw::inGame(
+                    inGamePlayers,
+                    inGamePlayers[0].name,
+                    inGameState,
+                    poolCards,
+                    Calc::getInGamePlayerCards(
+                        player.name,
+                        inGamePlayers
+                    )
+                );
                 break;
             }
             case Enums::PREFLOPBET: {

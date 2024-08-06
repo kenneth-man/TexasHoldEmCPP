@@ -96,7 +96,7 @@ void Draw::list(
 
 	for (const auto &p : inGamePlayers) {
 		pot += p.betAmount ? p.betAmount : 0;
-		string player = to_string(index) + ") " + p.name + " - ";
+		string player = to_string(index) + ") " + p.name + " -";
 		index++;
 
 		if (p.betAmount) {
