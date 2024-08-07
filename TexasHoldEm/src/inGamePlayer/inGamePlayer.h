@@ -10,6 +10,7 @@ struct InGamePlayer {
 	string name;
 	uint32_t betAmount;
 	cards cards;
-	string action; // possible values @actions
+	string action; // possible values @preflopBetActions or @standardBetActions
 	bool isBot;
+	bool isActive;
 };

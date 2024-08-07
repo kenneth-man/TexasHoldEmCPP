@@ -28,7 +28,10 @@ namespace Draw {
 		string currentInGamePlayer,
 		Enums::InGameState inGameState,
 		const cards &poolCards,
-		const cards &playerCards
+		const cards &playerCards,
+		menuItem &selectedItem,
+		const vector<menuItem> &menuItems = {},
+		const inGameStateMap &stateMap = {}
 	);
 	void list(
 		const vector<InGamePlayer> &inGamePlayers,

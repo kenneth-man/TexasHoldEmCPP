@@ -12,3 +12,8 @@ struct MenuItemsConfig {
 	vector<menuItem> newGameScreenItems;
 	vector<menuItem> rankScreenItems;
 };
+
+struct InGameMenuItemsConfig {
+	vector<menuItem> preflopBetItems;
+	vector<menuItem> standardBetItems;
+};

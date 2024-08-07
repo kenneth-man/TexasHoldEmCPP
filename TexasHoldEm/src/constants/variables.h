@@ -35,16 +35,11 @@ namespace Variables {
 		"\\TexasHoldem\\res\\";
 	const string leaderboard = txtFileBasePath + "leaderboard.txt";
 	const string options = txtFileBasePath + "options.txt";
-	const uint8_t authMenuColAlign = 8;
-	const uint8_t authMenuRowAlign = 2;
-	const uint8_t titleMenuColAlign = 8;
+	const uint8_t standardMenuColAlign = 8;
+	const uint8_t standardMenuRowAlign = 2;
 	const uint8_t titleMenuRowAlign = 4;
-	const uint8_t quitMenuColAlign = 8;
-	const uint8_t quitMenuRowAlign = 2;
-	const uint8_t newGameMenuColAlign = 8;
-	const uint8_t newGameMenuRowAlign = 2;
-	const uint8_t rankMenuColAlign = 8;
 	const uint8_t rankMenuRowAlign = 3;
+	const uint8_t maxPlayers = 6;
 	const string passwordPrefix = "Password: ";
 	const string rankPrefix = "Rank: ";
 	const string eloPrefix = "Elo: ";
@@ -102,8 +97,14 @@ ______ _        ______ _ _           _
 | |_\ \ (_| | | | | | |  __/ \ \_/ /\ V /  __/ |     _   _   _ 
  \____/\__,_|_| |_| |_|\___|  \___/  \_/ \___|_|    (_) (_) (_)
 	)";
-	// @actions
-	const vector<string> actions = {
+	// @preflopBetActions
+	const vector<string> preflopBetActions = {
+		"[FOLD]",
+		"[CALL]",
+		"[RAISE]"
+	};
+	// @standardBetActions
+	const vector<string> standardBetActions = {
 		"[FOLD]",
 		"[CALL]",
 		"[RAISE]",
@@ -136,12 +137,17 @@ ______ _        ______ _ _           _
 		"[MASTER]",
 		"[CHALLENGER]",
 	};
-	const inGameStateMap actionsStateMap = {
-		{actions[0], Enums::FOLD},
-		{actions[1], Enums::CALL},
-		{actions[2], Enums::RAISE},
-		{actions[3], Enums::BET},
-		{actions[4], Enums::CHECK}
+	const inGameStateMap preflopBetActionsStateMap = {
+		{preflopBetActions[0], Enums::FOLD},
+		{preflopBetActions[1], Enums::CALL},
+		{preflopBetActions[2], Enums::RAISE}
+	};
+	const inGameStateMap standardBetActionsStateMap = {
+		{standardBetActions[0], Enums::FOLD},
+		{standardBetActions[1], Enums::CALL},
+		{standardBetActions[2], Enums::RAISE},
+		{standardBetActions[3], Enums::BET},
+		{standardBetActions[4], Enums::CHECK}
 	};
 	const gameStateMap authStateMap = {
 		{authScreenActions[0], Enums::LOGIN},

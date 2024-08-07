@@ -5,28 +5,45 @@ MenuItemsConfig Calc::initMenuItems() {
 
 	config.authScreenItems = menuItems(
 		Variables::authScreenActions,
-		Variables::authMenuColAlign,
-		Variables::authMenuRowAlign
+		Variables::standardMenuColAlign,
+		Variables::standardMenuRowAlign
 	);
 	config.titleScreenItems = menuItems(
 		Variables::titleScreenActions,
-		Variables::titleMenuColAlign,
+		Variables::standardMenuColAlign,
 		Variables::titleMenuRowAlign
 	);
 	config.quitScreenItems = menuItems(
 		Variables::yesNoScreenActions,
-		Variables::quitMenuColAlign,
-		Variables::quitMenuRowAlign
+		Variables::standardMenuColAlign,
+		Variables::standardMenuRowAlign
 	);
 	config.newGameScreenItems = menuItems(
 		Variables::yesNoScreenActions,
-		Variables::newGameMenuColAlign,
-		Variables::newGameMenuRowAlign
+		Variables::standardMenuColAlign,
+		Variables::standardMenuRowAlign
 	);
 	config.rankScreenItems = menuItems(
 		Variables::rankScreenActions,
-		Variables::rankMenuColAlign,
+		Variables::standardMenuColAlign,
 		Variables::rankMenuRowAlign
+	);
+
+	return config;
+}
+
+InGameMenuItemsConfig Calc::initInGameMenuItems() {
+	InGameMenuItemsConfig config;
+
+	config.preflopBetItems = menuItems(
+		Variables::preflopBetActions,
+		Variables::standardMenuColAlign,
+		Variables::standardMenuRowAlign
+	);
+	config.standardBetItems = menuItems(
+		Variables::standardBetActions,
+		Variables::standardMenuColAlign,
+		Variables::standardMenuRowAlign
 	);
 
 	return config;
@@ -35,9 +52,8 @@ MenuItemsConfig Calc::initMenuItems() {
 vector<InGamePlayer> Calc::initInGamePlayers(string playerName) {
 	vector<InGamePlayer> output;
 	vector<string> names = Variables::opponentNames;
-	uint8_t maxPlayers = 6;
 
-	while (output.size() < maxPlayers) {
+	while (output.size() < Variables::maxPlayers) {
 		size_t index = rand() % names.size();
 
 		output.push_back({
@@ -45,6 +61,7 @@ vector<InGamePlayer> Calc::initInGamePlayers(string playerName) {
 			0,
 			{},
 			Variables::falsyString,
+			true,
 			true
 		});
 
@@ -57,7 +74,8 @@ vector<InGamePlayer> Calc::initInGamePlayers(string playerName) {
 		0,
 		{},
 		Variables::falsyString,
-		false
+		false,
+		true
 	};
 
 	return output;
@@ -296,6 +314,24 @@ void Calc::blindBetHandle(
 			return;
 		}
 	}
+}
+
+void Calc::preflopBetHandle(
+	Player &player,
+	vector<InGamePlayer> &inGamePlayers,
+	Enums::Rank gameRank,
+	Enums::InGameState &inGameState
+) {
+	
+}
+
+void Calc::standardBetHandle(
+	Player &player,
+	vector<InGamePlayer> &inGamePlayers,
+	Enums::Rank gameRank,
+	Enums::InGameState &inGameState
+) {
+
 }
 
 string Calc::checkInputIsValidUInt(

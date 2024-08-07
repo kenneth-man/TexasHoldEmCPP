@@ -70,6 +70,9 @@ void Screens::inGameScreen(
     bool exit = false;
     cards poolCards = {};
     cards uniqueCards = {};
+    InGameMenuItemsConfig config = Calc::initInGameMenuItems();
+    menuItem selectedPreflopBetItem = config.preflopBetItems[0];
+    menuItem selectedStandardBetItem = config.standardBetItems[0];
     Enums::InGameState inGameState = Enums::SMALLBLINDBET;
     Enums::InGameState inGameStatePrev = Enums::SMALLBLINDBET;
 
@@ -100,32 +103,38 @@ void Screens::inGameScreen(
                         uniqueCards
                     );
                 }
-                for (uint8_t i = 0; i < 3; ++i) {
-                    Calc::addRandomPoolCard(
-                        poolCards,
-                        uniqueCards
-                    );
-                }
                 inGameState = Enums::PREFLOPBET;
-                Draw::inGame(
-                    inGamePlayers,
-                    inGamePlayers[0].name,
-                    inGameState,
-                    poolCards,
-                    Calc::getInGamePlayerCards(
-                        player.name,
-                        inGamePlayers
-                    )
-                );
                 break;
             }
             case Enums::PREFLOPBET: {
-                cout << "PREFLOPBET Not Implemented" << '\n';
-                while (1);
+               
+                while(inGameState == Enums::PREFLOPBET) {
+                    Draw::inGame(
+                        inGamePlayers,
+                        inGamePlayers[0].name,
+                        inGameState,
+                        poolCards,
+                        Calc::getInGamePlayerCards(
+                            player.name,
+                            inGamePlayers
+                        ),
+                        selectedPreflopBetItem,
+                        config.preflopBetItems,
+                        Variables::preflopBetActionsStateMap
+                    );
+                }
                 break;
             }
             case Enums::FLOP: {
                 cout << "FLOP Not Implemented" << '\n';
+
+                /*for (uint8_t i = 0; i < 3; ++i) {
+                    Calc::addRandomPoolCard(
+                        poolCards,
+                        uniqueCards
+                    );
+                }*/
+
                 while (1);
                 break;
             }

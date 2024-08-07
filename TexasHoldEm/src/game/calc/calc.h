@@ -24,6 +24,7 @@ using namespace std;
 
 namespace Calc {
 	MenuItemsConfig initMenuItems();
+	InGameMenuItemsConfig initInGameMenuItems();
 	vector<InGamePlayer> initInGamePlayers(string playerName);
 	vector<menuItem> menuItems(
 		const vector<string> &actions,
@@ -45,6 +46,20 @@ namespace Calc {
 		uint32_t ySelected
 	);
 	void blindBetHandle(
+		Player &player,
+		vector<InGamePlayer> &inGamePlayers,
+		Enums::Rank gameRank,
+		Enums::InGameState &inGameState
+	);
+	//TODO
+	void preflopBetHandle(
+		Player &player,
+		vector<InGamePlayer> &inGamePlayers,
+		Enums::Rank gameRank,
+		Enums::InGameState &inGameState
+	);
+	//TODO
+	void standardBetHandle(
 		Player &player,
 		vector<InGamePlayer> &inGamePlayers,
 		Enums::Rank gameRank,

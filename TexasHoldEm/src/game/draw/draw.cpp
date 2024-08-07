@@ -69,7 +69,10 @@ void Draw::inGame(
 	string currentInGamePlayer,
 	Enums::InGameState inGameState,
 	const cards &poolCards,
-	const cards &playerCards
+	const cards &playerCards,
+	menuItem &selectedItem,
+	const vector<menuItem> &menuItems,
+	const inGameStateMap &stateMap
 ) {
 	Draw::title();
 	Draw::list(
@@ -81,7 +84,32 @@ void Draw::inGame(
 		poolCards,
 		playerCards
 	);
-	// Draw::menu(...)
+
+	//TODO: instead of always rendering the menu for the player,
+	// have some text display "press X for actions menu..."
+	// then below menu have some text display "press X to go back..."
+	if (menuItems.size() > 0) {
+		Draw::menu(
+			menuItems,
+			selectedItem
+		);
+
+		if (
+			Calc::menuAction(
+				menuItems,
+				selectedItem
+			)
+			) {
+			auto it = stateMap.find(selectedItem.first);
+
+			if (it != stateMap.end()) {
+				inGameState = it->second;
+				return;
+			}
+
+			Screens::errorScreen("Incorrect Map of actions to enums");
+		}
+	}
 }
 
 void Draw::list(
