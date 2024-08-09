@@ -7,6 +7,7 @@
 #include <chrono>
 #include <thread>
 #include "draw.h"
+#include "inGamePlayer.h"
 
 using namespace std;
 
@@ -17,4 +18,5 @@ namespace Misc {
 		uint8_t seconds,
 		string description = "Timer will end"
 	);
+	void decision();
 }

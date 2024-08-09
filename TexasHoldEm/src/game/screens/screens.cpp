@@ -107,7 +107,18 @@ void Screens::inGameScreen(
                 break;
             }
             case Enums::PREFLOPBET: {
-               
+                // TODO
+                // need a function to loop per player, starting with 2 index if PREFLOPBET
+                    // (the player after the big blind bet player)
+                // need a switch to check if PREFLOPBET or not,
+                    // (if not preflopbet, then betting starts at 1st index)
+                // based on the game rank, will need to create another function to
+                    // bluff based on random chance; if higher rank, bluffs more often
+                    // or makes less mistakes - always sees optimal hands
+                // if player isn't current user, then display e.g. "Deciding..." next
+                    // to their name in the UI player list and execute a timer
+                    // then update their action, their bet amout, pot total... in the UI
+                // if player is current user, then execute while loop below
                 while(inGameState == Enums::PREFLOPBET) {
                     Draw::inGame(
                         inGamePlayers,

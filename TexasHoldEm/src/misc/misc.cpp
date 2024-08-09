@@ -14,13 +14,24 @@ void Misc::timer(
 	string description
 ) {
 	while (seconds > 0) {
-		Draw::title();
-		Draw::text(
-			description + " in " + to_string(seconds) + " seconds..."
-		);
+		if (description != Variables::falsyString) {
+			Draw::title();
+			Draw::text(
+				description + " in " + to_string(seconds) + " seconds..."
+			);
+		}
 
 		this_thread::sleep_for(chrono::seconds(seconds / seconds));
 
 		--seconds;
 	}
+}
+
+void Misc::decision() {
+	const uint8_t decisionTime = (rand() % 3) + 1;
+
+	timer(
+		decisionTime,
+		Variables::falsyString
+	);
 }

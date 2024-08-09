@@ -62,7 +62,8 @@ vector<InGamePlayer> Calc::initInGamePlayers(string playerName) {
 			{},
 			Variables::falsyString,
 			true,
-			true
+			true,
+			false
 		});
 
 		names.erase(names.begin() + index);
@@ -75,7 +76,8 @@ vector<InGamePlayer> Calc::initInGamePlayers(string playerName) {
 		{},
 		Variables::falsyString,
 		false,
-		true
+		true,
+		false
 	};
 
 	return output;

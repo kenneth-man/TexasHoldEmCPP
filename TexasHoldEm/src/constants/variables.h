@@ -18,6 +18,7 @@ namespace Variables {
 	const char down = 's';
 	const char right = 'd';
 	const char select = 'p';
+	const char toggleView = 'x';
 	const char space = ' ';
 	const string quit = "q";
 	const string falsyString = "!";

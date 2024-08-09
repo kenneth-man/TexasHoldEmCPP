@@ -99,7 +99,7 @@ void Draw::inGame(
 				menuItems,
 				selectedItem
 			)
-			) {
+		) {
 			auto it = stateMap.find(selectedItem.first);
 
 			if (it != stateMap.end()) {
@@ -119,7 +119,6 @@ void Draw::list(
 ) {
 	uint32_t pot = 0;
 	vector<string> playerTitles;
-	string temp;
 	uint8_t index = 1;
 
 	for (const auto &p : inGamePlayers) {
@@ -127,15 +126,18 @@ void Draw::list(
 		string player = to_string(index) + ") " + p.name + " -";
 		index++;
 
-		if (p.betAmount) {
+		if (p.isDeciding) {
 			player += Variables::space;
-			temp = "BET: \x9C" + to_string(p.betAmount);
-			player += temp;
-		}
-		if (p.action != Variables::falsyString) {
-			player += Variables::space;
-			temp = "ACTION: " + p.action;
-			player += temp;
+			player += "DECIDING...";
+		} else {
+			if (p.betAmount) {
+				player += Variables::space;
+				player += "BET: \x9C" + to_string(p.betAmount);
+			}
+			if (p.action != Variables::falsyString) {
+				player += Variables::space;
+				player += "ACTION: " + p.action;
+			}
 		}
 		if (currentInGamePlayer == p.name) {
 			player += Variables::space;

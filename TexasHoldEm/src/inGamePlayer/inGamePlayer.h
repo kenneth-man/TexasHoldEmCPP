@@ -13,4 +13,5 @@ struct InGamePlayer {
 	string action; // possible values @preflopBetActions or @standardBetActions
 	bool isBot;
 	bool isActive;
+	bool isDeciding;
 };
