@@ -60,4 +60,14 @@ namespace Enums {
 		MASTER,
 		CHALLENGER
 	};
+	enum InGameView {
+		MAIN,
+		MENU
+	};
+	enum MenuAction {
+		INVALID,
+		SELECT,
+		CHANGE,
+		TOGGLEVIEW
+	};
 }

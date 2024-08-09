@@ -24,8 +24,10 @@ namespace Variables {
 	const string falsyString = "!";
 	const string xBorder = "|";
 	const string yBorder = "-";
-	// TODO: Option on title screen to set height and width of terminal
-		// to re-calc xSizeGameMenu and ySizeGameMenu and inGameMenu
+	// TODO: Option on title screen to set height and width of terminal default
+		// when starting the program
+			// to re-calc xSizeGameMenu and ySizeGameMenu and inGameMenu
+		// cheat codes for debugging purposes
 	const uint32_t xSize = 120;
 	const uint32_t ySize = 20;
 	const uint8_t minPasswordLen = 6;

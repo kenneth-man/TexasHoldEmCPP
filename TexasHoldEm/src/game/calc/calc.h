@@ -33,11 +33,11 @@ namespace Calc {
 		uint32_t xSize = Variables::xSize,
 		uint32_t ySize = Variables::ySize
 	);
-	bool menuAction(
+	Enums::MenuAction menuAction(
 		const vector<menuItem> &items,
 		menuItem &selectedItem
 	);
-	uint8_t menuValidKeyPressed(char keyPressed);
+	bool menuValidKeyPressed(char keyPressed);
 	vector<menuItem>::iterator menuActionIt(
 		const vector<menuItem> &items,
 		vector<menuItem> &moveToItems,

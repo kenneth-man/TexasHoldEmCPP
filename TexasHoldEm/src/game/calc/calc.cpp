@@ -129,7 +129,7 @@ vector<menuItem> Calc::menuItems(
 	return items;
 }
 
-bool Calc::menuAction(
+Enums::MenuAction Calc::menuAction(
 	const vector<menuItem> &items,
 	menuItem &selectedItem
 ) {
@@ -141,7 +141,7 @@ bool Calc::menuAction(
 	char keyPressed = tolower(input);
 
 	if (!menuValidKeyPressed(keyPressed)) {
-		return false;
+		return Enums::INVALID;
 	}
 
 	vector<menuItem>::iterator it = menuActionIt(
@@ -160,7 +160,7 @@ bool Calc::menuAction(
 			} else {
 				selectedItem = *(--it);
 			}
-			break;
+			return Enums::CHANGE;
 		}
 		case Variables::down:
 		case Variables::right: {
@@ -169,26 +169,30 @@ bool Calc::menuAction(
 			} else {
 				selectedItem = *(++it);
 			}
-			break;
+			return Enums::CHANGE;
 		}
-		case Variables::select:
-			return true;
+		case Variables::select: {
+			return Enums::SELECT;
+		}
+		case Variables::toggleView: {
+			return Enums::TOGGLEVIEW;
+		}
+		default: return Enums::INVALID;
 	}
-
-	return false;
 }
 
-uint8_t Calc::menuValidKeyPressed(char keyPressed) {
+bool Calc::menuValidKeyPressed(char keyPressed) {
 	switch(keyPressed) {
 		case Variables::up:
 		case Variables::down:
 		case Variables::left:
 		case Variables::right:
 		case Variables::select:
-			return 1;
+		case Variables::toggleView:
+			return true;
 		default:
 			Screens::errorScreen("Invalid Key Pressed");
-			return 0;
+			return false;
 	}
 }
 

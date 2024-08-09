@@ -70,45 +70,69 @@ void Draw::inGame(
 	Enums::InGameState inGameState,
 	const cards &poolCards,
 	const cards &playerCards,
+	Enums::InGameView &inGameView,
 	menuItem &selectedItem,
 	const vector<menuItem> &menuItems,
 	const inGameStateMap &stateMap
 ) {
+	const string toggleViewString(1, toupper(Variables::toggleView));
 	Draw::title();
-	Draw::list(
-		inGamePlayers,
-		currentInGamePlayer,
-		inGameState
-	);
-	Draw::playingCards(
-		poolCards,
-		playerCards
-	);
 
-	//TODO: instead of always rendering the menu for the player,
-	// have some text display "press X for actions menu..."
-	// then below menu have some text display "press X to go back..."
-	if (menuItems.size() > 0) {
-		Draw::menu(
-			menuItems,
-			selectedItem
-		);
+	switch(inGameView) {
+		case Enums::MAIN: {
+			Draw::list(
+				inGamePlayers,
+				currentInGamePlayer,
+				inGameState
+			);
+			Draw::playingCards(
+				poolCards,
+				playerCards
+			);
+			const string info = "Press '" +
+				toggleViewString +
+				"' for the actions menu...";
+			Draw::text("\n");
+			Draw::text(info);
 
-		if (
-			Calc::menuAction(
-				menuItems,
-				selectedItem
-			)
-		) {
-			auto it = stateMap.find(selectedItem.first);
-
-			if (it != stateMap.end()) {
-				inGameState = it->second;
+			char input = _getch();
+			if (input != Variables::toggleView) {
+				Screens::errorScreen("Invalid Key Pressed. " + info);
 				return;
 			}
-
-			Screens::errorScreen("Incorrect Map of actions to enums");
+			inGameView = Enums::MENU;
+			break;
 		}
+		case Enums::MENU: {
+			Draw::menu(
+				menuItems,
+				selectedItem
+			);
+			Draw::text("\n");
+			Draw::text("Press '" +
+				toggleViewString +
+				"' to go back to the main screen...");
+
+			Enums::MenuAction action = Calc::menuAction(
+				menuItems,
+				selectedItem
+			);
+
+			if (action == Enums::SELECT) {
+				auto it = stateMap.find(selectedItem.first);
+
+				if (it != stateMap.end()) {
+					inGameState = it->second;
+					return;
+				}
+
+				Screens::errorScreen("Incorrect Map of actions to enums");
+			} else if (action == Enums::TOGGLEVIEW) {
+				inGameView = Enums::MAIN;
+			}
+			break;
+		}
+		default: break;
 	}
 }
 

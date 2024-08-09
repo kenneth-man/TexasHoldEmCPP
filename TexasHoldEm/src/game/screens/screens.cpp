@@ -48,7 +48,7 @@ void Screens::menuScreen(
         Calc::menuAction(
             menuItems,
             selectedItem
-        )
+        ) == Enums::SELECT
     ) {
         auto it = stateMap.find(selectedItem.first);
 
@@ -70,6 +70,7 @@ void Screens::inGameScreen(
     bool exit = false;
     cards poolCards = {};
     cards uniqueCards = {};
+    Enums::InGameView inGameView = Enums::MAIN;
     InGameMenuItemsConfig config = Calc::initInGameMenuItems();
     menuItem selectedPreflopBetItem = config.preflopBetItems[0];
     menuItem selectedStandardBetItem = config.standardBetItems[0];
@@ -129,6 +130,7 @@ void Screens::inGameScreen(
                             player.name,
                             inGamePlayers
                         ),
+                        inGameView,
                         selectedPreflopBetItem,
                         config.preflopBetItems,
                         Variables::preflopBetActionsStateMap

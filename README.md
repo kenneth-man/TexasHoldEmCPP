@@ -1,5 +1,7 @@
 # TexasHoldEmCPP
 
+![](./TexasHoldEm/res/demo.png)
+
 - ### Game stats persist after closing the program (stored in a local `.txt` file)
 	- ### Name
 	- ### Rank
@@ -8,8 +10,9 @@
 	- ### Win/loss record
 	- ### Total amount of games played
 	- ### Leaderboard
+	- ### Settings
 
-- ### Opponent's stats will be randomized and persist (E.g. ELO, Win/Loss...)
+- ### Opponent's will play better, the higher the rank of the game (E.g. Will have a higher probability of bluffing when in favoured positions, higher probability of recognizing the optimal card combination, etc...)
 
 - ### Ranks based on ELO (Easiest to Most Difficult)
 	- ### Iron (Min bet >= 1)
@@ -26,3 +29,5 @@
 
 - ### If Total balance ever reaches <= 0
 	- ### Game stats reset back to default values, as if a new game
+
+- ### Adding more features as i go...
