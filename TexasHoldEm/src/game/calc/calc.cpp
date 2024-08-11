@@ -49,7 +49,11 @@ InGameMenuItemsConfig Calc::initInGameMenuItems() {
 	return config;
 }
 
-vector<InGamePlayer> Calc::initInGamePlayers(string playerName) {
+vector<InGamePlayer> Calc::initInGamePlayers(
+	string playerName,
+	uint64_t playerBalance,
+	Enums::Rank gameRank
+) {
 	vector<InGamePlayer> output;
 	vector<string> names = Variables::opponentNames;
 
@@ -59,13 +63,13 @@ vector<InGamePlayer> Calc::initInGamePlayers(string playerName) {
 		output.push_back({
 			names[index],
 			0,
-			0,//TODO: RANDOMIZED BALANCE BASED ON RANK
+			Calc::getRandomBalance(gameRank),
 			{},
 			Variables::falsyString,
 			true,
 			true,
 			false,
-			Enums::NEUTRAL //TODO: RANDOMIZED ARCHETYPE
+			Calc::getRandomArchetype()
 		});
 
 		names.erase(names.begin() + index);
@@ -75,7 +79,7 @@ vector<InGamePlayer> Calc::initInGamePlayers(string playerName) {
 	output.at(playerIndex) = {
 		playerName,
 		0,
-		0,//TODO: PLAYER BALANCE SET HERE
+		playerBalance,
 		{},
 		Variables::falsyString,
 		false,
@@ -235,6 +239,7 @@ vector<menuItem>::iterator Calc::menuActionIt(
 	}
 }
 
+// TODO: BETS SHOULD REMOVE FROM PLAYER BALANCE AND BE LESS THAN OR EQUAL TO BALANCE
 void Calc::blindBetHandle(
 	Player &player,
 	vector<InGamePlayer> &inGamePlayers,
@@ -245,14 +250,14 @@ void Calc::blindBetHandle(
 		.at(gameRank);
 
 	if (player.name != inGamePlayers[inGameState].name) {
-		uint32_t bet = rand() % range.second.second;
+		uint64_t bet = rand() % range.second.second;
 		if (inGameState == Enums::SMALLBLINDBET) {
 			inGamePlayers[inGameState].betAmount = bet == 0 ?
 				range.second.first :
 				bet;
 			inGameState = Enums::BIGBLINDBET;
 		} else {
-			const uint32_t diff = range.second.second - inGamePlayers[0].betAmount;
+			const uint64_t diff = range.second.second - inGamePlayers[0].betAmount;
 			while(bet < inGamePlayers[0].betAmount) {
 				bet = diff == 0 ?
 					range.second.second :
@@ -453,4 +458,35 @@ cards Calc::getInGamePlayerCards(
 	}
 
 	return {};
+}
+
+Enums::Archetype Calc::getRandomArchetype() {
+	uint64_t num = Misc::randomInt(
+		Enums::PASSIVE,
+		Enums::AGGRESSIVE
+	);
+
+	switch (num) {
+		case Enums::PASSIVE: {
+			return Enums::PASSIVE;
+		}
+		case Enums::NEUTRAL: {
+			return Enums::NEUTRAL;
+		}
+		case Enums::AGGRESSIVE: {
+			return Enums::AGGRESSIVE;
+		}
+		default: {
+			return Enums::NEUTRAL;
+		}
+	}
+}
+
+uint64_t Calc::getRandomBalance(
+	Enums::Rank rank
+) {
+	rankBetRange betRange = Variables::ranksBetRangeMap.at(rank);
+	pair<uint64_t, uint64_t> range = betRange.second;
+	uint64_t diff = range.second - range.first;
+	return Misc::randomInt(range.first, diff);
 }

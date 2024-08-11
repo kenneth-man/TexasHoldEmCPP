@@ -15,4 +15,4 @@ using authUserInstructions = vector<pair<string, string>>;
 // `const wchar_t *` possible values @suitHexChars
 using card = pair<string, const wchar_t *>;
 using cards = vector<card>;
-using rankBetRange = pair<string, pair<uint32_t, uint32_t>>;
+using rankBetRange = pair<string, pair<uint64_t, uint64_t>>;

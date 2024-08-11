@@ -8,8 +8,8 @@ using namespace std;
 
 struct InGamePlayer {
 	string name;
-	uint32_t betAmount;
-	uint32_t balance;
+	uint64_t betAmount;
+	uint64_t balance;
 	cards cards;
 	string action; // possible values @preflopBetActions or @standardBetActions
 	bool isBot; // determine if human player or not

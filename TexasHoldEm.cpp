@@ -114,7 +114,9 @@ int main() {
                 }
                 gameRank = rank;
                 inGamePlayers = Calc::initInGamePlayers(
-                    player.name
+                    player.name,
+                    player.balance,
+                    gameRank
                 );
                 Misc::handleEnteringGame();
                 gameState = Enums::INGAME;

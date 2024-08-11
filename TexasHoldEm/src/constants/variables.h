@@ -205,6 +205,8 @@ ______ _        ______ _ _           _
 		{Enums::RIVERBET, "RIVER BET"},
 		{Enums::SHOWDOWN, "SHOWDOWN"}
 	};
+	// TODO: REPLACE CHALLENGER WITH A 'NO LIMITS' OPTION
+	// TODO: ADD 'NO LIMITS' BET ACTIONS WITH '[ALL IN]'
 	const map<Enums::Rank, rankBetRange> ranksBetRangeMap = {
 		{Enums::IRON, {"Iron", {1, 100}}},
 		{Enums::BRONZE, {"Bronze", {100, 1000}}},

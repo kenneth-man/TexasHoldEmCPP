@@ -141,7 +141,7 @@ void Draw::list(
 	string currentInGamePlayer,
 	Enums::InGameState inGameState
 ) {
-	uint32_t pot = 0;
+	uint64_t pot = 0;
 	vector<string> playerTitles;
 	uint8_t index = 1;
 

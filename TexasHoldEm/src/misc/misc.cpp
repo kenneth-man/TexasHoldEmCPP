@@ -35,3 +35,10 @@ void Misc::decision() {
 		Variables::falsyString
 	);
 }
+
+uint64_t Misc::randomInt(
+	uint64_t min,
+	uint64_t diff
+) {
+	return rand() % diff + min;
+}

@@ -19,4 +19,8 @@ namespace Misc {
 		string description = "Timer will end"
 	);
 	void decision();
+	uint64_t randomInt(
+		uint64_t min,
+		uint64_t diff
+	);
 }

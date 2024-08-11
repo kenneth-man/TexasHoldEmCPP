@@ -16,6 +16,7 @@
 #include "inGamePlayer.h"
 #include "Player.h"
 #include "macros.h"
+#include "misc.h"
 
 // forward declaration to prevent circular dependencies
 struct Player;
@@ -25,7 +26,11 @@ using namespace std;
 namespace Calc {
 	MenuItemsConfig initMenuItems();
 	InGameMenuItemsConfig initInGameMenuItems();
-	vector<InGamePlayer> initInGamePlayers(string playerName);
+	vector<InGamePlayer> initInGamePlayers(
+		string playerName,
+		uint64_t playerBalance,
+		Enums::Rank gameRank
+	);
 	vector<menuItem> menuItems(
 		const vector<string> &actions,
 		uint32_t colAlign,
@@ -81,6 +86,8 @@ namespace Calc {
 		string name,
 		vector<InGamePlayer> &inGamePlayers
 	);
+	Enums::Archetype getRandomArchetype();
+	uint64_t getRandomBalance(Enums::Rank rank);
 	//TODO: ELO CALCULATION/S
 	//TODO: OPPONENT CHANCE OF DISCOVERING BEST HAND, BASED ON
 		//PLAYER ELO (HIGHER THE ELO, HIGHER THE % AND HIGHER CHANCE OF BLUFFS)
