@@ -154,6 +154,7 @@ void Draw::list(
 			player += Variables::space;
 			player += "DECIDING...";
 		} else {
+			//TODO: DISPLAY PLAYER BALANCE
 			if (p.betAmount) {
 				player += Variables::space;
 				player += "BET: \x9C" + to_string(p.betAmount);

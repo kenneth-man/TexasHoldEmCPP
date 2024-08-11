@@ -70,4 +70,10 @@ namespace Enums {
 		CHANGE,
 		TOGGLEVIEW
 	};
+	enum Archetype {
+		HUMAN,
+		PASSIVE,
+		NEUTRAL,
+		AGGRESSIVE
+	};
 }

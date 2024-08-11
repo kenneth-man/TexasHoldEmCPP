@@ -59,11 +59,13 @@ vector<InGamePlayer> Calc::initInGamePlayers(string playerName) {
 		output.push_back({
 			names[index],
 			0,
+			0,//TODO: RANDOMIZED BALANCE BASED ON RANK
 			{},
 			Variables::falsyString,
 			true,
 			true,
-			false
+			false,
+			Enums::NEUTRAL //TODO: RANDOMIZED ARCHETYPE
 		});
 
 		names.erase(names.begin() + index);
@@ -73,11 +75,13 @@ vector<InGamePlayer> Calc::initInGamePlayers(string playerName) {
 	output.at(playerIndex) = {
 		playerName,
 		0,
+		0,//TODO: PLAYER BALANCE SET HERE
 		{},
 		Variables::falsyString,
 		false,
 		true,
-		false
+		false,
+		Enums::HUMAN
 	};
 
 	return output;

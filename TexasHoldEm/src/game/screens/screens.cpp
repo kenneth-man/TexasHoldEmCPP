@@ -123,7 +123,7 @@ void Screens::inGameScreen(
                 while(inGameState == Enums::PREFLOPBET) {
                     Draw::inGame(
                         inGamePlayers,
-                        inGamePlayers[0].name,
+                        inGamePlayers[0].name, // TODO: should be player add 2nd index not 0th
                         inGameState,
                         poolCards,
                         Calc::getInGamePlayerCards(
