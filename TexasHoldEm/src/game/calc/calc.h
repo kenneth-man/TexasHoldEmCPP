@@ -84,10 +84,16 @@ namespace Calc {
 	card generateRandomCard();
 	cards getInGamePlayerCards(
 		string name,
-		vector<InGamePlayer> &inGamePlayers
+		const vector<InGamePlayer> &inGamePlayers
 	);
 	Enums::Archetype getRandomArchetype();
 	uint64_t getRandomBalance(Enums::Rank rank);
+	// TODO
+	Enums::InGameState calcActionBasedOnCardsStrength(
+		cards cards,
+		Enums::Archetype archetype,
+		Enums::Rank rank
+	);
 	//TODO: ELO CALCULATION/S
 	//TODO: OPPONENT CHANCE OF DISCOVERING BEST HAND, BASED ON
 		//PLAYER ELO (HIGHER THE ELO, HIGHER THE % AND HIGHER CHANCE OF BLUFFS)

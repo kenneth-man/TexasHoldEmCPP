@@ -147,22 +147,18 @@ void Draw::list(
 
 	for (const auto &p : inGamePlayers) {
 		pot += p.betAmount ? p.betAmount : 0;
-		string player = to_string(index) + ") " + p.name + " -";
+		string player = to_string(index) + ") " + p.name + "  -";
 		index++;
 
 		if (p.isDeciding) {
-			player += Variables::space;
-			player += "DECIDING...";
+			player += "  DECIDING...";
 		} else {
-			//TODO: DISPLAY PLAYER BALANCE
-			if (p.betAmount) {
-				player += Variables::space;
-				player += "BET: \x9C" + to_string(p.betAmount);
-			}
-			if (p.action != Variables::falsyString) {
-				player += Variables::space;
-				player += "ACTION: " + p.action;
-			}
+			player += "  BALANCE: \x9C" + to_string(p.balance) + "  -";
+			player += "  BET: \x9C" + to_string(p.betAmount) + "  -";
+			player += "  ACTION: " +
+				(p.action == Variables::falsyString ?
+					Variables::miscBetActions[2] :
+					p.action);
 		}
 		if (currentInGamePlayer == p.name) {
 			player += Variables::space;

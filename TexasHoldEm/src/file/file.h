@@ -20,7 +20,7 @@ namespace File {
 	bool existingUser(string username);
 	string updateLineValue(
 		string username,
-		string prefix,
+		string prefix, // possible values @prefixes
 		string value
 	);
 	string getLineValue(

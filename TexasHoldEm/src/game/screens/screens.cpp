@@ -121,9 +121,10 @@ void Screens::inGameScreen(
                     // then update their action, their bet amout, pot total... in the UI
                 // if player is current user, then execute while loop below
                 while(inGameState == Enums::PREFLOPBET) {
+                    // TODO: loop over players (deciding timer, then fold, call, raise based on calcActionBasedOnCardsStrength)
                     Draw::inGame(
                         inGamePlayers,
-                        inGamePlayers[0].name, // TODO: should be player add 2nd index not 0th
+                        inGamePlayers[2].name,
                         inGameState,
                         poolCards,
                         Calc::getInGamePlayerCards(

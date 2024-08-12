@@ -239,7 +239,6 @@ vector<menuItem>::iterator Calc::menuActionIt(
 	}
 }
 
-// TODO: BETS SHOULD REMOVE FROM PLAYER BALANCE AND BE LESS THAN OR EQUAL TO BALANCE
 void Calc::blindBetHandle(
 	Player &player,
 	vector<InGamePlayer> &inGamePlayers,
@@ -255,6 +254,7 @@ void Calc::blindBetHandle(
 			inGamePlayers[inGameState].betAmount = bet == 0 ?
 				range.second.first :
 				bet;
+			inGamePlayers[inGameState].action = Variables::miscBetActions[0];
 			inGameState = Enums::BIGBLINDBET;
 		} else {
 			const uint64_t diff = range.second.second - inGamePlayers[0].betAmount;
@@ -264,6 +264,7 @@ void Calc::blindBetHandle(
 					rand() % diff + inGamePlayers[0].betAmount;
 			}
 			inGamePlayers[inGameState].betAmount = bet;
+			inGamePlayers[inGameState].action = Variables::miscBetActions[1];
 			inGameState = Enums::DEALING;
 		}
 		return;
@@ -310,7 +311,15 @@ void Calc::blindBetHandle(
 				Screens::errorScreen(hint);
 				continue;
 			}
+			inGamePlayers[inGameState].action = Variables::miscBetActions[0];
 			inGamePlayers[inGameState].betAmount = bet;
+			inGamePlayers[inGameState].balance -= bet;
+			player.balance -= bet;
+			File::updateLineValue(
+				player.name,
+				Variables::balancePrefix,
+				to_string(player.balance)
+			);
 			inGameState = Enums::BIGBLINDBET;
 			return;
 		} else {
@@ -324,7 +333,15 @@ void Calc::blindBetHandle(
 				Screens::errorScreen(hint);
 				continue;
 			}
+			inGamePlayers[inGameState].action = Variables::miscBetActions[0];
 			inGamePlayers[inGameState].betAmount = bet;
+			inGamePlayers[inGameState].balance -= bet;
+			player.balance -= bet;
+			File::updateLineValue(
+				player.name,
+				Variables::balancePrefix,
+				to_string(player.balance)
+			);
 			inGameState = Enums::DEALING;
 			return;
 		}
@@ -353,7 +370,7 @@ string Calc::checkInputIsValidUInt(
 	string input
 ) {
 	try {
-		const int32_t i = stoi(input);
+		const int64_t i = stoi(input);
 
 		if (i < 0) {
 			return "Key must be an unsigned integer; it cannot be negative";
@@ -368,7 +385,7 @@ string Calc::checkInputIsValidUInt(
 	}
 	catch (const out_of_range &_) {
 		(void)_;
-		return "Key exceeds the max number of a 4 byte integer";
+		return "Key exceeds the max number of a 8 byte integer";
 	}
 }
 
@@ -445,7 +462,7 @@ card Calc::generateRandomCard() {
 
 cards Calc::getInGamePlayerCards(
 	string name,
-	vector<InGamePlayer> &inGamePlayers
+	const vector<InGamePlayer> &inGamePlayers
 ) {
 	const auto it = find_if(
 		inGamePlayers.begin(),
@@ -488,5 +505,29 @@ uint64_t Calc::getRandomBalance(
 	rankBetRange betRange = Variables::ranksBetRangeMap.at(rank);
 	pair<uint64_t, uint64_t> range = betRange.second;
 	uint64_t diff = range.second - range.first;
-	return Misc::randomInt(range.first, diff);
+	return (Misc::randomInt(range.first, diff) + range.second) * 3;
+}
+
+Enums::InGameState Calc::calcActionBasedOnCardsStrength(
+	cards cards,
+	Enums::Archetype archetype,
+	Enums::Rank rank
+) {
+	size_t cardSize = cards.size();
+
+	switch(cardSize) {
+		case 2: {
+			return Enums::FOLD;
+		}
+		case 3: {
+			return Enums::FOLD;
+		}
+		case 4: {
+			return Enums::FOLD;
+		}
+		case 5: {
+			return Enums::FOLD;
+		}
+		default: return Enums::FOLD;
+	}
 }

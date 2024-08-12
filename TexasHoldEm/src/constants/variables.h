@@ -43,6 +43,7 @@ namespace Variables {
 	const uint8_t titleMenuRowAlign = 4;
 	const uint8_t rankMenuRowAlign = 3;
 	const uint8_t maxPlayers = 6;
+	// @prefixes /////////////////////////////////////
 	const string passwordPrefix = "Password: ";
 	const string rankPrefix = "Rank: ";
 	const string eloPrefix = "Elo: ";
@@ -50,6 +51,7 @@ namespace Variables {
 	const string winsPrefix = "Wins: ";
 	const string lossesPrefix = "Losses: ";
 	const string gamesPlayedPrefix = "Games Played: ";
+	//////////////////////////////////////////////////
 	const string texasHoldEm = R"(
  _____                    _   _       _     _ _ _____          
 |_   _|                  | | | |     | |   | ( )  ___|         
@@ -113,6 +115,12 @@ ______ _        ______ _ _           _
 		"[RAISE]",
 		"[BET]",
 		"[CHECK]"
+	};
+	// @miscBetActions
+	const vector<string> miscBetActions = {
+		"[SMALL BLIND]",
+		"[BIG BLIND]",
+		"[WAITING...]"
 	};
 	const vector<string> authScreenActions = {
 		"[LOGIN]",
@@ -207,6 +215,7 @@ ______ _        ______ _ _           _
 	};
 	// TODO: REPLACE CHALLENGER WITH A 'NO LIMITS' OPTION
 	// TODO: ADD 'NO LIMITS' BET ACTIONS WITH '[ALL IN]'
+	// TODO: ADD 'ALL IN' IN InGameState enum to replace challenger
 	const map<Enums::Rank, rankBetRange> ranksBetRangeMap = {
 		{Enums::IRON, {"Iron", {1, 100}}},
 		{Enums::BRONZE, {"Bronze", {100, 1000}}},
@@ -220,8 +229,8 @@ ______ _        ______ _ _           _
 	const unordered_map<string, string> newUserDefault = {
 		{passwordPrefix, Variables::falsyString},
 		{rankPrefix, ranksBetRangeMap.begin()->second.first},
-		{eloPrefix, "1000"},
-		{balancePrefix, "95"},
+		{eloPrefix, "100"},
+		{balancePrefix, "1000"},
 		{winsPrefix, "0"},
 		{lossesPrefix, "0"},
 		{gamesPlayedPrefix, "0"}
