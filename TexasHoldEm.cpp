@@ -81,6 +81,7 @@ int main() {
                     gameState = Enums::TITLE;
                     break;
                 }
+                player.init(player.name);
                 Screens::menuScreen(
                     config.rankScreenItems,
                     selectedRankScreenItem,
