@@ -1,5 +1,248 @@
 #include "calc.h"
 
+////////////////////////////////////////////////////////////////////////////////////
+// static methods - these cannot be called outside this file
+////////////////////////////////////////////////////////////////////////////////////
+static cards checkAtleastFiveCardsSameSuit(const cards &c) {
+	vector<cards> suitsCount = {{}, {}, {}, {}};
+	cards sameSuitCards = {};
+
+	for (auto &card : c) {
+		if (card.second == SPADE) {
+			suitsCount[0].push_back(card);
+			continue;
+		}
+		if (card.second == CLUB) {
+			suitsCount[1].push_back(card);
+			continue;
+		}
+		if (card.second == HEART) {
+			suitsCount[2].push_back(card);
+			continue;
+		}
+		if (card.second == DIAMOND) {
+			suitsCount[3].push_back(card);
+			continue;
+		}
+	}
+
+	for (uint8_t i = 0; i < suitsCount.size(); ++i) {
+		if (suitsCount[i].size() >= 5) {
+			return suitsCount[i];
+		}
+	}
+
+	return {};
+}
+
+static bool checkRoyalFlush(const cards &c) {
+	if (c.size() == 2) {
+		auto royalFlushCard1It = find(
+			Variables::royalFlushCards.begin(),
+			Variables::royalFlushCards.end(),
+			c[0].first
+		);
+		auto royalFlushCard2It = find(
+			Variables::royalFlushCards.begin(),
+			Variables::royalFlushCards.end(),
+			c[1].first
+		);
+
+		if (
+			royalFlushCard1It != Variables::royalFlushCards.end() &&
+			royalFlushCard2It != Variables::royalFlushCards.end()
+			) {
+			return true;
+		}
+
+		return false;
+	} else {
+		set<string> cardValueMatches = {};
+
+		for (auto &crd : c) {
+			auto it = find(
+				Variables::royalFlushCards.begin(),
+				Variables::royalFlushCards.end(),
+				crd.first
+			);
+
+			if (it != Variables::royalFlushCards.end()) {
+				cardValueMatches.insert(crd.first);
+			}
+		}
+
+		if (cardValueMatches.size() == Variables::royalFlushCards.size()) {
+			return true;
+		}
+
+		return false;
+	}
+}
+
+static void correctCardLetterTenOrder(vector<string> &uniqueCardValuesVec) {
+	const auto cardLetterTenIt = find(
+		uniqueCardValuesVec.begin(),
+		uniqueCardValuesVec.end(),
+		Variables::orderOfCards[8]
+	);
+
+	if (cardLetterTenIt != uniqueCardValuesVec.end()) {
+		uniqueCardValuesVec.erase(cardLetterTenIt);
+		uniqueCardValuesVec.push_back(Variables::orderOfCards[8]);
+	}
+}
+
+static void findCardIndexes(
+	uint8_t &card1Index,
+	uint8_t &card2Index,
+	const cards &c
+) {
+	for (uint8_t i = 0; i < Variables::orderOfCards.size(); ++i) {
+		if (Variables::orderOfCards[i] == c[0].first) {
+			card1Index = i;
+		}
+		if (Variables::orderOfCards[i] == c[1].first) {
+			card2Index = i;
+		}
+	}
+}
+
+static vector<string> setUniqueCardValuesVec(const set<string> &uniqueCardValues) {
+	set<string> removedCardLetters;
+	bool jack = false;
+	bool queen = false;
+	bool king = false;
+	bool ace = false;
+	uint8_t cardLetterIndexBegin = 9;
+
+	for (auto &c : uniqueCardValues) {
+		if (c == Variables::orderOfCards[cardLetterIndexBegin]) {
+			jack = true;
+			continue;
+		}
+		if (c == Variables::orderOfCards[cardLetterIndexBegin + 1]) {
+			queen = true;
+			continue;
+		}
+		if (c == Variables::orderOfCards[cardLetterIndexBegin + 2]) {
+			king = true;
+			continue;
+		}
+		if (c == Variables::orderOfCards[cardLetterIndexBegin + 3]) {
+			ace = true;
+			continue;
+		}
+
+		removedCardLetters.insert(c);
+	}
+
+	// std::copy needs to know how much space to accommodate for the elements
+		// being copied; that's why a vector size() is defined
+	vector<string> uniqueCardValuesVec(removedCardLetters.size());
+	vector<bool> cardLetters{jack, queen, king, ace};
+
+	copy(
+		removedCardLetters.begin(),
+		removedCardLetters.end(),
+		uniqueCardValuesVec.begin()
+	);
+
+	correctCardLetterTenOrder(uniqueCardValuesVec);
+
+	for (uint8_t i = 0; i < cardLetters.size(); ++i) {
+		if (cardLetters[i]) {
+			uniqueCardValuesVec.push_back(
+				Variables::orderOfCards[i + cardLetterIndexBegin]
+			);
+		}
+	}
+
+	return uniqueCardValuesVec;
+}
+
+static bool checkStraightFlush(const cards &c) {
+	if (c.size() == 2) {
+		uint8_t card1Index {};
+		uint8_t card2Index {};
+
+		findCardIndexes(
+			card1Index,
+			card2Index,
+			c
+		);
+
+		uint8_t indexDiff = abs(card1Index - card2Index);
+
+		if (
+			indexDiff <= 4 &&
+			indexDiff > 0
+		) {
+			return true;
+		}
+
+		return false;
+	} else {
+		set<string> uniqueCardValues = {};
+
+		for (auto &crd : c) {
+			uniqueCardValues.insert(crd.first);
+		}
+
+		if (uniqueCardValues.size() < 5) {
+			return false;
+		}
+
+		uint8_t consecutiveCards = 0;
+		vector<string> uniqueCardValuesVec = setUniqueCardValuesVec(
+			uniqueCardValues
+		);
+
+		for (uint8_t i = 0; i < uniqueCardValuesVec.size(); ++i) {
+			uint8_t card1Index {};
+			uint8_t card2Index {};
+
+			if (i < uniqueCardValuesVec.size() - 1) {
+				findCardIndexes(
+					card1Index,
+					card2Index,
+					{
+						{uniqueCardValuesVec[i], FALSYCHARMAP},
+						{uniqueCardValuesVec[i + 1], FALSYCHARMAP}
+					}
+				);
+
+				uint8_t indexDiff = abs(card1Index - card2Index);
+
+				if (indexDiff == 1) {
+					consecutiveCards++;
+
+					if (consecutiveCards >= 4) {
+						return true;
+					}
+				} else {
+					consecutiveCards = 0;
+				}
+			}
+		}
+
+		return false;
+	}
+}
+
+static uint8_t checkCardLetter(string s) {
+	try {
+		uint8_t i = stoi(s);
+		return i;
+	} catch (const invalid_argument &_) {
+		uint8_t jackQueenKingOrAce = 255;
+		return jackQueenKingOrAce;
+	}
+}
+
+////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////
+
 MenuItemsConfig Calc::initMenuItems() {
 	MenuItemsConfig config;
 
@@ -508,26 +751,70 @@ uint64_t Calc::getRandomBalance(
 	return (Misc::randomInt(range.first, diff) + range.second) * 3;
 }
 
-Enums::InGameState Calc::calcActionBasedOnCardsStrength(
-	cards cards,
+Enums::InGameState Calc::calcActionFromCardsStrength(
+	const cards &c,
 	Enums::Archetype archetype,
-	Enums::Rank rank
+	Enums::Rank rank,
+	const inGameStateMap &possibleActions
 ) {
-	size_t cardSize = cards.size();
-
-	switch(cardSize) {
+	switch(c.size()) {
 		case 2: {
-			return Enums::FOLD;
-		}
-		case 3: {
-			return Enums::FOLD;
-		}
-		case 4: {
 			return Enums::FOLD;
 		}
 		case 5: {
 			return Enums::FOLD;
 		}
+		case 6: {
+			return Enums::FOLD;
+		}
+		case 7: {
+			return Enums::FOLD;
+		}
 		default: return Enums::FOLD;
 	}
+}
+
+Enums::CardsStrength Calc::findCardsStrength(const cards &c) {
+	if (c.size() == 2) {
+		if (c[0].second == c[1].second) {
+			if (checkRoyalFlush(c)) {
+				return Enums::ROYALFLUSH;
+			}
+
+			if (checkStraightFlush(c)) {
+				return Enums::STRAIGHTFLUSH;
+			}
+
+			return Enums::FLUSH;
+		}
+
+		if (c[0].first == c[1].first) {
+			return Enums::PAIR;
+		}
+
+		if (
+			checkCardLetter(c[0].first) > 9 ||
+			checkCardLetter(c[1].first) > 9
+		) {
+			return Enums::HIGHCARD;
+		}
+	} else {
+		cards cards = checkAtleastFiveCardsSameSuit(c);
+
+		if (cards.size() != 0) {
+			if (checkRoyalFlush(cards)) {
+				return Enums::ROYALFLUSH;
+			}
+			
+			if (checkStraightFlush(cards)) {
+				return Enums::STRAIGHTFLUSH;
+			}
+
+			return Enums::FLUSH;
+		}
+
+		//...
+	}
+
+	return Enums::SHOULDNOTPLAY;
 }

@@ -9,3 +9,4 @@
 #define CLUB L"\u2663"
 #define HEART L"\u2665"
 #define DIAMOND L"\u2666"
+#define FALSYCHARMAP L"\u2620"

@@ -262,4 +262,26 @@ ______ _        ______ _ _           _
 		"Charlotte",
 		"Elijah"
 	};
+	const vector<string> royalFlushCards = {
+		"10",
+		"J",
+		"Q",
+		"K",
+		"A"
+	};
+	const vector<string> orderOfCards = {
+		"2",
+		"3",
+		"4",
+		"5",
+		"6",
+		"7",
+		"8",
+		"9",
+		"10",
+		"J",
+		"Q",
+		"K",
+		"A"
+	};
 }

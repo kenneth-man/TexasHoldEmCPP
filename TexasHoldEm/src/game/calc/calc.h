@@ -4,6 +4,7 @@
 #include <utility>
 #include <vector>
 #include <string>
+#include <set>
 #include <conio.h>
 #include <stdint.h>
 #include <stdlib.h>
@@ -89,11 +90,17 @@ namespace Calc {
 	Enums::Archetype getRandomArchetype();
 	uint64_t getRandomBalance(Enums::Rank rank);
 	// TODO
-	Enums::InGameState calcActionBasedOnCardsStrength(
-		cards cards,
+	Enums::InGameState calcActionFromCardsStrength(
+		const cards &c,
 		Enums::Archetype archetype,
-		Enums::Rank rank
+		Enums::Rank rank,
+		const inGameStateMap &possibleActions
 	);
+	Enums::CardsStrength findCardsStrength(
+		const cards &c
+	);
+	//TODO: REFACTOR ALL FUNCTIONS THAT AREN'T CALLED OUTSIDE THEIR SRC FILES
+		// TO STATIC
 	//TODO: ELO CALCULATION/S
 	//TODO: OPPONENT CHANCE OF DISCOVERING BEST HAND, BASED ON
 		//PLAYER ELO (HIGHER THE ELO, HIGHER THE % AND HIGHER CHANCE OF BLUFFS)
