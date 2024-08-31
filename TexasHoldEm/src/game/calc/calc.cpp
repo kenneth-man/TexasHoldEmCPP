@@ -5,7 +5,6 @@
 ////////////////////////////////////////////////////////////////////////////////////
 static cards checkAtleastFiveCardsSameSuit(const cards &c) {
 	vector<cards> suitsCount = {{}, {}, {}, {}};
-	cards sameSuitCards = {};
 
 	for (auto &card : c) {
 		if (card.second == SPADE) {
@@ -237,6 +236,64 @@ static uint8_t checkCardLetter(string s) {
 		uint8_t jackQueenKingOrAce = 255;
 		return jackQueenKingOrAce;
 	}
+}
+
+static bool checkOfAKind(
+	const cards &c,
+	Enums::CardsStrength s
+) {
+	map<string, uint8_t> cardCounts = {};
+
+	for (auto &crd : c) {
+		try {
+			uint8_t count = cardCounts.at(crd.first);
+			cardCounts.erase(crd.first);
+			cardCounts.emplace(crd.first, count + 1);
+		} catch (const out_of_range &_) {
+			cardCounts.emplace(crd.first, 1);
+		}
+	}
+
+	if (
+		find_if(
+			cardCounts.begin(),
+			cardCounts.end(),
+			[s](pair<string, uint8_t> count) {
+				switch (s) {
+					case Enums::FOUROFAKIND: {
+						return count.second == 4;
+					}
+					case Enums::THREEOFAKIND: {
+						return count.second == 3;
+					}
+					case Enums::TWOPAIR: {
+						static uint8_t pairCount = 0;
+						if (count.second == 2) {
+							pairCount++;
+						}
+						return pairCount == 2;
+					}
+					case Enums::PAIR: {
+						return count.second == 2;
+					}
+					default: return false;
+				}
+			}
+		) != cardCounts.end()
+	) {
+		return true;
+	}
+	return false;
+}
+
+static bool checkHighCard(const cards &c) {
+	for (auto &crd : c) {
+		if (checkCardLetter(crd.first) > 9) {
+			return true;
+		}
+	}
+
+	return false;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////
@@ -791,29 +848,42 @@ Enums::CardsStrength Calc::findCardsStrength(const cards &c) {
 		if (c[0].first == c[1].first) {
 			return Enums::PAIR;
 		}
-
-		if (
-			checkCardLetter(c[0].first) > 9 ||
-			checkCardLetter(c[1].first) > 9
-		) {
-			return Enums::HIGHCARD;
-		}
 	} else {
-		cards cards = checkAtleastFiveCardsSameSuit(c);
+		cards sameSuit = checkAtleastFiveCardsSameSuit(c);
 
-		if (cards.size() != 0) {
-			if (checkRoyalFlush(cards)) {
+		if (sameSuit.size()) {
+			if (checkRoyalFlush(sameSuit)) {
 				return Enums::ROYALFLUSH;
 			}
 			
-			if (checkStraightFlush(cards)) {
+			if (checkStraightFlush(sameSuit)) {
 				return Enums::STRAIGHTFLUSH;
 			}
 
 			return Enums::FLUSH;
 		}
 
-		//...
+		if (checkOfAKind(c, Enums::FOUROFAKIND)) {
+			return Enums::FOUROFAKIND;
+		}
+
+		///
+
+		if (checkOfAKind(c, Enums::THREEOFAKIND)) {
+			return Enums::THREEOFAKIND;
+		}
+
+		if (checkOfAKind(c, Enums::TWOPAIR)) {
+			return Enums::TWOPAIR;
+		}
+
+		if (checkOfAKind(c, Enums::PAIR)) {
+			return Enums::PAIR;
+		}
+	}
+
+	if (checkHighCard(c)) {
+		return Enums::HIGHCARD;
 	}
 
 	return Enums::SHOULDNOTPLAY;
