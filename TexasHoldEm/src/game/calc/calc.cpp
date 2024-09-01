@@ -159,6 +159,14 @@ static vector<string> setUniqueCardValuesVec(const set<string> &uniqueCardValues
 	return uniqueCardValuesVec;
 }
 
+static bool checkStartingAce(
+	uint8_t card1Index,
+	uint8_t card2Index
+) {
+	return (card1Index == 0 && card2Index == Variables::orderOfCards.size() - 1) ||
+		(card2Index == 0 && card1Index == Variables::orderOfCards.size() - 1);
+}
+
 static bool checkStraight(const cards &c) {
 	if (c.size() == 2) {
 		uint8_t card1Index {};
@@ -172,7 +180,10 @@ static bool checkStraight(const cards &c) {
 
 		uint8_t indexDiff = abs(card1Index - card2Index);
 
-		if (indexDiff <= 4 && indexDiff > 0) {
+		if (
+			(indexDiff <= 4 && indexDiff > 0) ||
+			checkStartingAce(card1Index, card2Index)
+		) {
 			return true;
 		}
 
@@ -206,6 +217,15 @@ static bool checkStraight(const cards &c) {
 						{uniqueCardValuesVec[i + 1], FALSYCHARMAP}
 					}
 				);
+
+				if (
+					i == 0 &&
+					uniqueCardValuesVec[i] == Variables::orderOfCards[0] &&
+					*(uniqueCardValuesVec.end() - 1) ==
+						*(Variables::orderOfCards.end() - 1)
+				) {
+					consecutiveCards++;
+				}
 
 				uint8_t indexDiff = abs(card1Index - card2Index);
 
@@ -855,8 +875,12 @@ Enums::CardsStrength Calc::findCardsStrength(const cards &c) {
 			return Enums::FLUSH;
 		}
 
+		if (checkStraight(c)) {
+			return Enums::STRAIGHT;
+		}
+
 		if (c[0].first == c[1].first) {
-			return Enums::FOUROFAKIND;
+			return Enums::PAIR;
 		}
 	} else {
 		cards sameSuit = checkAtleastFiveCardsSameSuit(c);
