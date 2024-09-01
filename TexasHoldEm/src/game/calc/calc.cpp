@@ -159,7 +159,7 @@ static vector<string> setUniqueCardValuesVec(const set<string> &uniqueCardValues
 	return uniqueCardValuesVec;
 }
 
-static bool checkStraightFlush(const cards &c) {
+static bool checkStraight(const cards &c) {
 	if (c.size() == 2) {
 		uint8_t card1Index {};
 		uint8_t card2Index {};
@@ -172,10 +172,7 @@ static bool checkStraightFlush(const cards &c) {
 
 		uint8_t indexDiff = abs(card1Index - card2Index);
 
-		if (
-			indexDiff <= 4 &&
-			indexDiff > 0
-		) {
+		if (indexDiff <= 4 && indexDiff > 0) {
 			return true;
 		}
 
@@ -262,6 +259,19 @@ static bool checkOfAKind(
 				switch (s) {
 					case Enums::FOUROFAKIND: {
 						return count.second == 4;
+					}
+					case Enums::FULLHOUSE: {
+						static string threeOfAKindCard = Variables::falsyString;
+						static string twoOfAKindCard = Variables::falsyString;
+
+						if (count.second == 3) {
+							threeOfAKindCard = count.first;
+						} else if (count.second == 2) {
+							twoOfAKindCard = count.first;
+						}
+
+						return threeOfAKindCard != Variables::falsyString &&
+							twoOfAKindCard != Variables::falsyString;
 					}
 					case Enums::THREEOFAKIND: {
 						return count.second == 3;
@@ -838,7 +848,7 @@ Enums::CardsStrength Calc::findCardsStrength(const cards &c) {
 				return Enums::ROYALFLUSH;
 			}
 
-			if (checkStraightFlush(c)) {
+			if (checkStraight(c)) {
 				return Enums::STRAIGHTFLUSH;
 			}
 
@@ -846,7 +856,7 @@ Enums::CardsStrength Calc::findCardsStrength(const cards &c) {
 		}
 
 		if (c[0].first == c[1].first) {
-			return Enums::PAIR;
+			return Enums::FOUROFAKIND;
 		}
 	} else {
 		cards sameSuit = checkAtleastFiveCardsSameSuit(c);
@@ -856,7 +866,7 @@ Enums::CardsStrength Calc::findCardsStrength(const cards &c) {
 				return Enums::ROYALFLUSH;
 			}
 			
-			if (checkStraightFlush(sameSuit)) {
+			if (checkStraight(sameSuit)) {
 				return Enums::STRAIGHTFLUSH;
 			}
 
@@ -867,7 +877,13 @@ Enums::CardsStrength Calc::findCardsStrength(const cards &c) {
 			return Enums::FOUROFAKIND;
 		}
 
-		///
+		if (checkOfAKind(c, Enums::FULLHOUSE)) {
+			return Enums::FULLHOUSE;
+		}
+		
+		if (checkStraight(c)) {
+			return Enums::STRAIGHT;
+		}
 
 		if (checkOfAKind(c, Enums::THREEOFAKIND)) {
 			return Enums::THREEOFAKIND;
