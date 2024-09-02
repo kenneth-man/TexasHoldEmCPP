@@ -11,7 +11,6 @@
 using namespace std;
 
 namespace File {
-	void test();
 	void openUserFStream(
 		fstream &stream,
 		ios_base::openmode mode,

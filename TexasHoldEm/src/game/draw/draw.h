@@ -50,11 +50,4 @@ namespace Draw {
 		uint16_t ySize
 	);
 	void title();
-	void wideChar(
-		const wchar_t *hexChar,
-		bool lineBreak = false
-	);
-	void cardRow(const cards &cards);
-	void cardRowVals(const vector<string> &vals);
-	void cardRowWChars(const vector<const wchar_t *> &suitHexChars);
 }

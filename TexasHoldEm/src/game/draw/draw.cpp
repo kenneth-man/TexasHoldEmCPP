@@ -1,5 +1,91 @@
 #include "draw.h"
 
+////////////////////////////////////////////////////////////////////////////////////
+// static methods - these cannot be called outside this file
+////////////////////////////////////////////////////////////////////////////////////
+// output character map symbols that exceed char max size
+// from `macros.h`
+static void wideChar(
+	const wchar_t *hexChar,
+	bool lineBreak = false
+) {
+	// Set the mode to UTF-16
+	(void)_setmode(_fileno(stdout), _O_U16TEXT);
+
+	wcout << hexChar;
+
+	// Reset the mode back to default
+	(void)_setmode(_fileno(stdout), _O_TEXT);
+
+	if (lineBreak) {
+		cout << '\n';
+	}
+}
+
+static void cardRowVals(const vector<string> &vals) {
+	for (uint16_t i = 0; i < vals.size(); ++i) {
+		cout << vals[i];
+
+		if (i < vals.size() - 1) {
+			cout << Variables::cardSpace;
+			continue;
+		}
+
+		cout << '\n';
+	}
+}
+
+static void cardRowWChars(const vector<const wchar_t *> &suitHexChars) {
+	for (uint16_t i = 0; i < suitHexChars.size(); ++i) {
+		cout << "|  ";
+		wideChar(suitHexChars[i]);
+		wideChar(suitHexChars[i]);
+		wideChar(suitHexChars[i]);
+		cout << "  |";
+
+		if (i < suitHexChars.size() - 1) {
+			cout << Variables::cardSpace;
+			continue;
+		}
+
+		cout << '\n';
+	}
+}
+
+static void cardRow(const cards &cards) {
+	vector<string> firstValRows;
+	vector<string> lastValRows;
+	vector<string> topBottomRows;
+	vector<const wchar_t *> suitHexChars;
+
+	for (card v : cards) {
+		topBottomRows.push_back("---------");
+
+		if (v.first == "10") {
+			firstValRows.push_back("| " + v.first + "    |");
+			lastValRows.push_back("|    " + v.first + " |");
+			suitHexChars.push_back(v.second);
+			continue;
+		}
+
+		firstValRows.push_back("| " + v.first + "     |");
+		lastValRows.push_back("|     " + v.first + " |");
+		suitHexChars.push_back(v.second);
+	}
+
+	cardRowVals(topBottomRows);
+	cardRowVals(firstValRows);
+	cardRowWChars(suitHexChars);
+	cardRowWChars(suitHexChars);
+	cardRowWChars(suitHexChars);
+	cardRowVals(lastValRows);
+	cardRowVals(topBottomRows);
+}
+
+////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////
+
 void Draw::text(
 	string s,
 	bool border
@@ -231,83 +317,4 @@ string Draw::border(
 void Draw::title() {
 	system("CLS");
 	text(Variables::texasHoldEm);
-}
-
-// output character map symbols that exceed char max size
-// from `macros.h`
-void Draw::wideChar(
-	const wchar_t *hexChar,
-	bool lineBreak
-) {
-	// Set the mode to UTF-16
-	(void)_setmode(_fileno(stdout), _O_U16TEXT);
-	
-	wcout << hexChar;
-
-	// Reset the mode back to default
-	(void)_setmode(_fileno(stdout), _O_TEXT);
-	
-	if (lineBreak) {
-		cout << '\n';
-	}
-}
-
-void Draw::cardRow(const cards &cards) {
-	vector<string> firstValRows;
-	vector<string> lastValRows;
-	vector<string> topBottomRows;
-	vector<const wchar_t *> suitHexChars;
-
-	for (card v : cards) {
-		topBottomRows.push_back("---------");
-
-		if (v.first == "10") {
-			firstValRows.push_back("| " + v.first + "    |");
-			lastValRows.push_back("|    " + v.first + " |");
-			suitHexChars.push_back(v.second);
-			continue;
-		}
-		
-		firstValRows.push_back("| " + v.first + "     |");
-		lastValRows.push_back("|     " + v.first + " |");
-		suitHexChars.push_back(v.second);
-	}
-
-	cardRowVals(topBottomRows);
-	cardRowVals(firstValRows);
-	cardRowWChars(suitHexChars);
-	cardRowWChars(suitHexChars);
-	cardRowWChars(suitHexChars);
-	cardRowVals(lastValRows);
-	cardRowVals(topBottomRows);
-}
-
-void Draw::cardRowVals(const vector<string> &vals) {
-	for (uint16_t i = 0; i < vals.size(); ++i) {
-		cout << vals[i];
-
-		if (i < vals.size() - 1) {
-			cout << Variables::cardSpace;
-			continue;
-		}
-
-		cout << '\n';
-	}
-}
-
-void Draw::cardRowWChars(const vector<const wchar_t *> &suitHexChars) {
-	for(uint16_t i = 0; i < suitHexChars.size(); ++i) {
-		cout << "|  ";
-		wideChar(suitHexChars[i]);
-		wideChar(suitHexChars[i]);
-		wideChar(suitHexChars[i]);
-		cout << "  |";
-
-		if (i < suitHexChars.size() - 1) {
-			cout << Variables::cardSpace;
-			continue;
-		}
-
-		cout << '\n';
-	}
 }
