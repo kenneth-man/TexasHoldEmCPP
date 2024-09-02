@@ -57,20 +57,6 @@ namespace Calc {
 		Enums::Rank gameRank,
 		Enums::InGameState &inGameState
 	);
-	//TODO
-	void preflopBetHandle(
-		Player &player,
-		vector<InGamePlayer> &inGamePlayers,
-		Enums::Rank gameRank,
-		Enums::InGameState &inGameState
-	);
-	//TODO
-	void standardBetHandle(
-		Player &player,
-		vector<InGamePlayer> &inGamePlayers,
-		Enums::Rank gameRank,
-		Enums::InGameState &inGameState
-	);
 	string checkInputIsValidUInt(
 		string input
 	);
@@ -89,12 +75,17 @@ namespace Calc {
 	);
 	Enums::Archetype getRandomArchetype();
 	uint64_t getRandomBalance(Enums::Rank rank);
-	// TODO
-	Enums::InGameState calcActionFromCardsStrength(
+	string calcActionFromCardsStrength(
 		const cards &c,
 		Enums::Archetype archetype,
 		Enums::Rank rank,
-		const inGameStateMap &possibleActions
+		const vector<string> &possibleActions
+	); // possible return values @standardBetActions
+	uint64_t calcBetFromAction(
+		uint8_t currPlayerIndex,
+		const vector<InGamePlayer> &inGamePlayers,
+		Enums::Rank rank,
+		const vector<string> &possibleActions
 	);
 	Enums::CardsStrength findCardsStrength(
 		const cards &c

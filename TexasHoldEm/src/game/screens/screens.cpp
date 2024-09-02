@@ -70,7 +70,6 @@ void Screens::inGameScreen(
     bool exit = false;
     cards poolCards = {};
     cards uniqueCards = {};
-    Enums::InGameView inGameView = Enums::MAIN;
     InGameMenuItemsConfig config = Calc::initInGameMenuItems();
     menuItem selectedPreflopBetItem = config.preflopBetItems[0];
     menuItem selectedStandardBetItem = config.standardBetItems[0];
@@ -108,34 +107,54 @@ void Screens::inGameScreen(
                 break;
             }
             case Enums::PREFLOPBET: {
-                // TODO
-                // need a function to loop per player, starting with 2 index if PREFLOPBET
-                    // (the player after the big blind bet player)
-                // need a switch to check if PREFLOPBET or not,
-                    // (if not preflopbet, then betting starts at 1st index)
-                // based on the game rank, will need to create another function to
-                    // bluff based on random chance; if higher rank, bluffs more often
-                    // or makes less mistakes - always sees optimal hands
-                // if player isn't current user, then display e.g. "Deciding..." next
-                    // to their name in the UI player list and execute a timer
-                    // then update their action, their bet amout, pot total... in the UI
-                // if player is current user, then execute while loop below
+                inGameStatePrev = Enums::PREFLOPBET;
+                static uint8_t i = 2;
+
                 while(inGameState == Enums::PREFLOPBET) {
-                    // TODO: loop over players (deciding timer, then fold, call, raise based on calcActionBasedOnCardsStrength)
-                    Draw::inGame(
-                        inGamePlayers,
-                        inGamePlayers[2].name,
-                        inGameState,
-                        poolCards,
-                        Calc::getInGamePlayerCards(
-                            player.name,
-                            inGamePlayers
-                        ),
-                        inGameView,
-                        selectedPreflopBetItem,
-                        config.preflopBetItems,
-                        Variables::preflopBetActionsStateMap
-                    );
+                    if (i < inGamePlayers.size() + 2) {
+                        bool isHumanPlayer = inGamePlayers[i].name == player.name;
+
+                        if (!isHumanPlayer) {
+                            cards availableCards = Misc::joinVectors<cards>(
+                                poolCards,
+                                inGamePlayers[i].cards
+                            );
+                            const string action = Calc::calcActionFromCardsStrength(
+                                availableCards,
+                                inGamePlayers[i].type,
+                                gameRank,
+                                Variables::preflopBetActions
+                            );
+                            const uint64_t bet = Calc::calcBetFromAction(
+                                i,
+                                inGamePlayers,
+                                gameRank,
+                                Variables::preflopBetActions
+                            );
+                            inGamePlayers[i].action = action;
+                            inGamePlayers[i].betAmount += bet;
+                            inGamePlayers[i].isDeciding = true;
+                        }
+
+                        Draw::inGame(
+                            inGamePlayers,
+                            inGamePlayers[2].name,
+                            inGameState,
+                            poolCards,
+                            Calc::getInGamePlayerCards(
+                                player.name,
+                                inGamePlayers
+                            ),
+                            selectedPreflopBetItem,
+                            config.preflopBetItems,
+                            Variables::preflopBetActionsStateMap,
+                            isHumanPlayer
+                        );
+
+                        // if non human player: decision timer...
+                    } else {
+                        inGameState = Enums::FLOP;
+                    }
                 }
                 break;
             }
@@ -190,26 +209,31 @@ void Screens::inGameScreen(
             }
             case Enums::FOLD: {
                 cout << "FOLD Not Implemented" << '\n';
+                // inGameState = inGameStatePrev; put inside a reusable function
                 while (1);
                 break;
             }
             case Enums::CALL: {
                 cout << "CALL Not Implemented" << '\n';
+                // inGameState = inGameStatePrev; put inside a reusable function
                 while (1);
                 break;
             }
             case Enums::RAISE: {
                 cout << "RAISE Not Implemented" << '\n';
+                // inGameState = inGameStatePrev; put inside a reusable function
                 while (1);
                 break;
             }
             case Enums::BET: {
                 cout << "BET Not Implemented" << '\n';
+                // inGameState = inGameStatePrev; put inside a reusable function
                 while (1);
                 break;
             }
             case Enums::CHECK: {
                 cout << "CHECK Not Implemented" << '\n';
+                // inGameState = inGameStatePrev; put inside a reusable function
                 while (1);
                 break;
             }

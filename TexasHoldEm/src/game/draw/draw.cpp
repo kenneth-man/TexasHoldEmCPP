@@ -70,11 +70,17 @@ void Draw::inGame(
 	Enums::InGameState inGameState,
 	const cards &poolCards,
 	const cards &playerCards,
-	Enums::InGameView &inGameView,
-	menuItem &selectedItem,
+	menuItem &selectedMenuItem,
 	const vector<menuItem> &menuItems,
-	const inGameStateMap &stateMap
+	const inGameStateMap &stateMap,
+	bool isHumanPlayer
 ) {
+	static Enums::InGameView inGameView = Enums::MAIN;
+
+	if (!isHumanPlayer) {
+		inGameView = Enums::MAIN;
+	}
+
 	const string toggleViewString(1, toupper(Variables::toggleView));
 	Draw::title();
 
@@ -89,24 +95,27 @@ void Draw::inGame(
 				poolCards,
 				playerCards
 			);
-			const string info = "Press '" +
-				toggleViewString +
-				"' for the actions menu...";
-			Draw::text("\n");
-			Draw::text(info);
 
-			char input = _getch();
-			if (input != Variables::toggleView) {
-				Screens::errorScreen("Invalid Key Pressed. " + info);
-				return;
+			if (isHumanPlayer) {
+				const string info = "Press '" +
+					toggleViewString +
+					"' for the actions menu...";
+				Draw::text("\n");
+				Draw::text(info);
+
+				char input = _getch();
+				if (input != Variables::toggleView) {
+					Screens::errorScreen("Invalid Key Pressed. " + info);
+					return;
+				}
+				inGameView = Enums::MENU;
 			}
-			inGameView = Enums::MENU;
 			break;
 		}
 		case Enums::MENU: {
 			Draw::menu(
 				menuItems,
-				selectedItem
+				selectedMenuItem
 			);
 			Draw::text("\n");
 			Draw::text("Press '" +
@@ -115,14 +124,15 @@ void Draw::inGame(
 
 			Enums::MenuAction action = Calc::menuAction(
 				menuItems,
-				selectedItem
+				selectedMenuItem
 			);
 
 			if (action == Enums::SELECT) {
-				auto it = stateMap.find(selectedItem.first);
+				auto it = stateMap.find(selectedMenuItem.first);
 
 				if (it != stateMap.end()) {
 					inGameState = it->second;
+					inGameView = Enums::MAIN;
 					return;
 				}
 

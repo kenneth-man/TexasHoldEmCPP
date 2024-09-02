@@ -29,10 +29,10 @@ namespace Draw {
 		Enums::InGameState inGameState,
 		const cards &poolCards,
 		const cards &playerCards,
-		Enums::InGameView &inGameView,
-		menuItem &selectedItem,
+		menuItem &selectedMenuItem,
 		const vector<menuItem> &menuItems,
-		const inGameStateMap &stateMap
+		const inGameStateMap &stateMap,
+		bool isHumanPlayer
 	);
 	void list(
 		const vector<InGamePlayer> &inGamePlayers,

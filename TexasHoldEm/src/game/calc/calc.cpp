@@ -678,24 +678,6 @@ void Calc::blindBetHandle(
 	}
 }
 
-void Calc::preflopBetHandle(
-	Player &player,
-	vector<InGamePlayer> &inGamePlayers,
-	Enums::Rank gameRank,
-	Enums::InGameState &inGameState
-) {
-	
-}
-
-void Calc::standardBetHandle(
-	Player &player,
-	vector<InGamePlayer> &inGamePlayers,
-	Enums::Rank gameRank,
-	Enums::InGameState &inGameState
-) {
-
-}
-
 string Calc::checkInputIsValidUInt(
 	string input
 ) {
@@ -838,27 +820,36 @@ uint64_t Calc::getRandomBalance(
 	return (Misc::randomInt(range.first, diff) + range.second) * 3;
 }
 
-Enums::InGameState Calc::calcActionFromCardsStrength(
+string Calc::calcActionFromCardsStrength(
 	const cards &c,
 	Enums::Archetype archetype,
 	Enums::Rank rank,
-	const inGameStateMap &possibleActions
+	const vector<string> &possibleActions
 ) {
 	switch(c.size()) {
 		case 2: {
-			return Enums::FOLD;
+			return Variables::standardBetActions[0];
 		}
 		case 5: {
-			return Enums::FOLD;
+			return Variables::standardBetActions[0];
 		}
 		case 6: {
-			return Enums::FOLD;
+			return Variables::standardBetActions[0];
 		}
 		case 7: {
-			return Enums::FOLD;
+			return Variables::standardBetActions[0];
 		}
-		default: return Enums::FOLD;
+		default: return Variables::standardBetActions[0];
 	}
+}
+
+uint64_t Calc::calcBetFromAction(
+	uint8_t currPlayerIndex,
+	const vector<InGamePlayer> &inGamePlayers,
+	Enums::Rank rank,
+	const vector<string> &possibleActions
+) {
+	return 0;
 }
 
 Enums::CardsStrength Calc::findCardsStrength(const cards &c) {
