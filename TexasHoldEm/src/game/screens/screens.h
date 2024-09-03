@@ -36,4 +36,5 @@ namespace Screens {
 		Enums::GameState &gameState,
 		Enums::Rank gameRank
 	);
+	void instructionScreen(Enums::GameState &gameState);
 }

@@ -151,7 +151,9 @@ void Screens::inGameScreen(
                             isHumanPlayer
                         );
 
-                        // if non human player: decision timer...
+                        if (!isHumanPlayer) {
+                            Misc::decision();
+                        }
                     } else {
                         inGameState = Enums::FLOP;
                     }
@@ -239,4 +241,21 @@ void Screens::inGameScreen(
             }
         }
     }
+}
+
+void Screens::instructionScreen(Enums::GameState &gameState) {
+    Draw::title();
+    Draw::text(Variables::instructions);
+    const string info = "submit '" + Variables::quit + "' to go back";
+    Draw::text("(" + info + ")");
+
+    string input;
+    getline(cin, input);
+
+    if (input == Variables::quit) {
+        gameState = Enums::TITLE;
+        return;
+    }
+
+    Screens::errorScreen("Invalid Key Pressed. " + info);
 }

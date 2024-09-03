@@ -138,8 +138,7 @@ int main() {
                 break;
             }
             case Enums::INSTRUCTIONS: {
-                cout << "INSTRUCTIONS Not Implemented" << '\n';
-                while (1);
+                Screens::instructionScreen(gameState);
                 break;
             }
             case Enums::OPTIONS: {
