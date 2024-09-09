@@ -50,7 +50,7 @@ static bool checkRoyalFlush(const cards &c) {
 		if (
 			royalFlushCard1It != Variables::royalFlushCards.end() &&
 			royalFlushCard2It != Variables::royalFlushCards.end()
-			) {
+		) {
 			return true;
 		}
 
@@ -250,6 +250,7 @@ static uint8_t checkCardLetter(string s) {
 		uint8_t i = stoi(s);
 		return i;
 	} catch (const invalid_argument &_) {
+		(void)_;
 		uint8_t jackQueenKingOrAce = 255;
 		return jackQueenKingOrAce;
 	}
@@ -267,6 +268,7 @@ static bool checkOfAKind(
 			cardCounts.erase(crd.first);
 			cardCounts.emplace(crd.first, count + 1);
 		} catch (const out_of_range &_) {
+			(void)_;
 			cardCounts.emplace(crd.first, 1);
 		}
 	}
@@ -324,6 +326,27 @@ static bool checkHighCard(const cards &c) {
 	}
 
 	return false;
+}
+
+static void archetypeMultiplyer(
+	Enums::Archetype type,
+	uint8_t &value
+) {
+	switch (type) {
+		case Enums::PASSIVE: {
+			value *= 1;
+			break;
+		}
+		case Enums::NEUTRAL:
+		default: {
+			value *= 2;
+			break;
+		}
+		case Enums::AGGRESSIVE: {
+			value *= 4;
+			break;
+		}
+	}
 }
 
 ////////////////////////////////////////////////////////////////////////////////////
@@ -397,7 +420,7 @@ vector<InGamePlayer> Calc::initInGamePlayers(
 			{},
 			Variables::falsyString,
 			true,
-			true,
+			false,
 			false,
 			Calc::getRandomArchetype()
 		});
@@ -413,7 +436,7 @@ vector<InGamePlayer> Calc::initInGamePlayers(
 		{},
 		Variables::falsyString,
 		false,
-		true,
+		false,
 		false,
 		Enums::HUMAN
 	};
@@ -820,35 +843,98 @@ uint64_t Calc::getRandomBalance(
 	return (Misc::randomInt(range.first, diff) + range.second) * 3;
 }
 
+string Calc::getRandomBetAction(
+	bool includeFold,
+	bool noBetsThisRound
+) {
+	vector<string> noBetsThisRoundOptions = {
+		Variables::standardBetActions[3],
+		Variables::standardBetActions[4]
+	};
+	vector<string> betsThisRoundOptions = {
+		Variables::standardBetActions[1],
+		Variables::standardBetActions[2]
+	};
+	uint8_t random;
+
+	if (includeFold) {
+		noBetsThisRound ?
+			noBetsThisRoundOptions.push_back(Variables::standardBetActions[0]) :
+			betsThisRoundOptions.push_back(Variables::standardBetActions[0]);
+	}
+
+	if (noBetsThisRound) {
+		random = rand() % (uint8_t)noBetsThisRoundOptions.size();
+		return noBetsThisRoundOptions[random];
+	}
+
+	random = rand() % (uint8_t)betsThisRoundOptions.size();
+	return betsThisRoundOptions[random];
+}
+
 string Calc::calcActionFromCardsStrength(
 	const cards &c,
-	Enums::Archetype archetype,
-	Enums::Rank rank,
-	const vector<string> &possibleActions
+	const InGamePlayer &currentInGamePlayer,
+	const vector<InGamePlayer> &inGamePlayers,
+	Enums::Rank rank
 ) {
-	switch(c.size()) {
-		case 2: {
+	Enums::CardsStrength strength = findCardsStrength(c);
+	auto it = find_if(
+		inGamePlayers.begin(),
+		inGamePlayers.end(),
+		[](const InGamePlayer &p) {
+			return p.hasBetThisRound;
+		}
+	);
+	bool noBetsThisRound = it == inGamePlayers.end();
+	bool shouldFold = strength < Enums::PAIR;
+	uint8_t recognizesCorrectPlay = (rank + 1) * 10;
+	uint8_t randomWithin100 = (rand() % 100) + 1;
+
+	if (randomWithin100 <= recognizesCorrectPlay) {
+		if (shouldFold) {
 			return Variables::standardBetActions[0];
 		}
-		case 5: {
-			return Variables::standardBetActions[0];
+		switch(currentInGamePlayer.type) {
+			case Enums::PASSIVE: {
+				if (noBetsThisRound) {
+					return Variables::standardBetActions[4];
+				}
+				return Variables::standardBetActions[1];
+			}
+			case Enums::NEUTRAL:
+			default: {
+				return getRandomBetAction(false, noBetsThisRound);
+			}
+			case Enums::AGGRESSIVE: {
+				if (noBetsThisRound) {
+					return Variables::standardBetActions[3];
+				}
+				return Variables::standardBetActions[2];
+			}
 		}
-		case 6: {
-			return Variables::standardBetActions[0];
-		}
-		case 7: {
-			return Variables::standardBetActions[0];
-		}
-		default: return Variables::standardBetActions[0];
 	}
+
+	return getRandomBetAction(true, noBetsThisRound);
 }
 
 uint64_t Calc::calcBetFromAction(
-	uint8_t currPlayerIndex,
+	const InGamePlayer &currentInGamePlayer,
 	const vector<InGamePlayer> &inGamePlayers,
 	Enums::Rank rank,
-	const vector<string> &possibleActions
+	string action
 ) {
+	if (action == "[FOLD]") {
+		
+	}
+
+	/*uint8_t archetypeMultiplier;
+
+	archetypeMultiplyer(
+		inGamePlayers[currentInGamePlayerIndex].type,
+		archetypeMultiplier
+	);*/
+
 	return 0;
 }
 

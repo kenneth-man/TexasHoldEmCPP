@@ -75,17 +75,21 @@ namespace Calc {
 	);
 	Enums::Archetype getRandomArchetype();
 	uint64_t getRandomBalance(Enums::Rank rank);
+	string getRandomBetAction(
+		bool includeFold,
+		bool noBetsThisRound
+	);
 	string calcActionFromCardsStrength(
 		const cards &c,
-		Enums::Archetype archetype,
-		Enums::Rank rank,
-		const vector<string> &possibleActions
+		const InGamePlayer &currentInGamePlayer,
+		const vector<InGamePlayer> &inGamePlayers,
+		Enums::Rank rank
 	); // possible return values @standardBetActions
 	uint64_t calcBetFromAction(
-		uint8_t currPlayerIndex,
+		const InGamePlayer &currentInGamePlayer,
 		const vector<InGamePlayer> &inGamePlayers,
 		Enums::Rank rank,
-		const vector<string> &possibleActions
+		string action
 	);
 	Enums::CardsStrength findCardsStrength(
 		const cards &c

@@ -152,18 +152,17 @@ void Draw::menu(
 
 void Draw::inGame(
 	const vector<InGamePlayer> &inGamePlayers,
-	string currentInGamePlayer,
+	const InGamePlayer &currentInGamePlayer,
 	Enums::InGameState inGameState,
 	const cards &poolCards,
 	const cards &playerCards,
 	menuItem &selectedMenuItem,
 	const vector<menuItem> &menuItems,
-	const inGameStateMap &stateMap,
-	bool isHumanPlayer
+	const inGameStateMap &stateMap
 ) {
 	static Enums::InGameView inGameView = Enums::MAIN;
 
-	if (!isHumanPlayer) {
+	if (currentInGamePlayer.isBot) {
 		inGameView = Enums::MAIN;
 	}
 
@@ -182,7 +181,7 @@ void Draw::inGame(
 				playerCards
 			);
 
-			if (isHumanPlayer) {
+			if (!currentInGamePlayer.isBot) {
 				const string info = "Press '" +
 					toggleViewString +
 					"' for the actions menu...";
@@ -234,7 +233,7 @@ void Draw::inGame(
 
 void Draw::list(
 	const vector<InGamePlayer> &inGamePlayers,
-	string currentInGamePlayer,
+	const InGamePlayer &currentInGamePlayer,
 	Enums::InGameState inGameState
 ) {
 	uint64_t pot = 0;
@@ -256,7 +255,7 @@ void Draw::list(
 					Variables::miscBetActions[2] :
 					p.action);
 		}
-		if (currentInGamePlayer == p.name) {
+		if (currentInGamePlayer.name == p.name) {
 			player += Variables::space;
 			player += Variables::arrow;
 		}

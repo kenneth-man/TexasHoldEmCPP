@@ -108,37 +108,37 @@ void Screens::inGameScreen(
             }
             case Enums::PREFLOPBET: {
                 inGameStatePrev = Enums::PREFLOPBET;
+                // TODO: reset to 2 on game completion
                 static uint8_t i = 2;
 
                 while(inGameState == Enums::PREFLOPBET) {
                     if (i < inGamePlayers.size() + 2) {
-                        bool isHumanPlayer = inGamePlayers[i].name == player.name;
-
-                        if (!isHumanPlayer) {
+                        if (inGamePlayers[i].isBot) {
                             cards availableCards = Misc::joinVectors<cards>(
                                 poolCards,
                                 inGamePlayers[i].cards
                             );
                             const string action = Calc::calcActionFromCardsStrength(
                                 availableCards,
-                                inGamePlayers[i].type,
-                                gameRank,
-                                Variables::preflopBetActions
+                                inGamePlayers[i],
+                                inGamePlayers,
+                                gameRank
                             );
                             const uint64_t bet = Calc::calcBetFromAction(
-                                i,
+                                inGamePlayers[i],
                                 inGamePlayers,
                                 gameRank,
-                                Variables::preflopBetActions
+                                action
                             );
                             inGamePlayers[i].action = action;
                             inGamePlayers[i].betAmount += bet;
+                            inGamePlayers[i].balance -= bet;
                             inGamePlayers[i].isDeciding = true;
                         }
 
                         Draw::inGame(
                             inGamePlayers,
-                            inGamePlayers[2].name,
+                            inGamePlayers[i],
                             inGameState,
                             poolCards,
                             Calc::getInGamePlayerCards(
@@ -147,13 +147,15 @@ void Screens::inGameScreen(
                             ),
                             selectedPreflopBetItem,
                             config.preflopBetItems,
-                            Variables::preflopBetActionsStateMap,
-                            isHumanPlayer
+                            Variables::preflopBetActionsStateMap
                         );
 
-                        if (!isHumanPlayer) {
+                        if (inGamePlayers[i].isBot) {
                             Misc::decision();
+                            inGamePlayers[i].isDeciding = false;
                         }
+
+                        ++i;
                     } else {
                         inGameState = Enums::FLOP;
                     }

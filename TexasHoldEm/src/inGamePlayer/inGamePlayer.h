@@ -13,7 +13,7 @@ struct InGamePlayer {
 	cards cards;
 	string action; // possible values @preflopBetActions, @standardBetActions or @miscBetActions
 	bool isBot; // determine if human player or not
-	bool isActive; // determine if it's this current player's turn
 	bool isDeciding; // only used if not the human player
+	bool hasBetThisRound;
 	Enums::Archetype type;
 };
