@@ -152,8 +152,9 @@ void Screens::inGameScreen(
 
                         if (inGamePlayers[i].isBot) {
                             Misc::decision();
-                            inGamePlayers[i].isDeciding = false;
                         }
+
+                        inGamePlayers[i].isDeciding = false;
 
                         ++i;
                     } else {
@@ -163,6 +164,7 @@ void Screens::inGameScreen(
                 break;
             }
             case Enums::FLOP: {
+                // set all betAmountThisRound to 0
                 cout << "FLOP Not Implemented" << '\n';
 
                 /*for (uint8_t i = 0; i < 3; ++i) {

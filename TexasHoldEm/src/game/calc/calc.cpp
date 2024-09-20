@@ -328,23 +328,20 @@ static bool checkHighCard(const cards &c) {
 	return false;
 }
 
-static void archetypeMultiplyer(
+static uint64_t archetypeMultiplyer(
 	Enums::Archetype type,
-	uint8_t &value
+	uint64_t value
 ) {
 	switch (type) {
 		case Enums::PASSIVE: {
-			value *= 1;
-			break;
+			return (uint64_t)(value * 0.9);
 		}
 		case Enums::NEUTRAL:
 		default: {
-			value *= 2;
-			break;
+			return value;
 		}
 		case Enums::AGGRESSIVE: {
-			value *= 4;
-			break;
+			return (uint64_t)(value * 1.1);
 		}
 	}
 }
@@ -416,11 +413,11 @@ vector<InGamePlayer> Calc::initInGamePlayers(
 		output.push_back({
 			names[index],
 			0,
+			0,
 			Calc::getRandomBalance(gameRank),
 			{},
 			Variables::falsyString,
 			true,
-			false,
 			false,
 			Calc::getRandomArchetype()
 		});
@@ -432,10 +429,10 @@ vector<InGamePlayer> Calc::initInGamePlayers(
 	output.at(playerIndex) = {
 		playerName,
 		0,
+		0,
 		playerBalance,
 		{},
 		Variables::falsyString,
-		false,
 		false,
 		false,
 		Enums::HUMAN
@@ -607,6 +604,8 @@ void Calc::blindBetHandle(
 			inGamePlayers[inGameState].betAmount = bet == 0 ?
 				range.second.first :
 				bet;
+			inGamePlayers[inGameState].betAmountThisRound =
+				inGamePlayers[inGameState].betAmount;
 			inGamePlayers[inGameState].action = Variables::miscBetActions[0];
 			inGameState = Enums::BIGBLINDBET;
 		} else {
@@ -617,6 +616,7 @@ void Calc::blindBetHandle(
 					rand() % diff + inGamePlayers[0].betAmount;
 			}
 			inGamePlayers[inGameState].betAmount = bet;
+			inGamePlayers[inGameState].betAmountThisRound = bet;
 			inGamePlayers[inGameState].action = Variables::miscBetActions[1];
 			inGameState = Enums::DEALING;
 		}
@@ -666,6 +666,7 @@ void Calc::blindBetHandle(
 			}
 			inGamePlayers[inGameState].action = Variables::miscBetActions[0];
 			inGamePlayers[inGameState].betAmount = bet;
+			inGamePlayers[inGameState].betAmountThisRound = bet;
 			inGamePlayers[inGameState].balance -= bet;
 			player.balance -= bet;
 			File::updateLineValue(
@@ -688,6 +689,7 @@ void Calc::blindBetHandle(
 			}
 			inGamePlayers[inGameState].action = Variables::miscBetActions[0];
 			inGamePlayers[inGameState].betAmount = bet;
+			inGamePlayers[inGameState].betAmountThisRound = bet;
 			inGamePlayers[inGameState].balance -= bet;
 			player.balance -= bet;
 			File::updateLineValue(
@@ -813,9 +815,9 @@ cards Calc::getInGamePlayerCards(
 }
 
 Enums::Archetype Calc::getRandomArchetype() {
-	uint64_t num = Misc::randomInt(
-		Enums::PASSIVE,
-		Enums::AGGRESSIVE
+	uint64_t num = Misc::randomWithinRange(
+		Enums::AGGRESSIVE,
+		Enums::PASSIVE
 	);
 
 	switch (num) {
@@ -839,8 +841,10 @@ uint64_t Calc::getRandomBalance(
 ) {
 	rankBetRange betRange = Variables::ranksBetRangeMap.at(rank);
 	pair<uint64_t, uint64_t> range = betRange.second;
-	uint64_t diff = range.second - range.first;
-	return (Misc::randomInt(range.first, diff) + range.second) * 3;
+	return (Misc::randomWithinRange(
+		range.second,
+		range.first
+	) + range.second) * 3;
 }
 
 string Calc::getRandomBetAction(
@@ -883,13 +887,13 @@ string Calc::calcActionFromCardsStrength(
 		inGamePlayers.begin(),
 		inGamePlayers.end(),
 		[](const InGamePlayer &p) {
-			return p.hasBetThisRound;
+			return p.betAmountThisRound > 0;
 		}
 	);
 	bool noBetsThisRound = it == inGamePlayers.end();
 	bool shouldFold = strength < Enums::PAIR;
 	uint8_t recognizesCorrectPlay = (rank + 1) * 10;
-	uint8_t randomWithin100 = (rand() % 100) + 1;
+	uint8_t randomWithin100 = Misc::randomWithinRange(100, 1);
 
 	if (randomWithin100 <= recognizesCorrectPlay) {
 		if (shouldFold) {
@@ -924,18 +928,49 @@ uint64_t Calc::calcBetFromAction(
 	Enums::Rank rank,
 	string action
 ) {
-	if (action == "[FOLD]") {
-		
+	if (action == "[FOLD]" || action == "[CHECK]") {
+		return 0;
 	}
 
-	/*uint8_t archetypeMultiplier;
+	uint64_t highestBetThisRound = 0;
 
-	archetypeMultiplyer(
-		inGamePlayers[currentInGamePlayerIndex].type,
-		archetypeMultiplier
-	);*/
+	for (const auto &i : inGamePlayers) {
+		if (i.betAmountThisRound > highestBetThisRound) {
+			highestBetThisRound = i.betAmountThisRound;
+		}
+	}
 
-	return 0;
+	if (action == "[CALL]") {
+		return highestBetThisRound;
+	}
+
+	const rankBetRange range = Variables::ranksBetRangeMap
+		.at(rank);
+
+	if (action == "[RAISE]") {
+		uint64_t raise = 0;
+		if (highestBetThisRound < range.second.second) {
+			raise = Misc::randomWithinRange(
+				range.second.second,
+				(highestBetThisRound + 1)
+			);
+		} else {
+			raise = range.second.second;
+		}
+
+		return raise;
+	}
+
+	uint64_t betWithinRange = Misc::randomWithinRange(
+		range.second.second,
+		range.second.first
+	);
+	uint64_t bet = archetypeMultiplyer(
+		currentInGamePlayer.type,
+		betWithinRange
+	);
+
+	return bet > range.second.second ? range.second.second : bet;
 }
 
 Enums::CardsStrength Calc::findCardsStrength(const cards &c) {

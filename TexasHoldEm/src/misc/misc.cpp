@@ -36,9 +36,9 @@ void Misc::decision() {
 	);
 }
 
-uint64_t Misc::randomInt(
-	uint64_t min,
-	uint64_t diff
+uint64_t Misc::randomWithinRange(
+	uint64_t max,
+	uint64_t min
 ) {
-	return rand() % diff + min;
+	return rand() % ((max - min) + 1) + min;
 }
