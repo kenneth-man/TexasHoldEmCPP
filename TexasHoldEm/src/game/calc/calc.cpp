@@ -893,7 +893,7 @@ string Calc::calcActionFromCardsStrength(
 	bool noBetsThisRound = it == inGamePlayers.end();
 	bool shouldFold = strength < Enums::PAIR;
 	uint8_t recognizesCorrectPlay = (rank + 1) * 10;
-	uint8_t randomWithin100 = Misc::randomWithinRange(100, 1);
+	uint8_t randomWithin100 = (uint8_t)Misc::randomWithinRange(100, 1);
 
 	if (randomWithin100 <= recognizesCorrectPlay) {
 		if (shouldFold) {
@@ -1039,4 +1039,68 @@ Enums::CardsStrength Calc::findCardsStrength(const cards &c) {
 	}
 
 	return Enums::SHOULDNOTPLAY;
+}
+
+void Calc::betActionHandle(
+	Enums::InGameState &inGameState,
+	Enums::InGameState inGameStatePrev,
+	vector<InGamePlayer> &inGamePlayers,
+	Player &player,
+	Enums::Rank gameRank
+) {
+	auto inGamePlayerIt = find_if(
+		inGamePlayers.begin(),
+		inGamePlayers.end(),
+		[player](const InGamePlayer &g) {
+			return g.name == player.name;
+		}
+	);
+
+	switch(inGameState) {
+		case Enums::FOLD: {
+			inGamePlayerIt->action = "[FOLD]";
+
+			if (player.balance <= inGamePlayerIt->betAmount) {
+				player.balance = 0;
+			} else {
+				player.balance -= inGamePlayerIt->betAmount;
+			}
+
+			inGamePlayerIt->betAmount = 0;
+			inGamePlayerIt->betAmountThisRound = 0;
+
+			inGameState = Enums::END;
+
+			cout << "Player Folded";
+			while (1);
+			return;
+		}
+		case Enums::CALL: {
+			inGamePlayerIt->action = "[CALL]";
+			cout << "Player Called";
+			while(1);
+			break;
+		}
+		case Enums::RAISE: {
+			inGamePlayerIt->action = "[RAISE]";
+			cout << "Player Raised";
+			while (1);
+			break;
+		}
+		case Enums::BET: {
+			inGamePlayerIt->action = "[BET]";
+			cout << "Player Bet";
+			while (1);
+			break;
+		}
+		case Enums::CHECK: {
+			inGamePlayerIt->action = "[CHECK]";
+			cout << "Player Checked";
+			while (1);
+			break;
+		}
+		default: break;
+	}
+
+	inGameState = inGameStatePrev;
 }

@@ -94,5 +94,12 @@ namespace Calc {
 	Enums::CardsStrength findCardsStrength(
 		const cards &c
 	);
+	void betActionHandle(
+		Enums::InGameState &inGameState,
+		Enums::InGameState inGameStatePrev,
+		vector<InGamePlayer> &inGamePlayers,
+		Player &player,
+		Enums::Rank gameRank
+	);
 	//TODO: ELO CALCULATION/S
 }

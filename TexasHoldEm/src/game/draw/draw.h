@@ -23,7 +23,7 @@ namespace Draw {
 		uint16_t xSize = Variables::xSize,
 		uint16_t ySize = Variables::ySize
 	);
-	void inGame(
+	bool inGame(
 		const vector<InGamePlayer> &inGamePlayers,
 		const InGamePlayer &currentInGamePlayer,
 		Enums::InGameState inGameState,

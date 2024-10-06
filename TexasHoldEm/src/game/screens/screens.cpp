@@ -111,9 +111,12 @@ void Screens::inGameScreen(
                 // TODO: reset to 2 on game completion
                 static uint8_t i = 2;
 
+                // TODO: test functionality
                 while(inGameState == Enums::PREFLOPBET) {
                     if (i < inGamePlayers.size() + 2) {
-                        if (inGamePlayers[i].isBot) {
+                        const bool isBot = inGamePlayers[i].isBot;
+
+                        if (isBot) {
                             cards availableCards = Misc::joinVectors<cards>(
                                 poolCards,
                                 inGamePlayers[i].cards
@@ -137,7 +140,7 @@ void Screens::inGameScreen(
                             inGamePlayers[i].isDeciding = true;
                         }
 
-                        Draw::inGame(
+                        const bool playerActionSelected = Draw::inGame(
                             inGamePlayers,
                             inGamePlayers[i],
                             inGameState,
@@ -151,12 +154,14 @@ void Screens::inGameScreen(
                             Variables::preflopBetActionsStateMap
                         );
 
-                        if (inGamePlayers[i].isBot) {
+                        if (isBot) {
                             Misc::decision();
                             inGamePlayers[i].isDeciding = false;
                         }
 
-                        ++i;
+                        if (isBot || playerActionSelected) {
+                            ++i;
+                        }
                     } else {
                         inGameState = Enums::FLOP;
                     }
@@ -201,10 +206,8 @@ void Screens::inGameScreen(
                 break;
             }
             case Enums::END: {
-                // update player data in file
-                // update player object in ram
-                // update game state
-                // screen to show updates to their data file
+                // update player object data to file
+                // stats screen to show updates to their data file
                 gameState = Enums::TITLE;
                 exit = true;
                 break;
@@ -214,35 +217,18 @@ void Screens::inGameScreen(
                 exit = true;
                 break;
             }
-            case Enums::FOLD: {
-                cout << "FOLD Not Implemented" << '\n';
-                // inGameState = inGameStatePrev; put inside a reusable function
-                while (1);
-                break;
-            }
-            case Enums::CALL: {
-                cout << "CALL Not Implemented" << '\n';
-                // inGameState = inGameStatePrev; put inside a reusable function
-                while (1);
-                break;
-            }
-            case Enums::RAISE: {
-                cout << "RAISE Not Implemented" << '\n';
-                // inGameState = inGameStatePrev; put inside a reusable function
-                while (1);
-                break;
-            }
-            case Enums::BET: {
-                cout << "BET Not Implemented" << '\n';
-                // inGameState = inGameStatePrev; put inside a reusable function
-                while (1);
-                break;
-            }
+            case Enums::FOLD:
+            case Enums::CALL:
+            case Enums::RAISE:
+            case Enums::BET:
             case Enums::CHECK: {
-                cout << "CHECK Not Implemented" << '\n';
-                // inGameState = inGameStatePrev; put inside a reusable function
-                while (1);
-                break;
+                Calc::betActionHandle(
+                    inGameState,
+                    inGameStatePrev,
+                    inGamePlayers,
+                    player,
+                    gameRank
+                );
             }
         }
     }

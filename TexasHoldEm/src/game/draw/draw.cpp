@@ -150,7 +150,7 @@ void Draw::menu(
 	cout << output;
 }
 
-void Draw::inGame(
+bool Draw::inGame(
 	const vector<InGamePlayer> &inGamePlayers,
 	const InGamePlayer &currentInGamePlayer,
 	Enums::InGameState inGameState,
@@ -161,6 +161,7 @@ void Draw::inGame(
 	const inGameStateMap &stateMap
 ) {
 	static Enums::InGameView inGameView = Enums::MAIN;
+	bool playerActionSelected = false;
 
 	if (currentInGamePlayer.isBot) {
 		inGameView = Enums::MAIN;
@@ -191,7 +192,7 @@ void Draw::inGame(
 				char input = _getch();
 				if (input != Variables::toggleView) {
 					Screens::errorScreen("Invalid Key Pressed. " + info);
-					return;
+					return playerActionSelected;
 				}
 				inGameView = Enums::MENU;
 			}
@@ -218,7 +219,8 @@ void Draw::inGame(
 				if (it != stateMap.end()) {
 					inGameState = it->second;
 					inGameView = Enums::MAIN;
-					return;
+					playerActionSelected = true;
+					return playerActionSelected;
 				}
 
 				Screens::errorScreen("Incorrect Map of actions to enums");
@@ -229,6 +231,8 @@ void Draw::inGame(
 		}
 		default: break;
 	}
+
+	return playerActionSelected;
 }
 
 void Draw::list(
