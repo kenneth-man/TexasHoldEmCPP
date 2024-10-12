@@ -687,7 +687,7 @@ void Calc::blindBetHandle(
 				Screens::errorScreen(hint);
 				continue;
 			}
-			inGamePlayers[inGameState].action = Variables::miscBetActions[0];
+			inGamePlayers[inGameState].action = Variables::miscBetActions[1];
 			inGamePlayers[inGameState].betAmount = bet;
 			inGamePlayers[inGameState].betAmountThisRound = bet;
 			inGamePlayers[inGameState].balance -= bet;
