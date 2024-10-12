@@ -26,7 +26,7 @@ namespace Draw {
 	bool inGame(
 		const vector<InGamePlayer> &inGamePlayers,
 		const InGamePlayer &currentInGamePlayer,
-		Enums::InGameState inGameState,
+		Enums::InGameState &inGameState,
 		const cards &poolCards,
 		const cards &playerCards,
 		menuItem &selectedMenuItem,

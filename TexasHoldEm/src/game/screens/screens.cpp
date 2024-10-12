@@ -13,6 +13,7 @@ string Screens::infoScreen(
     }
     string input;
     // not using `cin << input`, as it will ignore spaces
+    // TODO: Hide input displaying on the screen if a password
     getline(cin, input);
     return input;
 }
@@ -111,38 +112,39 @@ void Screens::inGameScreen(
                 // TODO: reset to 2 on game completion
                 static uint8_t i = 2;
 
-                // TODO: test functionality
                 while(inGameState == Enums::PREFLOPBET) {
                     if (i < inGamePlayers.size() + 2) {
-                        const bool isBot = inGamePlayers[i].isBot;
+                        const bool exceededIndex = (uint8_t)(i + 1) > inGamePlayers.size();
+                        const uint8_t j = exceededIndex ? i - inGamePlayers.size() : i;
+                        const bool isBot = inGamePlayers[j].isBot;
 
                         if (isBot) {
                             cards availableCards = Misc::joinVectors<cards>(
                                 poolCards,
-                                inGamePlayers[i].cards
+                                inGamePlayers[j].cards
                             );
                             const string action = Calc::calcActionFromCardsStrength(
                                 availableCards,
-                                inGamePlayers[i],
+                                inGamePlayers[j],
                                 inGamePlayers,
                                 gameRank
                             );
                             const uint64_t bet = Calc::calcBetFromAction(
-                                inGamePlayers[i],
+                                inGamePlayers[j],
                                 inGamePlayers,
                                 gameRank,
                                 action
                             );
-                            inGamePlayers[i].action = action;
-                            inGamePlayers[i].betAmount += bet;
-                            inGamePlayers[i].betAmountThisRound = bet;
-                            inGamePlayers[i].balance -= bet;
-                            inGamePlayers[i].isDeciding = true;
+                            inGamePlayers[j].action = action;
+                            inGamePlayers[j].betAmount += bet;
+                            inGamePlayers[j].betAmountThisRound = bet;
+                            inGamePlayers[j].balance -= bet;
+                            inGamePlayers[j].isDeciding = true;
                         }
 
                         const bool playerActionSelected = Draw::inGame(
                             inGamePlayers,
-                            inGamePlayers[i],
+                            inGamePlayers[j],
                             inGameState,
                             poolCards,
                             Calc::getInGamePlayerCards(
@@ -156,7 +158,7 @@ void Screens::inGameScreen(
 
                         if (isBot) {
                             Misc::decision();
-                            inGamePlayers[i].isDeciding = false;
+                            inGamePlayers[j].isDeciding = false;
                         }
 
                         if (isBot || playerActionSelected) {
@@ -169,7 +171,7 @@ void Screens::inGameScreen(
                 break;
             }
             case Enums::FLOP: {
-                // set all betAmountThisRound to 0
+                // TODO: set all betAmountThisRound to 0
 
                 cout << "FLOP Not Implemented" << '\n';
 
@@ -206,8 +208,9 @@ void Screens::inGameScreen(
                 break;
             }
             case Enums::END: {
-                // update player object data to file
-                // stats screen to show updates to their data file
+                // TODO: update player object data to file
+                // TODO: stats screen to show updates to their data file before returning to
+                    // main menu
                 gameState = Enums::TITLE;
                 exit = true;
                 break;

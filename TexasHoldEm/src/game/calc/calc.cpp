@@ -1069,10 +1069,10 @@ void Calc::betActionHandle(
 			inGamePlayerIt->betAmount = 0;
 			inGamePlayerIt->betAmountThisRound = 0;
 
+			// TODO: MenuScreen to give player option to watch the game or quit
+			// remove them from inGamePLayers
 			inGameState = Enums::END;
 
-			cout << "Player Folded";
-			while (1);
 			return;
 		}
 		case Enums::CALL: {
