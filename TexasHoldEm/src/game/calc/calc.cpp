@@ -1,8 +1,8 @@
 #include "calc.h"
 
-////////////////////////////////////////////////////////////////////////////////////
-// static methods - these cannot be called outside this file
-////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+// static methods - these cannot be called outside this file                                            //
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
 static cards checkAtleastFiveCardsSameSuit(const cards &c) {
 	vector<cards> suitsCount = {{}, {}, {}, {}};
 
@@ -346,9 +346,9 @@ static uint64_t archetypeMultiplyer(
 	}
 }
 
-////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 MenuItemsConfig Calc::initMenuItems() {
 	MenuItemsConfig config;
@@ -419,6 +419,9 @@ vector<InGamePlayer> Calc::initInGamePlayers(
 			Variables::falsyString,
 			true,
 			false,
+			false,
+			false,
+			false,
 			Calc::getRandomArchetype()
 		});
 
@@ -433,6 +436,9 @@ vector<InGamePlayer> Calc::initInGamePlayers(
 		playerBalance,
 		{},
 		Variables::falsyString,
+		false,
+		false,
+		false,
 		false,
 		false,
 		Enums::HUMAN
@@ -653,8 +659,8 @@ void Calc::blindBetHandle(
 		const uint32_t bet = stoi(input);
 
 		if (player.balance < bet) {
-			const string hint = "You don't have enough funds to make this bet. Your current balance is \x9C" +
-				to_string(player.balance);
+			const string hint = "You don't have enough funds to make this bet. "
+				"Your current balance is \x9C" + to_string(player.balance);
 			Screens::errorScreen(hint);
 			continue;
 		}
@@ -1045,7 +1051,7 @@ void Calc::betActionHandle(
 	Enums::InGameState &inGameState,
 	Enums::InGameState inGameStatePrev,
 	vector<InGamePlayer> &inGamePlayers,
-	Player &player,
+	const Player &player,
 	Enums::Rank gameRank
 ) {
 	auto inGamePlayerIt = find_if(
@@ -1056,51 +1062,166 @@ void Calc::betActionHandle(
 		}
 	);
 
+	const rankBetRange range = Variables::ranksBetRangeMap.at(gameRank);
+
+	if (inGamePlayerIt->balance < inGamePlayerIt->betAmount) {
+		Screens::errorScreen("Something went wrong. Player balance went negative");
+		Misc::handleExit();
+	}
+
 	switch(inGameState) {
 		case Enums::FOLD: {
+			const string spectateKey = "s";
 			inGamePlayerIt->action = "[FOLD]";
-
-			if (player.balance <= inGamePlayerIt->betAmount) {
-				player.balance = 0;
-			} else {
-				player.balance -= inGamePlayerIt->betAmount;
-			}
-
 			inGamePlayerIt->betAmount = 0;
 			inGamePlayerIt->betAmountThisRound = 0;
 
-			// TODO: MenuScreen to give player option to watch the game or quit
-			// remove them from inGamePLayers
-			inGameState = Enums::END;
+			const string input = Screens::infoScreen(
+				"You folded and have forfeit this game. Would you like to spectate?",
+				"Submit '" + spectateKey +"' to spectate. Submit anything else to quit",
+				false
+			);
 
-			return;
+			if (input == spectateKey) {
+				inGamePlayerIt->isOut = true;
+				break;
+			} else {
+				inGameState = Enums::END;
+				return;
+			}
 		}
-		case Enums::CALL: {
-			inGamePlayerIt->action = "[CALL]";
-			cout << "Player Called";
-			while(1);
-			break;
-		}
+		case Enums::CALL:
 		case Enums::RAISE: {
-			inGamePlayerIt->action = "[RAISE]";
-			cout << "Player Raised";
-			while (1);
+			const bool called = inGameState == Enums::CALL;
+
+			if (called) {
+				inGamePlayerIt->action = "[CALL]";
+			} else {
+				inGamePlayerIt->action = "[RAISE]";
+			}
+			
+			uint64_t largestBetThisRound = 0;
+
+			for (size_t i = 0; i < inGamePlayers.size(); ++i) {
+				if (inGamePlayers[i].betAmountThisRound > largestBetThisRound) {
+					largestBetThisRound = inGamePlayers[i].betAmountThisRound;
+				}
+			}
+
+			if (called) {
+				betActionUpdate(
+					inGamePlayerIt,
+					largestBetThisRound,
+					"You have insufficient funds to make this call bet"
+				);
+				break;
+			}
+
+			while (1) {
+				const string input = Screens::infoScreen(
+					"Please submit your raise bet",
+					"The largest bet this round is \x9C" + to_string(largestBetThisRound),
+					true
+				);
+
+				if (input == Variables::quit) {
+					break;
+				}
+
+				const string result = checkInputIsValidUInt(input);
+
+				if (result != Variables::falsyString) {
+					Screens::errorScreen(result);
+					continue;
+				}
+
+				const uint64_t inputInt = stoi(input);
+
+				if (
+					(largestBetThisRound != range.second.second && inputInt <= largestBetThisRound) ||
+					(largestBetThisRound == range.second.second && inputInt < largestBetThisRound)
+				) {
+					Screens::errorScreen(
+						"Your raise bet must be greater than the largest bet this round, "
+						"which is \x9C" + to_string(largestBetThisRound) +
+						"\nYour Raise bet must be equal, if the largest bet is the max bet for this rank"
+					);
+					continue;
+				}
+
+				betActionUpdate(
+					inGamePlayerIt,
+					inputInt,
+					"You have insufficient funds to make this raise bet"
+				);
+				break;
+			}
 			break;
 		}
 		case Enums::BET: {
 			inGamePlayerIt->action = "[BET]";
-			cout << "Player Bet";
-			while (1);
+
+			while(1) {
+				const string input = Screens::infoScreen(
+					"Please submit your bet",
+					"Bets for " + range.first + " games must be between " +
+						to_string(range.second.first) + " and " + to_string(range.second.second),
+					true
+				);
+
+				if (input == Variables::quit) {
+					break;
+				}
+
+				const string result = checkInputIsValidUInt(input);
+
+				if (result != Variables::falsyString) {
+					Screens::errorScreen(result);
+					continue;
+				}
+
+				const uint64_t inputInt = stoi(input);
+
+				betActionUpdate(
+					inGamePlayerIt,
+					inputInt,
+					"You have insufficient funds to make this bet"
+				);
+				break;
+			}
 			break;
 		}
 		case Enums::CHECK: {
 			inGamePlayerIt->action = "[CHECK]";
-			cout << "Player Checked";
-			while (1);
 			break;
 		}
 		default: break;
 	}
 
 	inGameState = inGameStatePrev;
+}
+
+void Calc::betActionUpdate(
+	vector<InGamePlayer>::iterator &inGamePlayerIt,
+	uint64_t valueToAdd,
+	string insufficientFundsError
+) {
+	if (inGamePlayerIt->balance < valueToAdd) {
+		Screens::errorScreen(insufficientFundsError);
+		return;
+	}
+
+	inGamePlayerIt->betAmount += valueToAdd;
+	inGamePlayerIt->betAmountThisRound += valueToAdd;
+	inGamePlayerIt->balance -= valueToAdd;
+
+	if (inGamePlayerIt->balance == 0) {
+		Screens::infoScreen(
+			"You have bet all your remaining money and can no longer perform anymore "
+			"actions this game. However, your cards are still in play",
+			"Submit any key to continue...",
+			false
+		);
+		inGamePlayerIt->isTappedOut = true;
+	}
 }

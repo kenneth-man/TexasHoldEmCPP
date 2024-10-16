@@ -109,7 +109,10 @@ int main() {
             case Enums::RANKCHALLENGER: {
                 Enums::Rank rank = Variables::gameStateRankMap.at(gameState);
                 if (player.balance < Variables::ranksBetRangeMap.at(rank).second.first) {
-                    Screens::errorScreen("You do not have sufficient funds to make a minimum bet at this rank");
+                    Screens::errorScreen(
+                        "You do not have sufficient funds to make a minimum bet "
+                        "at this rank"
+                    );
                     gameState = Enums::TITLE;
                     break;
                 }

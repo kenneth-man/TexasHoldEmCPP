@@ -98,8 +98,13 @@ namespace Calc {
 		Enums::InGameState &inGameState,
 		Enums::InGameState inGameStatePrev,
 		vector<InGamePlayer> &inGamePlayers,
-		Player &player,
+		const Player &player,
 		Enums::Rank gameRank
+	);
+	void betActionUpdate(
+		vector<InGamePlayer>::iterator &inGamePlayerIt,
+		uint64_t valueToAdd,
+		string insufficientFundsError
 	);
 	//TODO: ELO CALCULATION/S
 }

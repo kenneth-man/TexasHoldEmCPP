@@ -13,6 +13,8 @@ string Screens::infoScreen(
     }
     string input;
     // not using `cin << input`, as it will ignore spaces
+    // TODO: figure out how to include windows.h in visual studio and need to conditional
+        // include based on OS
     // TODO: Hide input displaying on the screen if a password
     getline(cin, input);
     return input;
@@ -110,12 +112,14 @@ void Screens::inGameScreen(
             case Enums::PREFLOPBET: {
                 inGameStatePrev = Enums::PREFLOPBET;
                 // TODO: reset to 2 on game completion
-                static uint8_t i = 2;
+                static size_t i = 2;
+                const size_t maxI = inGamePlayers.size() + 2;
 
                 while(inGameState == Enums::PREFLOPBET) {
-                    if (i < inGamePlayers.size() + 2) {
-                        const bool exceededIndex = (uint8_t)(i + 1) > inGamePlayers.size();
-                        const uint8_t j = exceededIndex ? i - inGamePlayers.size() : i;
+                    // TODO: bug if player is small/big blind bet and required to bet again
+                    if (i < maxI) {
+                        const bool exceededIndex = (i + 1) > inGamePlayers.size();
+                        const size_t j = exceededIndex ? i - inGamePlayers.size() : i;
                         const bool isBot = inGamePlayers[j].isBot;
 
                         if (isBot) {
@@ -135,11 +139,22 @@ void Screens::inGameScreen(
                                 gameRank,
                                 action
                             );
+
                             inGamePlayers[j].action = action;
                             inGamePlayers[j].betAmount += bet;
-                            inGamePlayers[j].betAmountThisRound = bet;
-                            inGamePlayers[j].balance -= bet;
+                            inGamePlayers[j].betAmountThisRound += bet;
                             inGamePlayers[j].isDeciding = true;
+
+                            if (inGamePlayers[j].balance <= bet) {
+                                inGamePlayers[j].balance = 0;
+                                inGamePlayers[j].isTappedOut = true;
+                            } else {
+                                inGamePlayers[j].balance -= bet;
+                            }
+
+                            if (action == "[FOLD]") {
+                                inGamePlayers[j].isOut = true;
+                            }
                         }
 
                         const bool playerActionSelected = Draw::inGame(
@@ -163,6 +178,27 @@ void Screens::inGameScreen(
 
                         if (isBot || playerActionSelected) {
                             ++i;
+
+                            if (i == maxI) {
+                                Draw::inGame(
+                                    inGamePlayers,
+                                    inGamePlayers[j],
+                                    inGameState,
+                                    poolCards,
+                                    Calc::getInGamePlayerCards(
+                                        player.name,
+                                        inGamePlayers
+                                    ),
+                                    selectedPreflopBetItem,
+                                    config.preflopBetItems,
+                                    Variables::preflopBetActionsStateMap
+                                );
+
+                                Misc::timer(
+                                    3,
+                                    Variables::falsyString
+                                );
+                            }
                         }
                     } else {
                         inGameState = Enums::FLOP;
@@ -170,10 +206,12 @@ void Screens::inGameScreen(
                 }
                 break;
             }
-            case Enums::FLOP: {
-                // TODO: set all betAmountThisRound to 0
+            case Enums::FLOP:
+            case Enums::TURN:
+            case Enums::RIVER: {
+                // TODO: set all in game players betAmountThisRound to 0
 
-                cout << "FLOP Not Implemented" << '\n';
+                cout << "FLOP, TURN, RIVER switch" << '\n';
 
                 /*for (uint8_t i = 0; i < 3; ++i) {
                     Calc::addRandomPoolCard(
@@ -189,16 +227,6 @@ void Screens::inGameScreen(
             case Enums::TURNBET: 
             case Enums::RIVERBET: {
                 cout << "FLOPBET, TURNBET, RIVERBET Not Implemented" << '\n';
-                while (1);
-                break;
-            }
-            case Enums::TURN: {
-                cout << "TURN Not Implemented" << '\n';
-                while (1);
-                break;
-            }
-            case Enums::RIVER: {
-                cout << "RIVER Not Implemented" << '\n';
                 while (1);
                 break;
             }
